@@ -1,17 +1,20 @@
 <template>
   <div
-    class="min-w-screen flex min-h-screen flex-row items-center justify-center bg-gradient-to-r from-[#572093] from-0% to-[#7d2d98] to-100% text-white"
+    class="w-dvh h-dvh bg-gradient-to-r from-[#551F91] from-0% to-[#3B1C7A] to-100%"
   >
-    <section class="m-9 flex-1">
-      <h1 class="mb-10 text-center text-6xl">Subscriptions tracker</h1>
-      <h2 class="text-center text-4xl">
-        Gardez le contrôle de vos dépenses récurrentes en un clin d'œil
-      </h2>
-    </section>
-    <button></button>
+    <div
+      class="m-auto flex h-dvh max-w-[1400px] flex-row justify-center align-middle text-white"
+    >
+      <section class="m-auto flex flex-1 flex-col">
+        <h1 class="mb-10 text-center text-6xl">Subscriptions tracker</h1>
+        <h2 class="text-center text-2xl">
+          Gardez le contrôle de vos dépenses récurrentes en un clin d'œil
+        </h2>
+      </section>
 
-    <main class="border-1 flex-auto bg-dark-button-color">
-      <slot />
-    </main>
+      <main class="border-1 h-100 flex flex-1">
+        <slot />
+      </main>
+    </div>
   </div>
 </template>
