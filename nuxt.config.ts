@@ -2,12 +2,19 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
+  css: ['~/assets/styles/main.css'],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   modules: [
     '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/i18n',
-    ['@nuxtjs/eslint-module', { cache: true }]
+    '@nuxtjs/i18n',/*
+    '@nuxtjs/eslint-module', */
+    '@nuxt/eslint'
+  ],
 
-  ]
 })
