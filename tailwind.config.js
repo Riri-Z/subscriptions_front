@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        "box-shadow-color": "0 0 0 2px rgba(160, 128, 255, 0.5)",
+      },
       colors: {
         "button-color": "#9370db",
         "hover-button-color": "#a080ff",
