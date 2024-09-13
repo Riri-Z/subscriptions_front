@@ -1,5 +1,5 @@
 <template>
-  <div class="flex  w-[10vh] flex-col  bg-card-color">
+  <div class="flex w-[10vh] flex-col bg-card-color">
     <NuxtImg
       class="m-auto"
       v-for="icon in icons"

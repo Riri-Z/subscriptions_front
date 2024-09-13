@@ -2,7 +2,7 @@
   <div class="flex h-[100vh] w-[100vw] flex-row">
     <!-- sidebar -->
     <Sidebar></Sidebar>
-    <div class="bg-custom-gradient flex flex-1"><slot /></div>
+    <div class="flex flex-1 bg-custom-gradient"><slot /></div>
   </div>
 </template>
 
