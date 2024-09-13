@@ -24,6 +24,9 @@ export default {
         "card-color": "#282828",
 
       },
+      backgroundImage:{
+        'custom-gradient': 'linear-gradient(to right, #551F91 0%, #3B1C7A 100%)',
+      }
     },
   },
   plugins: [],
