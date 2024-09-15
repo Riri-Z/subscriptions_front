@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { required, email, minLength, helpers } from '@vuelidate/validators';
+import { required, email, minLength, helpers } from "@vuelidate/validators";
 
-import { useVuelidate } from '@vuelidate/core';
+import { useVuelidate } from "@vuelidate/core";
 
 definePageMeta({
-  layout: 'connexion',
+  layout: "connexion",
 });
 
 const formData = reactive({
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 });
 
 const rules = computed(() => {
   return {
     email: {
-      required: helpers.withMessage('Un email est requis', required),
-      email: helpers.withMessage('Email invalide', required),
+      required: helpers.withMessage("Un email est requis", required),
+      email: helpers.withMessage("Email invalide", required),
     },
     password: {
-      required: helpers.withMessage('Le mot de passe est requis', required),
+      required: helpers.withMessage("Le mot de passe est requis", required),
       minLength: helpers.withMessage(
-        'Le mot de passe doit être composé de 6 caractères minimum',
+        "Le mot de passe doit être composé de 6 caractères minimum",
         minLength(6),
       ),
     },
@@ -32,10 +32,10 @@ const v$ = useVuelidate(rules, formData);
 const submitForm = () => {
   v$.value.$validate();
   if (!v$.value.$error) {
-    console.log('not error', v$.value.$error);
+    console.log("not error", v$.value.$error);
   } else {
-    console.log('   v$', v$);
-    console.log('error', v$.value.$error);
+    console.log("   v$", v$);
+    console.log("error", v$.value.$error);
   }
 };
 </script>

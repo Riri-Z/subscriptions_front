@@ -3,7 +3,7 @@
         "prettier-plugin-tailwindcss"
     ],
     "semi": true,
-    "singleQuote": true,
+    "singleQuote": false,
     "tabWidth": 2,
     "printWidth": 80,
     "bracketSpacing": true,

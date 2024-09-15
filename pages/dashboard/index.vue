@@ -1,5 +1,5 @@
 <template>
-  <div class="m-auto">
+  <div class="m-auto text-primary-white-color">
     main content
     <button class="h-5 w-14" @click="getUserInformation">test</button>
     <div v-if="userStore.loading">Loading...</div>
@@ -9,15 +9,15 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '~/store/userStore';
+import { useUserStore } from "~/store/userStore";
 
 const userStore = useUserStore();
 definePageMeta({
-  layout: 'dashboard',
+  layout: "dashboard",
 });
 
 function getUserInformation() {
-  userStore.getUserInformation('30');
+  userStore.getUserInformation("30");
 }
 </script>
 
