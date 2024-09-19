@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { required, email, minLength, helpers } from "@vuelidate/validators";
+import { required, minLength, helpers } from "@vuelidate/validators";
 
 import { useVuelidate } from "@vuelidate/core";
-import type { LoginResponse } from "~/interfaces/login.interface";
 import { useAuthStore } from "~/store/authStore";
 
 definePageMeta({
@@ -41,7 +40,7 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="m-auto flex flex-col gap-2">
+  <div class="m-auto flex flex-col gap-2 md:w-[380px]">
     <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
     <p class="mb-4 text-center">
       Connectez-vous pour continuer ou
@@ -57,41 +56,41 @@ const submitForm = async () => {
         >Nom d'utilisateur</label
       >
       <input
+        id="username"
+        v-model="formData.username"
         class="autofill-bg border-1 h-10 w-full rounded-md border-gray-300 bg-button-color px-3 py-2 text-sm text-primary-white-color placeholder-white outline-none autofill:bg-button-color focus:border-button-color focus:shadow-box-shadow-color"
         :class="{
           'border-2 border-red-500 focus:border-red-500': v$.username.$error,
           'border-2 border-green-300 focus:border-green-300':
             !v$.username.$invalid,
         }"
-        v-model="formData.username"
         type="text"
-        id="username"
         placeholder="Entrez votre nom d'utilisateur e.g. Sauron"
-        @change="v$.username.$touch"
         required
-      />
+        @change="v$.username.$touch"
+      >
       <label class="pl-1 text-base font-medium leading-5" for="password"
         >Mot de passe</label
       >
       <div class="flex flex-col">
         <input
+          id="password"
+          v-model="formData.password"
           class="autofill-bg border-1 h-10 w-full rounded-md border-gray-300 bg-button-color px-3 py-2 text-sm text-primary-white-color placeholder-white outline-none autofill:bg-button-color focus:border-button-color focus:shadow-box-shadow-color"
           :class="{
             'border-2 border-red-500 focus:border-red-500': v$.password.$error,
             'border-2 border-green-300 focus:border-green-300':
               !v$.password.$invalid,
           }"
-          v-model="formData.password"
           type="password"
-          id="password"
           placeholder="Entrez votre mot de passe"
-          @change="v$.password.$touch"
           required
-        />
+          @change="v$.password.$touch"
+        >
         <div class="mt-1 h-5">
           <span
-            class="relative text-xs text-red-500"
             v-if="v$.password.$error"
+            class="relative text-xs text-red-500"
             >{{ v$.password.$errors[0].$message }}</span
           >
         </div>

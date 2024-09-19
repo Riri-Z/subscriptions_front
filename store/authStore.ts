@@ -1,4 +1,4 @@
-import type { LoginResponse } from "~/interfaces/login.interface";
+import type { LoginResponse, Register, RegisterResponse } from "~/interfaces/auth.interface";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -23,6 +23,26 @@ export const useAuthStore = defineStore("auth", {
         }
       } catch (e) {
         console.error("error loginUser", e);
+      }
+    },
+    async registerUser(formRegister: Register) {
+      const { name, username, password, email } = formRegister;
+      //TODO: Need to remove this,  it's should not be mandotory
+      const roles = ["USER"];
+
+      const { data: user } = await useAPI<RegisterResponse>(() => "/users", {
+        method: "POST",
+        body: {
+          name,
+          username,
+          password,
+          email,
+          roles,
+        },
+      });
+      //display popOver or anything to say to login with the newly created account at /login
+      if (user) {
+        navigateTo("/connexion");
       }
     },
   },

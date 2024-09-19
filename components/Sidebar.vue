@@ -19,6 +19,8 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
+
 interface Icon {
   id: number;
   name: string;
@@ -58,5 +60,3 @@ const icons = ref<Icon[]>([
   },
 ]);
 </script>
-
-<style></style>
