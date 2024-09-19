@@ -5,7 +5,7 @@
     <div
       class="m-auto flex h-dvh max-w-[1400px] flex-row justify-center align-middle text-white"
     >
-      <section class="m-auto flex flex-1 flex-col">
+      <section class="m-auto hidden flex-1 flex-col md:flex">
         <h1 class="mb-10 text-center text-6xl">Subscriptions tracker</h1>
         <h2 class="text-center text-2xl">
           Gardez le contrôle de vos dépenses récurrentes en un clin d'œil

@@ -20,5 +20,3 @@ function getUserInformation() {
   userStore.getUserInformation("30");
 }
 </script>
-
-<style></style>

@@ -1,6 +1,4 @@
-import { defineStore } from "pinia"
-//TODO ; REFACTOR  fetching logic
-// create  auth store
+import { defineStore } from "pinia";
 interface ApiResponse {
   status: string;
   result: UserStore;
@@ -28,7 +26,7 @@ interface UserSubscription {
     name: string;
   };
 }
-export const useUserStore = defineStore('user', {
+export const useUserStore = defineStore("user", {
   // store options
   state: () => ({
     user: null as UserStore | null,
@@ -40,33 +38,37 @@ export const useUserStore = defineStore('user', {
     getUserEmail: (state): string | undefined => state.user?.email,
     getUserId: (state): number | undefined => state.user?.id,
     getUser: (state): UserStore | null => state.user,
-    isAuthenticated: (state) => !!state.user
+    isAuthenticated: (state) => !!state.user,
   },
   actions: {
-
     async getUserInformation(id: string) {
       try {
-
         this.loading = true;
         const options = {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer'+" "+"JWT"
-          }
+            "Content-Type": "application/json",
+            Authorization: "Bearer" + " " + "JWT",
+          },
         };
-
-
-        const { data,error } = await useFetch<ApiResponse>('http://localhost:8080/auth/user/' + id, { method: 'GET', headers: options.headers });
+        const { data, error } = await useFetch<ApiResponse>(
+          "http://localhost:8080/auth/user/" + id,
+          {
+            method: "GET",
+            headers: options.headers,
+          },
+        );
 
         console.log("data", data);
-        console.log(error)
+        console.log(error);
         if (data?.value?.result) {
-          const user: UserStore | null = data?.value?.result ? data.value.result : null;
+          const user: UserStore | null = data?.value?.result
+            ? data.value.result
+            : null;
           console.log("=========USER==========", user);
           this.user = user;
-        } else  {
-          throw new Error('data has no value : ' + JSON.stringify(data));
+        } else {
+          throw new Error("data has no value : " + JSON.stringify(data));
         }
       } catch (e) {
         console.error(e);
@@ -74,11 +76,6 @@ export const useUserStore = defineStore('user', {
       } finally {
         this.loading = false;
       }
-
-
-
-    }
-  }
-
-
-})
+    },
+  },
+});

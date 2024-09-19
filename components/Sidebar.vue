@@ -3,7 +3,7 @@
     <!--     height: 65px;
     border-bottom: solid; -->
     <span
-      class="mt-6 h-[65px] border-b-2 border-gray-300 text-center text-primary-white-color"
+      class="md: mt-6 h-[65px] border-b-2 border-gray-300 text-center text-primary-white-color"
       >Subscriptions tracker</span
     >
     <NuxtImg

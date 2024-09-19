@@ -2,21 +2,23 @@
 import { required, email, minLength, helpers } from "@vuelidate/validators";
 
 import { useVuelidate } from "@vuelidate/core";
+import type { LoginResponse } from "~/interfaces/login.interface";
+import { useAuthStore } from "~/store/authStore";
 
 definePageMeta({
   layout: "connexion",
 });
 
+const authStore = useAuthStore();
 const formData = reactive({
-  email: "",
+  username: "",
   password: "",
 });
 
 const rules = computed(() => {
   return {
-    email: {
-      required: helpers.withMessage("Un email est requis", required),
-      email: helpers.withMessage("Email invalide", required),
+    username: {
+      required: helpers.withMessage("Un username est requis", required),
     },
     password: {
       required: helpers.withMessage("Le mot de passe est requis", required),
@@ -29,13 +31,11 @@ const rules = computed(() => {
 });
 const v$ = useVuelidate(rules, formData);
 
-const submitForm = () => {
+const submitForm = async () => {
   v$.value.$validate();
+
   if (!v$.value.$error) {
-    console.log("not error", v$.value.$error);
-  } else {
-    console.log("   v$", v$);
-    console.log("error", v$.value.$error);
+    await authStore.loginUser(formData.username, formData.password);
   }
 };
 </script>
@@ -53,21 +53,21 @@ const submitForm = () => {
       class="w-100 flex max-w-[400px] flex-col gap-6"
       @submit.prevent="submitForm"
     >
-      <label class="pl-1 text-base font-medium leading-5" for="email"
-        >Email</label
+      <label class="pl-1 text-base font-medium leading-5" for="username"
+        >Nom d'utilisateur</label
       >
       <input
         class="autofill-bg border-1 h-10 w-full rounded-md border-gray-300 bg-button-color px-3 py-2 text-sm text-primary-white-color placeholder-white outline-none autofill:bg-button-color focus:border-button-color focus:shadow-box-shadow-color"
         :class="{
-          'border-2 border-red-500 focus:border-red-500': v$.email.$error,
+          'border-2 border-red-500 focus:border-red-500': v$.username.$error,
           'border-2 border-green-300 focus:border-green-300':
-            !v$.email.$invalid,
+            !v$.username.$invalid,
         }"
-        v-model="formData.email"
-        type="email"
-        id="email"
-        placeholder="Entrez votre email e.g. example@email.com"
-        @change="v$.email.$touch"
+        v-model="formData.username"
+        type="text"
+        id="username"
+        placeholder="Entrez votre nom d'utilisateur e.g. Sauron"
+        @change="v$.username.$touch"
         required
       />
       <label class="pl-1 text-base font-medium leading-5" for="password"

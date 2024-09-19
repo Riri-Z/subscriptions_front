@@ -5,8 +5,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   const api = $fetch.create({
     baseURL: config.public.apiBase,
     onRequest: ({ request, options, error }) => {
-      console.log("API call:", options.method, request);
-      console.log("Headers:", options.headers);
       if (session.value?.token) {
         const headers = options.headers || {};
         if (Array.isArray(headers)) {
