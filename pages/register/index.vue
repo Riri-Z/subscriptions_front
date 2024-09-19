@@ -7,10 +7,9 @@
     <form class="flex max-w-full flex-col gap-6" @submit.prevent="submitForm">
       <label class="pl-1 text-base font-medium leading-5" for="name">Nom</label>
       <input
-      id="name"
+        id="name"
         v-model="formData.name"
         class="autofill-bg border-1 h-10 w-full rounded-md border-gray-300 bg-button-color px-3 py-2 text-sm text-primary-white-color placeholder-white outline-none autofill:bg-button-color focus:border-button-color focus:shadow-box-shadow-color"
-
         :class="{
           'border-2 border-red-500 focus:border-red-500': v$.name.$error,
           'border-2 border-green-300 focus:border-green-300': !v$.name.$invalid,
@@ -19,7 +18,7 @@
         placeholder="Entrez votre nom"
         required
         @change="v$.name.$touch"
-      >
+      />
       <label class="pl-1 text-base font-medium leading-5" for="username"
         >Nom d'utilisateur</label
       >
@@ -36,13 +35,13 @@
         placeholder="Entrez votre nom d'utilisateur e.g. Sauron"
         required
         @change="v$.username.$touch"
-      >
+      />
       <label class="pl-1 text-base font-medium leading-5" for="email"
         >Email</label
       >
       <input
-      id="email"
-      v-model="formData.email"
+        id="email"
+        v-model="formData.email"
         required
         class="autofill-bg border-1 h-10 w-full rounded-md border-gray-300 bg-button-color px-3 py-2 text-sm text-primary-white-color placeholder-white outline-none autofill:bg-button-color focus:border-button-color focus:shadow-box-shadow-color"
         :class="{
@@ -53,17 +52,15 @@
         type="text"
         placeholder="Entrez votre email"
         @change="v$.email.$touch"
-
-      >
+      />
       <label class="pl-1 text-base font-medium leading-5" for="password"
         >Mot de passe</label
       >
       <div class="flex flex-col">
         <input
-            id="password"
+          id="password"
           v-model="formData.password"
           class="autofill-bg border-1 h-10 w-full rounded-md border-gray-300 bg-button-color px-3 py-2 text-sm text-primary-white-color placeholder-white outline-none autofill:bg-button-color focus:border-button-color focus:shadow-box-shadow-color"
-
           :class="{
             'border-2 border-red-500 focus:border-red-500': v$.password.$error,
             'border-2 border-green-300 focus:border-green-300':
@@ -73,16 +70,15 @@
           placeholder="Entrez votre mot de passe"
           required
           @change="v$.password.$touch"
-
-        >
+        />
         <div class="mt-1 h-5">
           <span
-          v-if="v$.password.$error"
+            v-if="v$.password.$error"
             class="relative text-xs text-red-500"
             >{{ v$.password.$errors[0].$message }}</span
           >
           <span
-          v-if="v$.password.$error"
+            v-if="v$.password.$error"
             class="relative text-xs text-red-500"
             >{{ v$.password.$errors[0].$message }}</span
           >
@@ -93,8 +89,9 @@
       >
 
       <button
-        class="h-10 rounded-md bg-button-color hover:shadow-box-shadow-color"
+        class="h-10 rounded-md bg-button-color hover:shadow-box-shadow-color disabled:bg-slate-500 disabled:shadow"
         type="submit"
+        :disabled="v$.$invalid"
       >
         Connexion
       </button>

@@ -1,4 +1,8 @@
-import type { LoginResponse, Register, RegisterResponse } from "~/interfaces/auth.interface";
+import type {
+  LoginResponse,
+  Register,
+  RegisterResponse,
+} from "~/interfaces/auth.interface";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -30,19 +34,25 @@ export const useAuthStore = defineStore("auth", {
       //TODO: Need to remove this,  it's should not be mandotory
       const roles = ["USER"];
 
-      const { data: user } = await useAPI<RegisterResponse>(() => "/users", {
-        method: "POST",
-        body: {
-          name,
-          username,
-          password,
-          email,
-          roles,
+      const { data: user, error } = await useAPI<RegisterResponse>(
+        () => "/users",
+        {
+          method: "POST",
+          body: {
+            name,
+            username,
+            password,
+            email,
+            roles,
+          },
         },
-      });
-      //display popOver or anything to say to login with the newly created account at /login
-      if (user) {
+      );
+      //display toast or anything to say to login with the newly created account at /login
+      if (user.value?.id) {
         navigateTo("/connexion");
+      }
+      if (error) {
+        console.error("error", error);
       }
     },
   },

@@ -68,7 +68,7 @@ const submitForm = async () => {
         placeholder="Entrez votre nom d'utilisateur e.g. Sauron"
         required
         @change="v$.username.$touch"
-      >
+      />
       <label class="pl-1 text-base font-medium leading-5" for="password"
         >Mot de passe</label
       >
@@ -86,7 +86,7 @@ const submitForm = async () => {
           placeholder="Entrez votre mot de passe"
           required
           @change="v$.password.$touch"
-        >
+        />
         <div class="mt-1 h-5">
           <span
             v-if="v$.password.$error"
@@ -100,8 +100,9 @@ const submitForm = async () => {
       >
 
       <button
-        class="h-10 rounded-md bg-button-color hover:shadow-box-shadow-color"
+        class="h-10 rounded-md bg-button-color hover:shadow-box-shadow-color disabled:bg-slate-500 disabled:shadow"
         type="submit"
+        :disabled="v$.$invalid"
       >
         Connexion
       </button>
