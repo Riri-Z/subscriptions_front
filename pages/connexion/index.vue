@@ -7,6 +7,7 @@ import { useAuthStore } from "~/store/authStore";
 definePageMeta({
   layout: "connexion",
 });
+const layout = "auth-forms";
 
 const authStore = useAuthStore();
 const formData = reactive({
@@ -40,7 +41,7 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="m-auto flex flex-col gap-2 md:w-[380px]">
+  <NuxtLayout :name="layout">
     <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
     <p class="mb-4 text-center">
       Connectez-vous pour continuer ou
@@ -48,17 +49,14 @@ const submitForm = async () => {
         inscrivez-vous ici
       </span>
     </p>
-    <form
-      class="w-100 flex max-w-[400px] flex-col gap-6"
-      @submit.prevent="submitForm"
-    >
-      <label class="pl-1 text-base font-medium leading-5" for="username"
+    <form class="flex flex-col gap-3" @submit.prevent="submitForm">
+      <label class="block text-sm font-medium text-gray-700" for="username"
         >Nom d'utilisateur</label
       >
       <input
         id="username"
         v-model="formData.username"
-        class="autofill-bg border-1 h-10 w-full rounded-md border-gray-300 bg-button-color px-3 py-2 text-sm text-primary-white-color placeholder-white outline-none autofill:bg-button-color focus:border-button-color focus:shadow-box-shadow-color"
+        class="autofill-bg w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
         :class="{
           'border-2 border-red-500 focus:border-red-500': v$.username.$error,
           'border-2 border-green-300 focus:border-green-300':
@@ -69,14 +67,14 @@ const submitForm = async () => {
         required
         @change="v$.username.$touch"
       />
-      <label class="pl-1 text-base font-medium leading-5" for="password"
+      <label class="block text-sm font-medium text-gray-700" for="password"
         >Mot de passe</label
       >
       <div class="flex flex-col">
         <input
           id="password"
           v-model="formData.password"
-          class="autofill-bg border-1 h-10 w-full rounded-md border-gray-300 bg-button-color px-3 py-2 text-sm text-primary-white-color placeholder-white outline-none autofill:bg-button-color focus:border-button-color focus:shadow-box-shadow-color"
+          class="autofill-bg w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
           :class="{
             'border-2 border-red-500 focus:border-red-500': v$.password.$error,
             'border-2 border-green-300 focus:border-green-300':
@@ -107,7 +105,7 @@ const submitForm = async () => {
         Connexion
       </button>
     </form>
-  </div>
+  </NuxtLayout>
 </template>
 
 <style lang="scss" scoped>
