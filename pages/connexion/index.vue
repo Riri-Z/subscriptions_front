@@ -15,6 +15,10 @@ const formData = reactive({
   password: "",
 });
 
+async function redirectToRegisterPage() {
+  await navigateTo("/register");
+}
+
 const rules = computed(() => {
   return {
     username: {
@@ -45,9 +49,12 @@ const submitForm = async () => {
     <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
     <p class="mb-4 text-center">
       Connectez-vous pour continuer ou
-      <span class="cursor-pointer underline underline-offset-4">
+      <a
+        @click="redirectToRegisterPage"
+        class="cursor-pointer text-purple-600 hover:underline"
+      >
         inscrivez-vous ici
-      </span>
+      </a>
     </p>
     <form class="flex flex-col gap-3" @submit.prevent="submitForm">
       <label class="block text-sm font-medium text-gray-700" for="username"
@@ -63,7 +70,7 @@ const submitForm = async () => {
             !v$.username.$invalid,
         }"
         type="text"
-        placeholder="Entrez votre nom d'utilisateur e.g. Sauron"
+        placeholder="Entrez votre nom d'utilisateur"
         required
         @change="v$.username.$touch"
       />
@@ -85,15 +92,15 @@ const submitForm = async () => {
           required
           @change="v$.password.$touch"
         />
-        <div class="mt-1 h-5">
+        <div class="my-1 h-5">
           <span
             v-if="v$.password.$error"
-            class="relative text-xs text-red-500"
+            class="relative line-clamp-1 text-xs text-red-500"
             >{{ v$.password.$errors[0].$message }}</span
           >
         </div>
       </div>
-      <a href="#" class="cursor-pointer underline underline-offset-4"
+      <a href="#" class="text-purple-600 hover:underline"
         >Mot de passe oublié ?</a
       >
 
