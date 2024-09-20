@@ -35,28 +35,54 @@ const rules = computed(() => {
 });
 const v$ = useVuelidate(rules, formData);
 
-const submitForm = async () => {
-  v$.value.$validate();
+const handleLogin = async () => {
+  console.log("formData", formData);
 
-  if (!v$.value.$error) {
+  const isFormCorrect = await v$.value.$validate();
+
+  if (isFormCorrect) {
     await authStore.loginUser(formData.username, formData.password);
+  } else {
+    console.error(v$.value.$error);
   }
 };
 </script>
 
 <template>
   <NuxtLayout :name="layout">
-    <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
-    <p class="mb-4 text-center">
-      Connectez-vous pour continuer ou
-      <a
-        @click="redirectToRegisterPage"
-        class="cursor-pointer text-purple-600 hover:underline"
-      >
-        inscrivez-vous ici
-      </a>
-    </p>
-    <form class="flex flex-col gap-3" @submit.prevent="submitForm">
+    <AuthForms @submit="handleLogin" submit-label="Se connecter">
+      <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
+      <p class="mb-4 text-center">
+        Connectez-vous pour continuer ou
+        <a
+          @click="redirectToRegisterPage"
+          class="cursor-pointer text-purple-600 hover:underline"
+        >
+          inscrivez-vous ici
+        </a>
+      </p>
+      <div class="flex flex-col gap-5">
+        <FormInput
+          id="username"
+          label="Nom d'utilisateur"
+          type="text"
+          placeholder="Entrez votre nom d'utilisateur"
+          required
+          v-model="formData.username"
+          :is-invalid="v$.username.$error"
+          :error-message="() => v$.username.$errors[0]?.$message"
+        />
+        <FormInput
+          id="password"
+          label="Mot de passe"
+          type="text"
+          placeholder="Entrez votre mot de passe"
+          required
+          v-model="formData.password"
+        />
+      </div>
+    </AuthForms>
+    <!--  <form class="flex flex-col gap-3" @submit.prevent="handleLogin">
       <label class="block text-sm font-medium text-gray-700" for="username"
         >Nom d'utilisateur</label
       >
@@ -111,7 +137,7 @@ const submitForm = async () => {
       >
         Connexion
       </button>
-    </form>
+    </form> -->
   </NuxtLayout>
 </template>
 
