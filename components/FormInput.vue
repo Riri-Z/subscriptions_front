@@ -4,9 +4,13 @@
       label
     }}</label>
     <input
-      class="autofill-bg placeHolder-gray-400 my-2 w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+      class="autofill-bg placeHolder-gray-400 my-2 w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
       :class="{
-        'border border-red-500 focus:border-red-500': isError,
+        'border-gray-300 focus:border-purple-500 focus:ring-purple-500':
+          !isError && modelValue.length === 0,
+        'border-red-500 focus:border-red-500 focus:ring-red-500': isError,
+        'border-green-500 focus:border-green-500 focus:ring-green-500':
+          modelValue.length > 0 && !isError,
       }"
       :id="id"
       :type="type"

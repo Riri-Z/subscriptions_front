@@ -30,8 +30,12 @@ export const useAuthStore = defineStore("auth", {
         console.error("error loginUser", e);
       }
     },
-    async registerUser(formRegister: Register) {
-      const { name, username, password, email } = formRegister;
+    async registerUser(
+      name: string,
+      username: string,
+      password: string,
+      email: string,
+    ) {
       //TODO: Need to remove this,  it's should not be mandotory
       const roles = ["USER"];
 

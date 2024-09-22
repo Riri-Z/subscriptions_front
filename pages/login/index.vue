@@ -1,29 +1,13 @@
 <script setup lang="ts">
 import { useAuthStore } from "~/store/authStore";
+import type { FormData } from "~/types/forms/connexion";
+
 const authStore = useAuthStore();
 
 const layout = "auth-forms";
 definePageMeta({
   layout: "login",
 });
-
-interface FormField {
-  id: string;
-  label: string;
-  type: string;
-  isError: boolean;
-  required: boolean;
-  placeHolder: string;
-  errorMessage: string;
-  minLength: number;
-  value: string;
-}
-
-interface FormData {
-  username: FormField;
-  password: FormField;
-  [key: string]: FormField;
-}
 
 async function redirectToRegisterPage() {
   await navigateTo("/register");
@@ -53,21 +37,16 @@ const formData: FormData = reactive({
     value: "",
   },
 });
-
-watch(
-  () => formData.password.value,
-  (value) => {
+// check if  a field should be in error state
+watchEffect(() => {
+  for (const item in formData) {
     const { isError } = useValidationFormInput();
-    formData.password.isError = isError(value, formData.password.minLength);
-  },
-);
-watch(
-  () => formData.username.value,
-  (value) => {
-    const { isError } = useValidationFormInput();
-    formData.username.isError = isError(value, formData.username.minLength);
-  },
-);
+    formData[item].isError = isError(
+      formData[item].value,
+      formData[item].minLength,
+    );
+  }
+});
 
 const isFormValid = computed(() => {
   return Object.values(formData).some(
