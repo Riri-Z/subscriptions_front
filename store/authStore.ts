@@ -26,6 +26,7 @@ export const useAuthStore = defineStore("auth", {
           navigateTo("/dashboard");
         }
       } catch (e) {
+        // TODO : think of how to handle fail  POST
         console.error("error loginUser", e);
       }
     },
@@ -49,7 +50,7 @@ export const useAuthStore = defineStore("auth", {
       );
       //display toast or anything to say to login with the newly created account at /login
       if (user.value?.id) {
-        navigateTo("/connexion");
+        navigateTo("/login");
       }
       if (error) {
         console.error("error", error);

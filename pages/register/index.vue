@@ -96,9 +96,7 @@
       </button>
       <p class="text-center">
         Déjà inscrit ?
-        <a
-          @click="redirectToConnexionPage"
-          class="text-purple-600 hover:underline"
+        <a @click="redirectTologinPage" class="text-purple-600 hover:underline"
           >Connectez-vous</a
         >
       </p>
@@ -112,14 +110,14 @@ import { helpers, email, minLength, required } from "@vuelidate/validators";
 import { useAuthStore } from "~/store/authStore";
 
 definePageMeta({
-  layout: "connexion",
+  layout: "login",
 });
 const layout = "auth-forms";
 
 const authStore = useAuthStore();
 
-async function redirectToConnexionPage() {
-  await navigateTo("/connexion");
+async function redirectTologinPage() {
+  await navigateTo("/login");
 }
 
 const formData = reactive({
