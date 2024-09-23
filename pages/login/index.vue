@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { useAuthStore } from "~/store/authStore";
 import type { FormData } from "~/types/forms/connexion";
-
-const authStore = useAuthStore();
+const { signIn } = useAuth();
 
 const layout = "auth-forms";
 definePageMeta({
@@ -56,7 +54,12 @@ const isFormValid = computed(() => {
 
 async function handleLogin() {
   try {
-    await authStore.loginUser(formData.username.value, formData.password.value);
+    const credentials = {
+      username: formData.username.value,
+      password: formData.password.value,
+    };
+
+    await signIn(credentials, { callbackUrl: "/dashboard" });
   } catch (error) {
     console.error("error handleLogin", error);
   }

@@ -26,6 +26,7 @@
   "devDependencies": {
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/style-resources": "^1.2.2",
+    "@sidebase/nuxt-auth": "^0.9.3",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.10.0",
     "nuxi": "^3.13.2",

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-[20vh] flex-col bg-card-color">
+  <div class="w-min-10px flex flex-col bg-card-color">
     <!--     height: 65px;
     border-bottom: solid; -->
     <span
@@ -7,7 +7,7 @@
       >Subscriptions tracker</span
     >
     <NuxtImg
-      class="m-auto"
+      class="m-auto fill-slate-200 text-white"
       v-for="icon in icons"
       :key="icon.id"
       :src="icon.path"
@@ -15,6 +15,9 @@
       width="24"
       height="24"
     />
+    <div class="border-t-2 border-gray-300 p-10 hover:bg-gray-600">
+      <SignOut />
+    </div>
   </div>
 </template>
 
@@ -31,32 +34,17 @@ const icons = ref<Icon[]>([
   {
     id: 1,
     name: "profile",
-    path: "/icons/profile.png",
+    path: "/icons/profile.svg",
   },
   {
     id: 2,
-    name: "add",
-    path: "/icons/add.png",
+    name: "calendar",
+    path: "/icons/calendar.svg",
   },
   {
     id: 3,
-    name: "schedule",
-    path: "/icons/schedule.png",
-  },
-  {
-    id: 4,
-    name: "group",
-    path: "/icons/group.png",
-  },
-  {
-    id: 5,
-    name: "notification",
-    path: "/icons/notifications.png",
-  },
-  {
-    id: 6,
-    name: "search",
-    path: "/icons/search.png",
+    name: "settings",
+    path: "/icons/settings.svg",
   },
 ]);
 </script>
