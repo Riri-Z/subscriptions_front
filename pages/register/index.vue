@@ -95,7 +95,7 @@ const formData: FormDataRegister = reactive({
   password: {
     id: "password",
     label: "Mot de passe",
-    type: "text",
+    type: "password",
     isError: false,
     required: true,
     placeHolder: "Mot de passe",
