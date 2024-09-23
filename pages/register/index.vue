@@ -84,7 +84,7 @@ const formData: FormDataRegister = reactive({
   email: {
     id: "email",
     label: "Email",
-    type: "text",
+    type: "email",
     isError: false,
     required: true,
     placeHolder: "Email",
@@ -115,13 +115,12 @@ watchEffect(() => {
   }
 });
 const handleSubmitRegister = async () => {
-  const cdt = false;
-  if (cdt) {
+  if (isFormValid) {
     await authStore.registerUser(
-      formData.email.value,
-      formData.username.value,
       formData.name.value,
+      formData.username.value,
       formData.password.value,
+      formData.email.value,
     );
   }
 };

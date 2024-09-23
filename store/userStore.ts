@@ -1,31 +1,6 @@
 import { defineStore } from "pinia";
-interface ApiResponse {
-  status: string;
-  result: UserStore;
-}
+import type { ApiResponse, UserStore } from "~/types/store/userStore";
 
-interface UserStore {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  roles: string;
-  userSubscriptions: UserSubscription[];
-}
-
-interface UserSubscription {
-  id: number;
-  startDate: string;
-  endDate: string;
-  renewalDate: string;
-  amount: number;
-  billingCycle: string;
-  status: string;
-  subscription: {
-    id: number;
-    name: string;
-  };
-}
 export const useUserStore = defineStore("user", {
   // store options
   state: () => ({

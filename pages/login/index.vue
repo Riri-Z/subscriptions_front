@@ -56,7 +56,7 @@ const isFormValid = computed(() => {
 
 async function handleLogin() {
   try {
-    await authStore.loginUser(formData.username.id, formData.password.id);
+    await authStore.loginUser(formData.username.value, formData.password.value);
   } catch (error) {
     console.error("error handleLogin", error);
   }
