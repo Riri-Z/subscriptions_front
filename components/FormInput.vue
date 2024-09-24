@@ -4,9 +4,9 @@
       label
     }}</label>
 
-    <div class="flex flex-row gap-2 align-middle">
+    <div class="relative flex gap-2 align-middle">
       <input
-        class="autofill-bg flex-grow-1 placeHolder-gray-400 my-2 w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
+        class="autofill-bg placeHolder-gray-400 my-2 w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
         :class="{
           'border-gray-300 focus:border-purple-500 focus:ring-purple-500':
             !isError && modelValue.length === 0,
@@ -22,7 +22,10 @@
           $emit('update:modelValue', ($event.target as HTMLInputElement).value)
         "
       />
-      <button @click="toggleTypePassword">
+      <button
+        @click="toggleTypePassword"
+        class="absolute inset-y-0 right-0 flex items-center px-3"
+      >
         <NuxtImg
           v-if="id === 'password'"
           :src="showPassword ? '/icons/eye-closed.svg' : '/icons/eye-open.svg'"
