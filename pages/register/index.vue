@@ -43,6 +43,7 @@ import type { FormDataRegister } from "~/types/forms/connexion";
 
 definePageMeta({
   layout: "login",
+  auth: false,
 });
 const layout = "auth-forms";
 
@@ -88,7 +89,7 @@ const formData: FormDataRegister = reactive({
     isError: false,
     required: true,
     placeHolder: "Email",
-    errorMessage: `L'email doit être de 4 charactères minimum`,
+    errorMessage: `L'email doit être de 4 charactères minimum, et les caractères spéciaux ne sont pas autorisés. Interdit : `,
     minLength: 4,
     value: "",
   },
