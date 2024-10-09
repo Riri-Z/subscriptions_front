@@ -58,12 +58,14 @@ async function handleLogin() {
       username: formData.username.value,
       password: formData.password.value,
     };
-
+    errorLogin.value = false;
     await signIn(credentials, { callbackUrl: "/dashboard" });
   } catch (error) {
     console.error("error handleLogin", error);
+    errorLogin.value = true;
   }
 }
+const errorLogin = ref(false);
 </script>
 <template>
   <NuxtLayout :name="layout">
@@ -71,6 +73,7 @@ async function handleLogin() {
       @submit="handleLogin"
       submit-label="Se connecter"
       :disabled="isFormValid"
+      :errorLogin="errorLogin"
     >
       <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
       <p class="mb-4 text-center">
