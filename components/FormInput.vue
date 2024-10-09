@@ -23,11 +23,11 @@
         "
       />
       <button
+        v-if="id === 'password'"
         @click="toggleTypePassword"
         class="absolute inset-y-0 right-0 flex items-center px-3"
       >
         <NuxtImg
-          v-if="id === 'password'"
           :src="showPassword ? '/icons/eye-closed.svg' : '/icons/eye-open.svg'"
           width="24"
           height="24"
