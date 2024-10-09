@@ -52,20 +52,23 @@ const isFormValid = computed(() => {
   );
 });
 
+const loading = ref(false);
+const errorLogin = ref(false);
 async function handleLogin() {
+  loading.value = true;
   try {
     const credentials = {
       username: formData.username.value,
       password: formData.password.value,
     };
-    errorLogin.value = false;
+
     await signIn(credentials, { callbackUrl: "/dashboard" });
   } catch (error) {
-    console.error("error handleLogin", error);
     errorLogin.value = true;
+  } finally {
+    loading.value = false;
   }
 }
-const errorLogin = ref(false);
 </script>
 <template>
   <NuxtLayout :name="layout">
@@ -74,6 +77,7 @@ const errorLogin = ref(false);
       submit-label="Se connecter"
       :disabled="isFormValid"
       :errorLogin="errorLogin"
+      :loading="loading"
     >
       <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
       <p class="mb-4 text-center">

@@ -33,14 +33,10 @@ export const useUserStore = defineStore("user", {
             headers: options.headers,
           },
         );
-
-        console.log("data", data);
-        console.log(error);
         if (data?.value?.result) {
           const user: UserStore | null = data?.value?.result
             ? data.value.result
             : null;
-          console.log("=========USER==========", user);
           this.user = user;
         } else {
           throw new Error("data has no value : " + JSON.stringify(data));

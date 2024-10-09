@@ -16,7 +16,7 @@ import SubmitForm from "./SubmitForm.vue";
 defineProps<{
   submitLabel: string;
   disabled: boolean;
-  errorLogin: boolean;
+  errorLogin?: boolean;
 }>();
 
 defineEmits(["submit"]);

@@ -1,7 +1,7 @@
 <template>
   <button
     class="flex w-full items-center text-white"
-    @click="() => signOut({ callbackUrl: 'login' })"
+    @click="() => signOut({ callbackUrl: '/login' })"
   >
     <div class="mx-auto flex flex-row gap-1">
       <NuxtImg

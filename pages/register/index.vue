@@ -58,7 +58,7 @@ const isFormValid = computed(() => {
     (field) => field.required && field.value.length < field.minLength,
   );
 });
-
+const errorLogin = ref(false);
 const formData: FormDataRegister = reactive({
   name: {
     id: "name",
