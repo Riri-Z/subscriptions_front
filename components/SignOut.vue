@@ -1,18 +1,18 @@
 <template>
   <button
-    class="flex w-full justify-center text-white"
+    class="flex w-full items-center text-white"
     @click="() => signOut({ callbackUrl: 'login' })"
   >
-    <div class="flex flex-row">
+    <div class="mx-auto flex flex-row gap-1">
       <NuxtImg
-        class="m-auto"
+        class=""
         :key="icon.id"
         :src="icon.path"
         :alt="icon.name"
         width="20"
         height="20"
       />
-      <p class="text-sm">&nbsp; Se déconnecter</p>
+      <p class="text-sm">&nbsp;Quitter</p>
     </div>
   </button>
 </template>
@@ -29,6 +29,6 @@ interface Icon {
 const icon = ref<Icon>({
   id: 1,
   name: "logout",
-  path: "/icons/logout.png",
+  path: "/icons/logout.svg",
 });
 </script>

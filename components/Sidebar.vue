@@ -1,25 +1,27 @@
 <template>
-  <div class="flex flex-col bg-card-color">
+  <div class="flex w-28 flex-col bg-card-color">
     <span
-      class="md: mt-6 h-[65px] border-b-2 border-gray-300 text-center text-primary-white-color"
+      class="mt-6 h-[65px] border-b-2 border-gray-300 text-center text-primary-white-color"
       >Subscriptions tracker</span
     >
-    <div
-      class="flex flex-auto fill-slate-200 text-white hover:bg-gray-600"
-      v-for="icon in icons"
-      @click="handleNavLink(icon.name)"
-    >
-      <NuxtImg
-        class="m-auto fill-slate-200 text-white"
-        :key="icon.id"
-        :src="icon.path"
-        :alt="icon.name"
-        width="24"
-        height="24"
-      />
+    <div class="flex-auto">
+      <div
+        class="flex h-28 fill-slate-200 text-white transition-all duration-300 hover:bg-gray-600"
+        v-for="icon in icons"
+        @click="handleNavLink(icon.name)"
+      >
+        <NuxtImg
+          class="m-auto fill-slate-200 text-white"
+          :key="icon.id"
+          :src="icon.path"
+          :alt="icon.name"
+          width="24"
+          height="24"
+        />
+      </div>
     </div>
 
-    <div class="border-t-2 border-gray-300 p-10 hover:bg-gray-600">
+    <div class="py-10 transition-all duration-300 hover:bg-gray-600">
       <SignOut />
     </div>
   </div>
