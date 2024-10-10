@@ -61,12 +61,18 @@ async function handleLogin() {
       username: formData.username.value,
       password: formData.password.value,
     };
-
-    await signIn(credentials, { callbackUrl: "/dashboard" });
-  } catch (error) {
-    errorLogin.value = true;
-  } finally {
     loading.value = false;
+    await signIn(credentials, { callbackUrl: "/dashboard" });
+    console.log('Connexion réussie');
+
+  } catch (error) {
+    loading.value = false;
+    errorLogin.value = true;
+    console.error('Erreur lors de la connexion:', error);
+
+  }finally{
+    console.log('Fin de handleLogin');
+
   }
 }
 </script>

@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="flex w-full items-center text-white"
-    @click="() => signOut({ callbackUrl: '/login' })"
-  >
+  <button class="flex w-full items-center text-white" @click="handleSignOut">
     <div class="mx-auto flex flex-row gap-1">
       <NuxtImg
         class=""
@@ -19,6 +16,10 @@
 
 <script lang="ts" setup>
 const { signOut } = useAuth();
+
+async function handleSignOut() {
+  return await signOut({ callbackUrl: "/login" });
+}
 
 interface Icon {
   id: number;

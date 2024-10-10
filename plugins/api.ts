@@ -1,18 +1,19 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  const { session } = useUserSession();
-  const config = useRuntimeConfig();
 
+  const config = useRuntimeConfig();
+  const { token } = useAuth();
+  const tokenValue = token?.value
   const api = $fetch.create({
     baseURL: config.public.apiBase,
     onRequest: ({ request, options, error }) => {
-      if (session.value?.token) {
+      if (tokenValue) {
         const headers = options.headers || {};
         if (Array.isArray(headers)) {
-          headers.push(["Authorization", `Bearer ${session.value?.token}`]);
+          headers.push(["Authorization", tokenValue]);
         } else if (headers instanceof Headers) {
-          headers.set("Authorization", `Bearer ${session.value?.token}`);
+          headers.set("Authorization", tokenValue);
         } else {
-          headers.Authorization = `Bearer ${session.value?.token}`;
+          headers.Authorization = tokenValue;
         }
       }
       if (error) {
@@ -24,9 +25,9 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     },
     async onResponseError({ response, error }) {
-      if (response.status === 401) {
+  /*     if (response.status === 401) {
         await nuxtApp.runWithContext(() => navigateTo("login"));
-      }
+      } */
       console.error("Erreur de réponse:", error);
     },
   });

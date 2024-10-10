@@ -25,6 +25,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@nuxt/devtools": "^1.5.2",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/style-resources": "^1.2.2",
     "@sidebase/nuxt-auth": "^0.9.3",
