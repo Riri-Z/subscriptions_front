@@ -3,7 +3,8 @@ import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 
 export const useDate = () => {
-  const sourceDate: Ref<Dayjs> = ref(dayjs(new Date()));
+  const sourceDate: Ref<Dayjs> = ref(dayjs(new Date()).set("date", 1));
+  console.log({ sourceDate });
   const currentMonth: ComputedRef<number> = computed(() =>
     sourceDate.value.get("month"),
   );
@@ -15,6 +16,10 @@ export const useDate = () => {
   });
   const startDayName: ComputedRef<number> = computed(() => {
     return sourceDate.value.startOf("month").get("day");
+  });
+
+  const startDayOftheMonth: ComputedRef<string> = computed(() => {
+    return sourceDate.value.format();
   });
   const handlePreviousMonth = (): void => {
     sourceDate.value = sourceDate.value.subtract(1, "month");
@@ -71,5 +76,6 @@ export const useDate = () => {
     currentMonthString,
     arrNameOfDays,
     arrOfDays,
+    startDayOftheMonth,
   };
 };

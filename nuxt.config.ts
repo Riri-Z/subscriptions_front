@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     server: true,
     client: true,
   },
-  devtools: { enabled: true },
+  /*   devtools: { enabled: false }, */
   css: ["~/assets/styles/main.css"],
   postcss: {
     plugins: {

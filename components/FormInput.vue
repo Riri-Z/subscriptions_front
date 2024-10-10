@@ -15,7 +15,7 @@
             modelValue.length > 0 && !isError,
         }"
         :id="id"
-        :type="showPassword ? 'text' : type"
+        :type="type"
         :placeHolder="placeHolder"
         :required="required"
         @input="
@@ -32,6 +32,7 @@
           :src="showPassword ? '/icons/eye-closed.svg' : '/icons/eye-open.svg'"
           width="24"
           height="24"
+          alt="eye"
         />
       </button>
     </div>

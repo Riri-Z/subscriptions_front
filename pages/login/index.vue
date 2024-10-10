@@ -63,16 +63,13 @@ async function handleLogin() {
     };
     loading.value = false;
     await signIn(credentials, { callbackUrl: "/dashboard" });
-    console.log('Connexion réussie');
-
+    console.log("Connexion réussie");
   } catch (error) {
     loading.value = false;
     errorLogin.value = true;
-    console.error('Erreur lors de la connexion:', error);
-
-  }finally{
-    console.log('Fin de handleLogin');
-
+    console.error("Erreur lors de la connexion:", error);
+  } finally {
+    console.log("Fin de handleLogin");
   }
 }
 </script>

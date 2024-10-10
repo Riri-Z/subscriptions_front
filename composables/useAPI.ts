@@ -1,14 +1,14 @@
 import type { UseFetchOptions } from "#app";
-const { $api } = useNuxtApp()
+const { $api } = useNuxtApp();
 export function useAPI<T>(
   url: string,
   options?: UseFetchOptions<T> & { method?: string },
-) {
+): Promise<T> | null {
   const { token } = useAuth();
 
   if (!token?.value) {
-    console.error("missing Bearer token")
-    return
+    console.error("missing Bearer token");
+    return null;
   }
 
   return $api(url, {
@@ -16,5 +16,5 @@ export function useAPI<T>(
       "Content-Type": "application/json",
       Authorization: token.value,
     },
-  })
+  });
 }

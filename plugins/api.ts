@@ -1,8 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
-
   const config = useRuntimeConfig();
   const { token } = useAuth();
-  const tokenValue = token?.value
+  const tokenValue = token?.value;
   const api = $fetch.create({
     baseURL: config.public.apiBase,
     onRequest: ({ request, options, error }) => {
@@ -25,7 +24,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     },
     async onResponseError({ response, error }) {
-  /*     if (response.status === 401) {
+      /*     if (response.status === 401) {
         await nuxtApp.runWithContext(() => navigateTo("login"));
       } */
       console.error("Erreur de réponse:", error);

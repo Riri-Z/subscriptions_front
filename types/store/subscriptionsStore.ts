@@ -1,10 +1,4 @@
-import type { UserSubscription } from "./userStore";
-
-export interface ApiResponse {
-  status: string;
-  subscriptions: UserSubscription[];
-}
-
+export type ApiResponse = Subscription[];
 export interface Subscription {
   id: number;
   userId: number;

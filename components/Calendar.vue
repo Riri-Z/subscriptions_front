@@ -43,7 +43,21 @@ const {
   currentMonthString,
   arrNameOfDays,
   arrOfDays,
+  startDayOftheMonth,
 } = useDate();
+import { useSubscriptionsStore } from "~/store/subscriptionsStore";
+
+const subscriptionStore = useSubscriptionsStore();
+
+//Load subscription on mount component
+onMounted(async () => {
+  await subscriptionStore.getSubscriptionsMonthly(startDayOftheMonth.value);
+});
+
+////Load subscription when user update month
+watch(startDayOftheMonth, async (newDate) => {
+  await subscriptionStore.getSubscriptionsMonthly(newDate);
+});
 </script>
 
 <style></style>
