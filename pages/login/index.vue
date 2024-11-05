@@ -76,18 +76,18 @@ async function handleLogin() {
 <template>
   <NuxtLayout :name="layout">
     <AuthForms
-      @submit="handleLogin"
       submit-label="Se connecter"
       :disabled="isFormValid"
-      :errorLogin="errorLogin"
+      :error-login="errorLogin"
       :loading="loading"
+      @submit="handleLogin"
     >
       <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
       <p class="mb-4 text-center">
         Connectez-vous pour continuer ou
         <a
-          @click="redirectToRegisterPage"
           class="cursor-pointer text-purple-600 hover:underline"
+          @click="redirectToRegisterPage"
         >
           inscrivez-vous ici
         </a>
@@ -101,11 +101,11 @@ async function handleLogin() {
           :id="input.id"
           :label="input.label"
           :type="input.type"
-          :placeHolder="input.placeHolder"
+          :place-holder="input.placeHolder"
           :required="input.required"
           :is-error="input.isError"
           :condition="input.errorMessage"
-          :modelValue="input.value"
+          :model-value="input.value"
           @input="input.value = $event.target.value"
         />
       </div>

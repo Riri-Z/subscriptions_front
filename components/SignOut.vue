@@ -2,8 +2,8 @@
   <button class="flex w-full items-center text-white" @click="handleSignOut">
     <div class="mx-auto flex flex-row gap-1">
       <NuxtImg
-        class=""
         :key="icon.id"
+        class=""
         :src="icon.path"
         :alt="icon.name"
         width="20"

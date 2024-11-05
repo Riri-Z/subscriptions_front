@@ -6,13 +6,13 @@
     >
     <div class="flex-auto">
       <div
-        class="flex h-28 cursor-pointer fill-slate-200 text-white transition-all duration-300 hover:bg-gray-600"
         v-for="icon in icons"
+        class="flex h-28 cursor-pointer fill-slate-200 text-white transition-all duration-300 hover:bg-gray-600"
         @click="handleNavLink(icon.name)"
       >
         <NuxtImg
-          class="m-auto fill-slate-200 text-white"
           :key="icon.id"
+          class="m-auto fill-slate-200 text-white"
           :src="icon.path"
           :alt="icon.name"
           width="24"

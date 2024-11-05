@@ -5,11 +5,11 @@
       Remplissez le formulaire pour vous inscrire
     </p>
     <AuthForms
-      @submit="handleSubmitRegister"
       submit-label="S'inscrire"
       :disabled="isFormValid"
+      @submit="handleSubmitRegister"
     >
-      <div class="my-3" v-for="input in formData">
+      <div v-for="input in formData" class="my-3">
         <FormInput
           :id="input.id"
           :label="input.label"
@@ -20,16 +20,15 @@
           :condition="input.errorMessage"
           :model-value="input.value"
           @input="input.value = $event.target.value"
-        >
-        </FormInput>
+        />
       </div>
     </AuthForms>
 
     <p class="text-center">
       Déjà inscrit ?
       <a
-        @click="redirectTologinPage"
         class="cursor-pointer text-purple-600 hover:underline"
+        @click="redirectTologinPage"
         >Connectez-vous</a
       >
     </p>
@@ -118,7 +117,7 @@ watchEffect(() => {
   }
 });
 const handleSubmitRegister = async () => {
-  if (isFormValid) {
+  if (isFormValid.value) {
     await authStore.registerUser(
       formData.name.value,
       formData.username.value,

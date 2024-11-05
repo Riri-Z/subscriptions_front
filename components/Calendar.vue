@@ -5,8 +5,8 @@
     <section id="header" class="flex flex-row justify-between">
       <div id="month" class="flex flex-row justify-center gap-2 align-middle">
         <span id="nav" class="flex flex-row gap-4 text-3xl">
-          <p class="cursor-pointer" v-on:click="handlePreviousMonth"><</p>
-          <p class="cursor-pointer" v-on:click="handleNextMonth">></p>
+          <p class="cursor-pointer" @:click="handlePreviousMonth"><</p>
+          <p class="cursor-pointer" @:click="handleNextMonth">></p>
         </span>
         <div class="flex flex-row gap-2 text-3xl">
           <p>{{ currentMonthString }}</p>
@@ -22,13 +22,18 @@
       <section id="days" class="mb-6 grid h-6 grid-cols-7 gap-2">
         <p
           v-for="dayName in arrNameOfDays"
+          :key="dayName"
           class="w-16 rounded-xl bg-slate-600 p-2 text-center text-xs"
         >
           {{ dayName }}
         </p>
       </section>
       <section class="grid grid-cols-7 gap-2">
-        <CalendarDay v-for="day in arrOfDays" :day="day" :sourceDate />
+        <CalendarDay
+          v-for="day in arrOfDays"
+          :day="day"
+          :source-date="sourceDate"
+        />
       </section>
     </div>
   </div>
@@ -36,6 +41,8 @@
 
 <script lang="ts" setup>
 import { useDate } from "~/composables/useDate";
+import { useSubscriptionsStore } from "~/store/subscriptionsStore";
+
 const {
   handlePreviousMonth,
   handleNextMonth,
@@ -46,13 +53,9 @@ const {
   startDayOftheMonth,
   sourceDate,
 } = useDate();
-import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 
 const subscriptionStore = useSubscriptionsStore();
 
-const handleClick = () => {
-  return console.log("clicked");
-};
 //Load subscription on mount component
 onMounted(async () => {
   await subscriptionStore.getSubscriptionsMonthly(startDayOftheMonth.value);

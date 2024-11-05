@@ -1,11 +1,11 @@
 <template>
   <button
-    @click="handleClickDay"
     class="flex h-16 w-16 flex-col rounded-xl p-2"
     :class="{
       'bg-slate-600': day !== null,
       'bg-slate-800': day === null,
     }"
+    @click="handleClickDay"
   >
     <p>{{ day }}</p>
   </button>
@@ -19,7 +19,6 @@ import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 const subscriptionStore = useSubscriptionsStore();
 
 // modal logic
-const open = ref(false);
 const props = defineProps<{
   day: number | null;
   sourceDate: Dayjs | null;
@@ -28,7 +27,7 @@ const props = defineProps<{
 const computedDate = computed(() => {
   if (!props.sourceDate || !props.day) return null;
   const date = dayjs();
-  return date.set("date", props.day).toISOString();
+  return date.set("date", props.day).format("DD/MM/YYYY");
 });
 function handleClickDay() {
   console.log("computedDate.value", computedDate.value);

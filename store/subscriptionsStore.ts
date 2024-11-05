@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import {
-  type ApiResponse,
-  type PostSubscriptions,
-  type Subscription,
-  type SubscriptionsStore,
+import type {
+  ApiResponse,
+  PostSubscriptions,
+  Subscription,
+  SubscriptionsStore,
 } from "~/types/store/subscriptionsStore";
 
 export const useSubscriptionsStore = defineStore("subscriptions", {

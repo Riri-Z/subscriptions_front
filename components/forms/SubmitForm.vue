@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 defineProps({
-  label: String,
+  label: { type: String, default: "" },
   disabled: Boolean,
 });
 defineEmits(["submitButton"]);

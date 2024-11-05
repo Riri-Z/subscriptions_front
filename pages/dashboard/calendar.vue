@@ -6,6 +6,7 @@
         <h1>DEPENSES DETAILS ON CLICK ICONS</h1>
         <div
           v-for="subscription in subscriptionStore.subscriptionsCurrentMonth"
+          :key="subscription.id"
         >
           <p>
             {{ subscription.subscription.name }} : {{ subscription.amount }}
@@ -13,7 +14,7 @@
         </div>
       </div>
     </main>
-    <ModalSubscription></ModalSubscription>
+    <ModalSubscription />
   </div>
 </template>
 
