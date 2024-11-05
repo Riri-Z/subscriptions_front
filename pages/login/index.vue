@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import FormInput from "~/components/forms/FormInput.vue";
+import AuthForms from "~/components/forms/AuthForms.vue";
 import type { FormData } from "~/types/forms/connexion";
+
 const { signIn } = useAuth();
 
 const layout = "auth-forms";
@@ -63,13 +66,10 @@ async function handleLogin() {
     };
     loading.value = false;
     await signIn(credentials, { callbackUrl: "/dashboard" });
-    console.log("Connexion réussie");
   } catch (error) {
     loading.value = false;
     errorLogin.value = true;
     console.error("Erreur lors de la connexion:", error);
-  } finally {
-    console.log("Fin de handleLogin");
   }
 }
 </script>

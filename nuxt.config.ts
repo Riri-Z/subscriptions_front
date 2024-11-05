@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     server: true,
     client: true,
   },
-  /*   devtools: { enabled: false }, */
   css: ["~/assets/styles/main.css"],
   postcss: {
     plugins: {
@@ -28,31 +27,44 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
   ],
   auth: {
+    isEnabled: true,
     //guard protecting auth routes
     globalAppMiddleware: true,
     baseURL: process.env.NUXT_PUBLIC_API_BASE + "/auth/",
     provider: {
       type: "local",
-      // Redirect user to this page when he's not connected
-      pages: {
-        login: "/login",
-      },
       endpoints: {
         signIn: { path: "login", method: "post" },
         signOut: { path: "logout", method: "post" },
-        getSession: { path: "session", method: "post" },
+        signUp: { path: "register", method: "post" },
+        getSession: { path: "session", method: "get" },
       },
       token: {
-        // get jwt from response when login
-        signInResponseTokenPointer: "/body/access_token",
+        signInResponseTokenPointer: "/accessToken",
         type: "Bearer",
-        //  cookieName: 'auth.token',
+        cookieName: "accessToken",
         headerName: "Authorization",
-        maxAgeInSeconds: 1800, // .env
+        maxAgeInSeconds: 1800,
         sameSiteAttribute: "lax",
-        cookieDomain: "",
         secureCookieAttribute: false,
-        httpOnlyCookieAttribute: false,
+        httpOnlyCookieAttribute: true,
+      },
+      refresh: {
+        isEnabled: false,
+        endpoint: { path: "/refresh", method: "post" },
+        refreshOnlyToken: true,
+        token: {
+          signInResponseRefreshTokenPointer: "/refreshToken",
+          refreshRequestTokenPointer: "/refreshToken",
+          cookieName: "refreshToken",
+          maxAgeInSeconds: 1800,
+          sameSiteAttribute: "lax",
+          secureCookieAttribute: false,
+          httpOnlyCookieAttribute: true,
+        },
+      },
+      pages: {
+        login: "/login",
       },
     },
   },

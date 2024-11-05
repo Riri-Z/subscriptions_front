@@ -18,6 +18,7 @@
         :type="type"
         :placeHolder="placeHolder"
         :required="required"
+        autocomplete="on"
         @input="
           $emit('update:modelValue', ($event.target as HTMLInputElement).value)
         "
@@ -37,6 +38,7 @@
       </button>
     </div>
     <p
+      v-if="isError || route?.name === 'register'"
       class="text-xs"
       :class="{
         'text-gray-400': !isError,
@@ -60,6 +62,8 @@ const props = defineProps<{
   modelValue: string;
 }>();
 const showPassword = ref(false);
+
+const route = useRoute();
 
 function toggleTypePassword() {
   showPassword.value = !showPassword.value;

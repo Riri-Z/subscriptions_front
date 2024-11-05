@@ -28,7 +28,7 @@
         </p>
       </section>
       <section class="grid grid-cols-7 gap-2">
-        <CalendarDay v-for="day in arrOfDays" :day="day" />
+        <CalendarDay v-for="day in arrOfDays" :day="day" :sourceDate />
       </section>
     </div>
   </div>
@@ -44,11 +44,15 @@ const {
   arrNameOfDays,
   arrOfDays,
   startDayOftheMonth,
+  sourceDate,
 } = useDate();
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 
 const subscriptionStore = useSubscriptionsStore();
 
+const handleClick = () => {
+  return console.log("clicked");
+};
 //Load subscription on mount component
 onMounted(async () => {
   await subscriptionStore.getSubscriptionsMonthly(startDayOftheMonth.value);
@@ -59,5 +63,3 @@ watch(startDayOftheMonth, async (newDate) => {
   await subscriptionStore.getSubscriptionsMonthly(newDate);
 });
 </script>
-
-<style></style>

@@ -18,7 +18,12 @@
 const { signOut } = useAuth();
 
 async function handleSignOut() {
-  return await signOut({ callbackUrl: "/login" });
+  try {
+    return await signOut({ callbackUrl: "/login" });
+  } catch (error) {
+    console.error(error);
+    navigateTo("./login");
+  }
 }
 
 interface Icon {

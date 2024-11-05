@@ -2,7 +2,7 @@
   <NuxtLayout :name="layout">
     <h1 class="mb-1 text-center text-xl sm:mb-3 sm:text-4xl">Inscrivez-vous</h1>
     <p class="mb-1 text-center text-xs font-semibold sm:mb-3 sm:text-sm">
-      Remplissez le formulaire ci-dessous pour vous inscrire
+      Remplissez le formulaire pour vous inscrire
     </p>
     <AuthForms
       @submit="handleSubmitRegister"
@@ -37,7 +37,9 @@
 </template>
 
 <script lang="ts" setup>
-import AuthForms from "~/components/AuthForms.vue";
+import AuthForms from "~/components/forms/AuthForms.vue";
+import FormInput from "~/components/forms/FormInput.vue";
+
 import { useAuthStore } from "~/store/authStore";
 import type { FormDataRegister } from "~/types/forms/connexion";
 

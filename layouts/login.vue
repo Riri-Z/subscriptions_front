@@ -10,7 +10,7 @@
           Subscriptions tracker
         </h1>
         <h2 class="mb-5 text-center text-xs sm:mb-10 sm:text-sm">
-          Gardez le contrôle de vos dépenses récurrentes en un clin d'œil
+          Gardez le contrôle de vos abonnements en un clin d'œil
         </h2>
       </section>
       <main>

@@ -16,6 +16,25 @@ export interface Subscription {
     category: string;
   };
 }
+
+export interface PostSubscriptions {
+  subscriptionName: string;
+  startDate: Date;
+  endDate: Date;
+  amount: number;
+  billingCycle: BillingCycle;
+  statusSubscription: StatusSubscription;
+}
+
+export interface SubscriptionsStore {
+  isModalOpen: boolean;
+  subscriptions: null | Subscription[];
+  subscriptionsCurrentMonth: null | Subscription[];
+  loading: boolean;
+  error: boolean;
+  selectedDate: null | string;
+}
+
 export enum StatusSubscription {
   ACTIVE = "ACTIVE",
   CANCELLED = "CANCELLED",

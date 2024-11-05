@@ -59,7 +59,6 @@ export const useAuthStore = defineStore("auth", {
         },
       );
 
-      console.log(user);
       //display toast or anything to say to login with the newly created account at /login
       if (user.value?.id) {
         navigateTo("/login");

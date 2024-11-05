@@ -4,7 +4,7 @@ dayjs.extend(utc);
 
 export const useDate = () => {
   const sourceDate: Ref<Dayjs> = ref(dayjs(new Date()).set("date", 1));
-  console.log({ sourceDate });
+
   const currentMonth: ComputedRef<number> = computed(() =>
     sourceDate.value.get("month"),
   );
@@ -77,5 +77,6 @@ export const useDate = () => {
     arrNameOfDays,
     arrOfDays,
     startDayOftheMonth,
+    sourceDate,
   };
 };
