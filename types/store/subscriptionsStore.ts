@@ -28,6 +28,7 @@ export interface PostSubscriptions {
 
 export interface SubscriptionsStore {
   isModalOpen: boolean;
+  isOpenDetails: boolean;
   subscriptions: null | Subscription[];
   subscriptionsCurrentMonth: null | Subscription[];
   loading: boolean;

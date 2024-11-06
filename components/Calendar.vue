@@ -4,11 +4,23 @@
   >
     <section id="header" class="flex flex-row justify-between">
       <div id="month" class="flex flex-row justify-center gap-2 align-middle">
-        <span id="nav" class="flex flex-row gap-4 text-3xl">
-          <p class="cursor-pointer" @:click="handlePreviousMonth"><</p>
-          <p class="cursor-pointer" @:click="handleNextMonth">></p>
-        </span>
-        <div class="flex flex-row gap-2 text-3xl">
+        <section class="flex justify-center align-middle">
+          <span
+            class="flex h-[35px] w-[35px] cursor-pointer justify-center text-3xl"
+            @:click="handlePreviousMonth"
+          >
+            <p class="hover:text-purple-300"><</p>
+          </span>
+
+          <span
+            class="align-items flex h-[35px] w-[35px] cursor-pointer justify-center text-3xl"
+            @:click="handleNextMonth"
+          >
+            <p class="hover:text-purple-300">></p>
+          </span>
+        </section>
+
+        <div class="flex flex-row gap-2 align-middle text-3xl">
           <p>{{ currentMonthString }}</p>
           <p>{{ currentYear }}</p>
         </div>
@@ -33,6 +45,7 @@
           v-for="day in arrOfDays"
           :day="day"
           :source-date="sourceDate"
+          :current-date="day && sourceDate.set('date', day)"
         />
       </section>
     </div>
@@ -40,6 +53,7 @@
 </template>
 
 <script lang="ts" setup>
+import dayjs from "dayjs";
 import { useDate } from "~/composables/useDate";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 
@@ -55,6 +69,7 @@ const {
 } = useDate();
 
 const subscriptionStore = useSubscriptionsStore();
+//Logic hightLight selected day
 
 //Load subscription on mount component
 onMounted(async () => {
@@ -63,6 +78,11 @@ onMounted(async () => {
 
 ////Load subscription when user update month
 watch(startDayOftheMonth, async (newDate) => {
-  await subscriptionStore.getSubscriptionsMonthly(newDate);
+  try {
+    subscriptionStore.setSelectedDate(dayjs(newDate));
+    await subscriptionStore.getSubscriptionsMonthly(newDate);
+  } catch (error) {
+    console.error(error);
+  }
 });
 </script>

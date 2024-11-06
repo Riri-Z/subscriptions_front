@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 const formData = reactive({
   name: "",
-
   amount: "",
   cycle: "",
 });

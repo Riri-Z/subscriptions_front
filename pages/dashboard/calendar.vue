@@ -1,18 +1,12 @@
 <template>
   <div class="m-auto flex flex-row text-primary-white-color">
-    <main v-if="!subscriptionStore.isModalOpen" class="flex">
+    <main v-if="!subscriptionStore.isModalOpen" class="flex gap-2">
       <Calendar />
-      <div class="w-52 bg-blue-500">
-        <h1>DEPENSES DETAILS ON CLICK ICONS</h1>
-        <div
-          v-for="subscription in subscriptionStore.subscriptionsCurrentMonth"
-          :key="subscription.id"
-        >
-          <p>
-            {{ subscription.subscription.name }} : {{ subscription.amount }}
-          </p>
-        </div>
-      </div>
+      <CardsSubscriptionsDetails
+        v-if="selectedDate && subscriptionsCurrentMonth"
+        :selectedDate="selectedDate"
+        :subscriptionsCurrentMonth="subscriptionsCurrentMonth"
+      ></CardsSubscriptionsDetails>
     </main>
     <ModalSubscription />
   </div>
@@ -22,11 +16,12 @@
 import Calendar from "~/components/Calendar.vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 const subscriptionStore = useSubscriptionsStore();
-
-console.log(
-  " subscriptionStore.subscriptionsCurrentMonth",
-  subscriptionStore.subscriptionsCurrentMonth,
+const subscriptionsCurrentMonth = computed(
+  () => subscriptionStore?.subscriptionsCurrentMonth,
 );
+const selectedDate = computed(() => subscriptionStore.selectedDate);
+console.log({ subscriptionsCurrentMonth });
+console.log({ selectedDate });
 definePageMeta({
   layout: "dashboard",
 });

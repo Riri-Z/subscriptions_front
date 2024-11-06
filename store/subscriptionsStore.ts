@@ -1,3 +1,4 @@
+import type { Dayjs } from "dayjs";
 import { defineStore } from "pinia";
 import type {
   ApiResponse,
@@ -9,6 +10,7 @@ import type {
 export const useSubscriptionsStore = defineStore("subscriptions", {
   state: (): SubscriptionsStore => ({
     isModalOpen: false,
+    isOpenDetails: false,
     subscriptions: null as Subscription[] | null,
     subscriptionsCurrentMonth: null as Subscription[] | null,
     loading: false,
@@ -17,16 +19,20 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
   }),
   getters: {},
   actions: {
+    openDetails() {
+      this.isOpenDetails = true;
+    },
+    closeDetails() {
+      this.isOpenDetails = false;
+    },
     openModal() {
-      console.log("this.isModalOpen", this.isModalOpen);
       this.isModalOpen = true;
-      console.log("this.isModalOpen after update", this.isModalOpen);
     },
     closeModal() {
       this.isModalOpen = false;
     },
-    setSelectedDate(date: string) {
-      this.selectedDate = date;
+    setSelectedDate(date: Dayjs) {
+      this.selectedDate = date.format("DD-MM-YYYY");
     },
     async postUserSubscriptions(formData: PostSubscriptions) {},
     async getAllSubscriptions() {
@@ -48,7 +54,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       this.error = false;
       const url = "/user-subscriptions/" + date;
       try {
-        const subscriptionsCurrentMonth = await useAPI<ApiResponse>(url, {
+        const subscriptionsCurrentMonth = await useAPI<Subscription[]>(url, {
           method: "GET",
         });
         if (subscriptionsCurrentMonth) {
