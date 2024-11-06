@@ -7,7 +7,6 @@ export function useAPI<T>(
   const { token } = useAuth();
 
   if (!token?.value) {
-    console.error("missing Bearer token");
     return null;
   }
 
