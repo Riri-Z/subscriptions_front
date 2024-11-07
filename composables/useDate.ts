@@ -19,7 +19,7 @@ export const useDate = () => {
   });
 
   const startDayOftheMonth: ComputedRef<string> = computed(() => {
-    return sourceDate.value.format();
+    return sourceDate.value.format("YYYY-MM-DD");
   });
   const handlePreviousMonth = (): void => {
     sourceDate.value = sourceDate.value.subtract(1, "month");
@@ -37,16 +37,16 @@ export const useDate = () => {
     "Samedi",
   ]);
 
-  const arrOfDays: ComputedRef<(null | number)[]> = computed(() => {
+  const arrOfDays: ComputedRef<(null | { id: number; dayValue: number|null; })[]> = computed(() => {
     const totalDays = numberOfDays.value;
     const firstDayOfMonth = startDayName.value;
     const totalCells = 35; // 5 weeks * 7 days
     return new Array(totalCells).fill(null).map((_, index) => {
-      const dayNumber = index - firstDayOfMonth + 1;
-      if (dayNumber > 0 && dayNumber <= totalDays) {
-        return dayNumber;
+      const dayValue = index - firstDayOfMonth + 1;
+      if (dayValue > 0 && dayValue <= totalDays) {
+        return { id: index, dayValue };
       }
-      return null;
+      return { id: index, dayValue: null };
     });
   });
 

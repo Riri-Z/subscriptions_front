@@ -7,7 +7,8 @@ export default withNuxt(
   {
     files: ["**/*.ts", "**/*.vue", "**/*.tsx"],
     rules: {
-      "no-console": "off", // allow console.log in TypeScript files
+      "no-console": "off", // allow console.log in TypeScript files,
+      'vue/multi-word-component-names': 'off',
     },
   },
 );

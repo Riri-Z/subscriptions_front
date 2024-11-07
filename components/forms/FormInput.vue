@@ -22,7 +22,7 @@
         @input="
           $emit('update:modelValue', ($event.target as HTMLInputElement).value)
         "
-      />
+      >
       <button
         v-if="id === 'password'"
         type="button"

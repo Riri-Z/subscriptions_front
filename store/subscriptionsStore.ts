@@ -32,9 +32,31 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       this.isModalOpen = false;
     },
     setSelectedDate(date: Dayjs) {
-      this.selectedDate = date.format("DD-MM-YYYY");
+      if (this.selectedDate === date.format("YYYY-MM-DD")) {
+        this.selectedDate = null;
+      } else {
+        this.selectedDate = date.format("YYYY-MM-DD");
+      }
     },
-    async postUserSubscriptions(formData: PostSubscriptions) {},
+    async postUserSubscriptions(formData: Partial<PostSubscriptions>) {
+      this.loading = true;
+      this.error = false;
+      try {
+        const resultPostNewUserSubscription = await useAPI<ApiResponse>(
+          "/user-subscriptions",
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+        console.log({ resultPostNewUserSubscription });
+      } catch (error) {
+        this.error = true;
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
+    },
     async getAllSubscriptions() {
       this.loading = true;
       this.error = false;

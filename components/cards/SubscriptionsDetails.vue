@@ -11,6 +11,10 @@ defineProps({
     default: () => [],
   },
 });
+
+const handleOpenModalAddSubscription = () => {
+  subscriptionStore.openModal();
+};
 </script>
 
 <template>
@@ -33,7 +37,7 @@ defineProps({
         <!-- ToDO  : display sub name / amount if nextsPayements includes selectedDate  -->
         <section class="text-s flex flex-col">
           <p>Nom : {{ subscription?.subscription?.name }}</p>
-          <p>Montant : {{ subscription?.amount }}</p>
+          <p>Montant : {{ subscription?.amount }} €</p>
         </section>
       </div>
     </div>
@@ -41,7 +45,10 @@ defineProps({
       <p>Pas de prélevements prévue</p>
     </div>
     <div class="flex justify-center">
-      <button class="flex flex-col rounded-xl bg-purple-500 p-2 text-sm">
+      <button
+        class="flex flex-col rounded-xl bg-purple-500 p-2 text-sm"
+        @click="handleOpenModalAddSubscription"
+      >
         Ajouter un abonnement
       </button>
     </div>

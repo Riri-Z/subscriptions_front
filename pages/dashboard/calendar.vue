@@ -4,9 +4,9 @@
       <Calendar />
       <CardsSubscriptionsDetails
         v-if="selectedDate && subscriptionsCurrentMonth"
-        :selectedDate="selectedDate"
-        :subscriptionsCurrentMonth="subscriptionsCurrentMonth"
-      ></CardsSubscriptionsDetails>
+        :selected-date="selectedDate"
+        :subscriptions-current-month="subscriptionsCurrentMonth"
+      />
     </main>
     <ModalSubscription />
   </div>
@@ -20,8 +20,6 @@ const subscriptionsCurrentMonth = computed(
   () => subscriptionStore?.subscriptionsCurrentMonth,
 );
 const selectedDate = computed(() => subscriptionStore.selectedDate);
-console.log({ subscriptionsCurrentMonth });
-console.log({ selectedDate });
 definePageMeta({
   layout: "dashboard",
 });
