@@ -9,14 +9,16 @@
             class="flex h-[35px] w-[35px] cursor-pointer justify-center text-3xl"
             @:click="handlePreviousMonth"
           >
-            <p class="hover:text-purple-300"><</p> <!-- TODO  : use icon  -->
+            <p class="hover:text-purple-300"><</p>
+            <!-- TODO  : use icon  -->
           </span>
 
           <span
             class="align-items flex h-[35px] w-[35px] cursor-pointer justify-center text-3xl"
             @:click="handleNextMonth"
           >
-            <p class="hover:text-purple-300">></p><!-- TODO  : use icon  -->
+            <p class="hover:text-purple-300">></p>
+            <!-- TODO  : use icon  -->
           </span>
         </section>
 
@@ -42,11 +44,13 @@
       </section>
       <section class="grid grid-cols-7 gap-2">
         <CalendarDay
-          v-for="(day) in arrOfDays"
+          v-for="day in arrOfDays"
           :key="day?.id"
           :day="day && day.dayValue"
           :source-date="sourceDate"
-          :current-date="day && day.dayValue && sourceDate.set('date', day.dayValue)"
+          :current-date="
+            day && day.dayValue && sourceDate.set('date', day.dayValue)
+          "
         />
       </section>
     </div>

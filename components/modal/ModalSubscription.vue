@@ -12,7 +12,7 @@ function handlePostSubscription(formData: any) {
   <Teleport v-if="subscriptionStore.isModalOpen" to="#sidebar">
     <div
       v-if="subscriptionStore.isModalOpen"
-      class="fixed left-[41%] top-[10%] z-[50] flex w-[400px] max-w-lg flex-col justify-evenly gap-2 rounded-lg bg-purple-700 p-6"
+      class="fixed left-[41%] top-[10%] z-[50] flex w-[400px] max-w-lg flex-col justify-evenly gap-2 rounded-lg bg-purple-800 p-6"
     >
       <h1 class="py-4 text-center text-2xl text-primary-white-color">
         Ajouter un abonnement

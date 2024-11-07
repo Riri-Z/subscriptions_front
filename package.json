@@ -23,8 +23,11 @@
     "nuxt": "^3.13.0",
     "nuxt-auth-utils": "^0.3.8",
     "pinia": "^2.2.2",
+    "prettier-plugin-organize-attributes": "^1.0.0",
+    "vee-validate": "^4.14.6",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.5.2",
