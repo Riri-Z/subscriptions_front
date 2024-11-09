@@ -4,59 +4,70 @@ import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import * as yup from "yup";
 import { BillingCycle } from "~/types/store/subscriptionsStore";
 
+const subscriptionStore = useSubscriptionsStore();
+
 const validationSchema = yup.object({
-  name: yup.string().required(),
-  amount: yup.number().required().typeError("Doit être un nombre"),
-  startDate: yup.string().required(),
+  subscriptionName: yup.string().required("Un nom est requis"),
+  amount: yup
+    .number()
+    .default(0)
+    .min(0)
+    .max(999)
+    .typeError("Doit être un nombre valide")
+    .required("Un montant est requis"),
+  startDate: yup
+    .string()
+    .default(subscriptionStore.selectedDate)
+    .required("Une date de début est requise"),
+
   endDate: yup.string(),
-  cycle: yup.mixed<BillingCycle>().oneOf(Object.values(BillingCycle)),
+  billingCycle: yup.mixed<BillingCycle>().oneOf(Object.values(BillingCycle)),
 });
 
 const { errors, handleSubmit, defineField } = useForm({
-  validationSchema,
+  validationSchema: validationSchema,
+  initialValues: {
+    amount: 0,
+    subscriptionName: "",
+    startDate: subscriptionStore.selectedDate,
+    billingCycle: "MONTHLY",
+    endDate: "",
+  },
 });
-
-const subscriptionStore = useSubscriptionsStore();
-/* TODO : use library  to validate forms eg : formik */
-const formData = ref({
-  name: "",
-  amount: null,
-  startDate: subscriptionStore.selectedDate ?? "",
-  endDate: "",
-  cycle: "",
-});
-
-/* const { value: amount } = useField('amount');
-const { value: startDate } = useField('startDate');
-const { value: endDate } = useField('endDate');
-const { value: cycle } = useField('cycle'); */
 
 const [amount, amountAttrs] = defineField("amount");
-const [name, nameAttrs] = defineField("name");
+const [subscriptionName, subscriptionNameAttrs] =
+  defineField("subscriptionName");
 const [startDate, startDateAttrs] = defineField("startDate");
 const [endDate, endDateAttrs] = defineField("endDate");
-const [cycle, cycleAttrs] = defineField("cycle");
+const [billingCycle, billingCycleAttrs] = defineField("billingCycle");
+
+const emit = defineEmits(["postSubscription"]);
 
 const onSubmit = handleSubmit((values) => {
-  alert(JSON.stringify(values, null, 2));
+  emit("postSubscription", values);
 });
 </script>
-<!-- @submit="$emit('postSubscription', formData)" -->
 
 <template>
+  <h1 class="py-4 text-center text-2xl text-primary-white-color">
+    Ajouter un abonnement
+  </h1>
   <form class="flex flex-col gap-2 p-2" @submit="onSubmit">
     <!-- subscriptionName -->
-    <label class="block text-sm font-bold text-primary-white-color" for="name"
+    <label
+      class="block text-sm font-bold text-primary-white-color"
+      for="subscriptionName"
       >Nom<span class="text-red-500"> *</span></label
     >
     <input
-      id="name"
-      v-model="name"
+      id="subscriptionName"
+      v-model="subscriptionName"
       class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
-      name="name"
-      v-bind="nameAttrs"
+      name="subscriptionName"
+      v-bind="subscriptionNameAttrs"
     />
-    <span class="text-xs text-red-400">{{ errors.name }}</span>
+    <span class="text-xs text-red-400">{{ errors.subscriptionName }}</span>
 
     <!-- amount  -->
     <label class="font-bold text-primary-white-color" for="amount"
@@ -100,22 +111,21 @@ const onSubmit = handleSubmit((values) => {
     />
     <span class="text-xs text-red-400">{{ errors.endDate }}</span>
 
-    <!--billingCycle  -->
-    <label class="font-bold text-primary-white-color" for="cycle"
-      >Cycle<span class="text-red-500"> *</span></label
+    <!--BillingCycle  -->
+    <label class="font-bold text-primary-white-color" for="billingCycle"
+      >billingCycle<span class="text-red-500"> *</span></label
     >
     <select
-      id="cycle"
-      v-model="cycle"
+      id="billingCycle"
+      v-model="billingCycle"
       class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
-      name="cycle"
-      v-bind="cycleAttrs"
+      name="billingCycle"
+      v-bind="billingCycleAttrs"
     >
       <option value="WEEKLY">Hebdomadaire</option>
       <option value="MONTHLY">Mensuelle</option>
       <option value="YEARLY">Annuelle</option>
     </select>
-
     <section class="flex">
       <button
         type="submit"

@@ -20,16 +20,15 @@ const handleOpenModalAddSubscription = () => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex w-52 flex-col justify-between rounded-xl bg-black p-10 align-middle"
+    class="flex w-56 flex-col justify-between rounded-xl bg-black p-10 align-middle"
   >
     <h1 class="text-center">
       Vos prélévements prévus ce jour : {{ selectedDate }}
     </h1>
     <div
       v-if="subscriptionsCurrentMonth && subscriptionsCurrentMonth.length > 0"
-      class="flex flex-col gap-4"
+      class="flex max-h-[250px] flex-col gap-4 overflow-y-auto"
     >
-      <!-- TODO : Add virtual list  and allow scroll if there is more than 5 elements -->
       <div
         v-for="subscription in subscriptionsCurrentMonth"
         :key="subscription.id"

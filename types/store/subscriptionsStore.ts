@@ -1,4 +1,8 @@
-export type ApiResponse = Subscription[];
+/* export type ApiResponse = Subscription[];
+ */ export type ApiResponse = {
+  statusCode: number;
+  body: {};
+};
 export interface Subscription {
   id: number;
   userId: number;
@@ -19,8 +23,8 @@ export interface Subscription {
 
 export interface PostSubscriptions {
   subscriptionName: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | string;
+  endDate: Date | string;
   amount: number;
   billingCycle: BillingCycle;
   statusSubscription: StatusSubscription;
@@ -32,7 +36,6 @@ export interface SubscriptionsStore {
   subscriptions: null | Subscription[];
   subscriptionsCurrentMonth: null | Subscription[];
   loading: boolean;
-  error: boolean;
   selectedDate: null | string;
 }
 

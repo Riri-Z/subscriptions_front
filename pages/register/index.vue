@@ -38,8 +38,8 @@
 <script lang="ts" setup>
 import AuthForms from "~/components/forms/AuthForms.vue";
 import FormInput from "~/components/forms/FormInput.vue";
-
 import { useAuthStore } from "~/store/authStore";
+
 import type { FormDataRegister } from "~/types/forms/connexion";
 
 definePageMeta({
