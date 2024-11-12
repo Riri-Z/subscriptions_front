@@ -1,7 +1,4 @@
-import type {
-  LoginResponse,
-  RegisterResponse,
-} from "~/interfaces/auth.interface";
+import type { RegisterResponse } from "~/interfaces/auth.interface";
 import type { ApiResponse } from "~/types/store/subscriptionsStore";
 
 export const useAuthStore = defineStore("auth", {
@@ -11,32 +8,6 @@ export const useAuthStore = defineStore("auth", {
 
   getters: {},
   actions: {
-    /*     async loginUser(username: string, password: string) {
-          try {
-            const { data: jwt } = await useAPI<LoginResponse>(() => "/auth/login", {
-              method: "POST",
-              body: {
-                username,
-                password,
-              },
-            });
-            const jwtToken = jwt.value?.body?.access_token;
-
-            if (jwtToken) {
-              this.isAuthentified = true;
-              localStorage.setItem("jwt", jwtToken);
-              // decode JwtToken to extract user id, >>zamor |33
-              // pass it to navigateTo ,
-              // on init load userInfo with id
-              navigateTo("/dashboard");
-            }
-          } catch (e) {
-            this.isAuthentified = false;
-
-            // TODO : think of how to handle fail  POST
-            console.error("error loginUser", e);
-          }
-        }, */
     async registerUser(
       name: string,
       username: string,
@@ -46,7 +17,7 @@ export const useAuthStore = defineStore("auth", {
       //TODO: Need to remove this,  it's should not be mandotory
       const roles = ["USER"];
 
-      const res = await useAPI<ApiResponse>("/users", {
+      const res: ApiResponse<RegisterResponse> | null = await useAPI("/users", {
         method: "POST",
         body: {
           name,

@@ -1,7 +1,6 @@
-/* export type ApiResponse = Subscription[];
- */ export type ApiResponse = {
+export type ApiResponse<T> = {
   statusCode: number;
-  body: object;
+  body: T;
 };
 export interface Subscription {
   id: number;
