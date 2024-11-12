@@ -37,7 +37,9 @@ export const useDate = () => {
     "Samedi",
   ]);
 
-  const arrOfDays: ComputedRef<(null | { id: number; dayValue: number|null; })[]> = computed(() => {
+  const arrOfDays: ComputedRef<
+    (null | { id: number; dayValue: number | null })[]
+  > = computed(() => {
     const totalDays = numberOfDays.value;
     const firstDayOfMonth = startDayName.value;
     const totalCells = 35; // 5 weeks * 7 days

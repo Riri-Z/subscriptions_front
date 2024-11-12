@@ -14,7 +14,6 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     subscriptions: null as Subscription[] | null,
     subscriptionsCurrentMonth: null as Subscription[] | null,
     loading: false,
-    error: false,
     selectedDate: null,
   }),
   getters: {},
@@ -40,32 +39,34 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
     async postUserSubscriptions(formData: Partial<PostSubscriptions>) {
       this.loading = true;
-      this.error = false;
+
       try {
         const resultPostNewUserSubscription = await useAPI<ApiResponse>(
           "/user-subscriptions",
           {
-            method: "POST",
+            method: "post",
             body: formData,
           },
         );
-        console.log({ resultPostNewUserSubscription });
+        if (resultPostNewUserSubscription?.statusCode !== 201) {
+          throw new Error("failed creating new subscription");
+        }
+        // close toast up , with succeed message
+        return resultPostNewUserSubscription?.body;
       } catch (error) {
-        this.error = true;
         console.error(error);
+        return false;
       } finally {
         this.loading = false;
       }
     },
     async getAllSubscriptions() {
       this.loading = true;
-      this.error = false;
       try {
         const subscriptions = await useAPI<ApiResponse>("/user-subscriptions", {
           method: "GET",
         });
       } catch (error) {
-        this.error = true;
         console.error(error);
       } finally {
         this.loading = false;
@@ -73,7 +74,6 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
     async getSubscriptionsMonthly(date: Date | string) {
       this.loading = true;
-      this.error = false;
       const url = "/user-subscriptions/" + date;
       try {
         const subscriptionsCurrentMonth = await useAPI<Subscription[]>(url, {
@@ -84,7 +84,6 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         }
       } catch (error) {
         this.subscriptionsCurrentMonth = [];
-        this.error = true;
         console.error(error);
       } finally {
         this.loading = false;

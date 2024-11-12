@@ -16,6 +16,7 @@
   "dependencies": {
     "@nuxt/eslint": "^0.6.1",
     "@nuxt/image": "^1.8.0",
+    "@nuxt/types": "^2.18.1",
     "@nuxtjs/i18n": "^8.5.3",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.4",
@@ -23,8 +24,11 @@
     "nuxt": "^3.13.0",
     "nuxt-auth-utils": "^0.3.8",
     "pinia": "^2.2.2",
+    "prettier-plugin-organize-attributes": "^1.0.0",
+    "vee-validate": "^4.14.6",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.5.2",

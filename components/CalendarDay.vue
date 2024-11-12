@@ -3,7 +3,7 @@
   <button
     class="flex h-16 w-16 flex-col rounded-xl p-2"
     :class="{
-      'bg-green-700': isSelectedDay,
+      'bg-red-700': isSelectedDay,
       'bg-slate-600': day !== null,
       'bg-slate-800': day === null,
     }"

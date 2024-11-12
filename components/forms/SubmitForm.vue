@@ -13,5 +13,4 @@ defineProps({
   label: { type: String, default: "" },
   disabled: Boolean,
 });
-defineEmits(["submitButton"]);
 </script>
