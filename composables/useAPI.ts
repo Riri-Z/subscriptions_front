@@ -5,9 +5,8 @@ export function useAPI<T>(
   options?: UseFetchOptions<T> & {},
 ): Promise<T> | null {
   const { token } = useAuth();
-  console.log("optiions", options);
-
-  if (!token?.value) {
+  const route = useRoute();
+  if (!token?.value && route.path !== "/register") {
     return null;
   }
 

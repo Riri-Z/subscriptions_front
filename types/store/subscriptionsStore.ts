@@ -1,7 +1,7 @@
 /* export type ApiResponse = Subscription[];
  */ export type ApiResponse = {
   statusCode: number;
-  body: {};
+  body: object;
 };
 export interface Subscription {
   id: number;

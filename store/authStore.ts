@@ -57,7 +57,7 @@ export const useAuthStore = defineStore("auth", {
         },
       });
 
-      //display toast or anything to say to login with the newly created account at /login
+      //TODO : display toast or anything to say to login with the newly created account at /login
       if (res?.statusCode === 201) {
         navigateTo("/login");
       } else {

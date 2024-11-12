@@ -4,25 +4,8 @@
     <p class="mb-1 text-center text-xs font-semibold sm:mb-3 sm:text-sm">
       Remplissez le formulaire pour vous inscrire
     </p>
-    <AuthForms
-      submit-label="S'inscrire"
-      :disabled="isFormValid"
-      @submit="handleSubmitRegister"
-    >
-      <div v-for="input in formData" class="my-3">
-        <FormInput
-          :id="input.id"
-          :label="input.label"
-          :type="input.type"
-          :place-holder="input.placeHolder"
-          :required="input.required"
-          :is-error="input.isError"
-          :condition="input.errorMessage"
-          :model-value="input.value"
-          @input="input.value = $event.target.value"
-        />
-      </div>
-    </AuthForms>
+
+    <FormComponent :schema="formSchema" @submit-form="handleSaveRegister" />
 
     <p class="text-center">
       Déjà inscrit ?
@@ -36,11 +19,9 @@
 </template>
 
 <script lang="ts" setup>
-import AuthForms from "~/components/forms/AuthForms.vue";
-import FormInput from "~/components/forms/FormInput.vue";
+import { registerSchema, type RegisterValues } from "~/schema/register";
 import { useAuthStore } from "~/store/authStore";
-
-import type { FormDataRegister } from "~/types/forms/connexion";
+import FormComponent from "~/components/forms/FormComponent.vue";
 
 definePageMeta({
   layout: "login",
@@ -54,76 +35,46 @@ async function redirectTologinPage() {
   await navigateTo("/login");
 }
 
-const isFormValid = computed(() => {
-  return Object.values(formData).some(
-    (field) => field.required && field.value.length < field.minLength,
-  );
-});
-const errorLogin = ref(false);
-const formData: FormDataRegister = reactive({
-  name: {
-    id: "name",
-    label: "Nom",
-    type: "text",
-    isError: false,
-    required: true,
-    placeHolder: "Nom",
-    errorMessage: `Le nom doit être de 4 charactères minimum`,
-    minLength: 4,
-    value: "",
-  },
-  username: {
-    id: "username",
-    label: "Nom d'utilisateur",
-    type: "text",
-    isError: false,
-    required: true,
-    placeHolder: "Nom d'utilisateur",
-    errorMessage: `Le nom d'utilisateur doit être de 4 charactères minimum`,
-    minLength: 4,
-    value: "",
-  },
-  email: {
-    id: "email",
-    label: "Email",
-    type: "email",
-    isError: false,
-    required: true,
-    placeHolder: "Email",
-    errorMessage: `L'email doit être de 4 charactères minimum, et les caractères spéciaux ne sont pas autorisés. Interdit : `,
-    minLength: 4,
-    value: "",
-  },
-  password: {
-    id: "password",
-    label: "Mot de passe",
-    type: "password",
-    isError: false,
-    required: true,
-    placeHolder: "Mot de passe",
-    errorMessage: `Le mot de passe doit être de 6 charactères minimum`,
-    minLength: 6,
-    value: "",
-  },
-});
+function handleSaveRegister(values: RegisterValues) {
+  const { name, username, password, email } = values;
+  try {
+    authStore.registerUser(name, username, password, email);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-watchEffect(() => {
-  for (const item in formData) {
-    const { isError } = useValidationFormInput();
-    formData[item].isError = isError(
-      formData[item].value,
-      formData[item].minLength,
-    );
-  }
-});
-const handleSubmitRegister = async () => {
-  if (isFormValid.value) {
-    await authStore.registerUser(
-      formData.name.value,
-      formData.username.value,
-      formData.password.value,
-      formData.email.value,
-    );
-  }
+const formSchema = {
+  fields: [
+    {
+      name: "name",
+      label: "Nom",
+      as: "input",
+      placeholder: "Nom",
+      rules: registerSchema.fields.name,
+    },
+    {
+      name: "username",
+      label: "Nom d'utilisateur",
+      as: "input",
+      placeholder: "Nom d'utilisateur",
+      rules: registerSchema.fields.username,
+    },
+    {
+      name: "email",
+      label: "Email",
+      as: "input",
+      placeholder: "E-mail",
+      rules: registerSchema.fields.email,
+    },
+    {
+      name: "password",
+      label: "Mot de passe",
+      as: "input",
+      type: "password",
+      placeholder: "Mot de passe",
+      rules: registerSchema.fields.password,
+    },
+  ],
 };
 </script>
