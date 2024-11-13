@@ -4,7 +4,7 @@
       <Calendar />
       <CardsSubscriptionsDetails
         v-if="selectedDate && subscriptionsCurrentMonth"
-        :selected-date="selectedDate"
+        :selected-date="dayjs(selectedDate).format('DD-MM-YYYY')"
         :subscriptions-current-month="subscriptionsCurrentMonth"
       />
     </main>
@@ -14,6 +14,7 @@
 
 <script lang="ts" setup>
 import Calendar from "~/components/Calendar.vue";
+import dayjs from "dayjs";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 const subscriptionStore = useSubscriptionsStore();
 const subscriptionsCurrentMonth = computed(

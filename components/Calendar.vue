@@ -78,7 +78,16 @@ const subscriptionStore = useSubscriptionsStore();
 
 //Load subscription on mount component
 onMounted(async () => {
-  await subscriptionStore.getSubscriptionsMonthly(startDayOftheMonth.value);
+  const res = await subscriptionStore.getSubscriptionsMonthly(
+    startDayOftheMonth.value,
+  );
+  if (res) {
+    const result = subscriptionStore.getSubscriptionsByDay(
+      dayjs("2024-11-05T10:39:55.178Z"),
+    );
+    debugger;
+    console.log(result);
+  }
 });
 
 ////Load subscription when user update month

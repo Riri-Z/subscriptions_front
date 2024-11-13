@@ -3,7 +3,7 @@
   <button
     class="flex h-16 w-16 flex-col rounded-xl p-2"
     :class="{
-      'bg-red-700': isSelectedDay,
+      'bg-green-color': isSelectedDay,
       'bg-slate-600': day !== null,
       'bg-slate-800': day === null,
     }"
@@ -34,6 +34,7 @@ const isSelectedDay = computed(() => {
     return currentDay === subscriptionStore.selectedDate;
   }
 });
+
 // Select day
 function handleClickDay() {
   if (props.currentDate) {

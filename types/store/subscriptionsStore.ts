@@ -18,6 +18,7 @@ export interface Subscription {
     icon_name: string;
     category: string;
   };
+  nextsPayements: string[];
 }
 
 export interface PostSubscriptions {

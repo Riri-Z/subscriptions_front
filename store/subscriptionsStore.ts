@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import { defineStore } from "pinia";
 import type {
@@ -16,7 +17,25 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     loading: false,
     selectedDate: null,
   }),
-  getters: {},
+  getters: {
+    getSubscriptionsByDay: (state) => (date: Dayjs) => {
+      // Check if date is provide, and subscriptionsCurrentMonth is not null
+      if (!state?.subscriptionsCurrentMonth || !date) {
+        return null;
+      }
+      const result = [];
+      // Verify if nextPayements in each subscriptionsCurrentMonth matc the provided date
+      for (const subscription of state.subscriptionsCurrentMonth) {
+        const matchDate = subscription.nextsPayements.find(
+          (element) =>
+            dayjs(element).format("YYYY-MM-DD") === date.format("YYYY-MM-DD"),
+        );
+
+        if (matchDate) result.push(subscription);
+      }
+      return result;
+    },
+  },
   actions: {
     openDetails() {
       this.isOpenDetails = true;
@@ -81,10 +100,13 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         });
         if (subscriptionsCurrentMonth) {
           this.subscriptionsCurrentMonth = subscriptionsCurrentMonth;
+          return true;
         }
+        return false;
       } catch (error) {
         this.subscriptionsCurrentMonth = [];
         console.error(error);
+        return false;
       } finally {
         this.loading = false;
       }

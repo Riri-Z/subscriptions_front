@@ -6,6 +6,7 @@ const subscriptionStore = useSubscriptionsStore();
 
 defineProps({
   selectedDate: { type: String },
+  // get subsSelectedDate
   subscriptionsCurrentMonth: {
     type: Array as PropType<Subscription[]>,
     default: () => [],
@@ -20,21 +21,20 @@ const handleOpenModalAddSubscription = () => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex w-56 flex-col justify-between rounded-xl bg-black p-10 align-middle"
+    class="flex w-56 flex-col justify-around rounded-xl bg-black p-4 align-middle"
   >
-    <h1 class="text-center">
-      Vos prélévements prévus ce jour : {{ selectedDate }}
-    </h1>
+    <h1 class="text-center">Vos prélévements prévus le {{ selectedDate }}</h1>
     <div
       v-if="subscriptionsCurrentMonth && subscriptionsCurrentMonth.length > 0"
-      class="flex max-h-[250px] flex-col gap-4 overflow-y-auto"
+      class="flex max-h-[300px] flex-col gap-4 overflow-y-auto"
     >
       <div
         v-for="subscription in subscriptionsCurrentMonth"
+        class="mx-2 flex cursor-pointer flex-col rounded-md p-2 text-sm odd:bg-gray-900 even:bg-gray-700 hover:bg-green-color"
         :key="subscription.id"
       >
-        <!-- ToDO  : display sub name / amount if nextsPayements includes selectedDate  -->
-        <section class="text-s flex flex-col">
+        <!-- Each subscription details -->
+        <section class=" ">
           <p>Nom : {{ subscription?.subscription?.name }}</p>
           <p>Montant : {{ subscription?.amount }} €</p>
         </section>
@@ -45,7 +45,7 @@ const handleOpenModalAddSubscription = () => {
     </div>
     <div class="flex justify-center">
       <button
-        class="flex flex-col rounded-xl bg-purple-500 p-2 text-sm"
+        class="flex flex-col rounded-md bg-green-color p-2 text-sm"
         @click="handleOpenModalAddSubscription"
       >
         Ajouter un abonnement

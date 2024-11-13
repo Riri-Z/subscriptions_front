@@ -22,11 +22,12 @@ export default {
         "primary-white-color": "#fafafa",
         "dark-button-color": "#21182b",
         "card-color": "#282828",
-
+        "green-color": "#66bb6a",
       },
-      backgroundImage:{
-        'custom-gradient': 'linear-gradient(to right, #551F91 0%, #3B1C7A 100%)',
-      }
+      backgroundImage: {
+        "custom-gradient":
+          "linear-gradient(to right, #551F91 0%, #3B1C7A 100%)",
+      },
     },
   },
   plugins: [],
