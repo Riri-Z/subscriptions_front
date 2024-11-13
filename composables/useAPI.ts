@@ -7,7 +7,7 @@ export function useAPI<T>(
   const { token } = useAuth();
   const route = useRoute();
   if (!token?.value && route.path !== "/register") {
-    return null;
+    throw new Error("Unauthorized");
   }
 
   return $api(url, {

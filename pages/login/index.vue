@@ -34,21 +34,15 @@ const formSchema = {
   ],
 };
 
-const loading = ref(false);
-const errorLogin = ref(false);
 async function handleLogin(values: Login) {
-  loading.value = true;
   try {
     const credentials = {
       username: values.username,
       password: values.password,
     };
-    loading.value = false;
     await signIn(credentials, { callbackUrl: "/dashboard" });
   } catch (error) {
-    loading.value = false;
-    errorLogin.value = true;
-    console.error("Erreur lors de la connexion:", error);
+    useNuxtApp().$toast.error('Nom d"utilisateur ou Mot de passe incorrect.');
   }
 }
 </script>

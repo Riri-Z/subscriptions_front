@@ -22,6 +22,8 @@
 import { registerSchema, type RegisterValues } from "~/schema/register";
 import { useAuthStore } from "~/store/authStore";
 import FormComponent from "~/components/forms/FormComponent.vue";
+import type { ApiResponse } from "~/types/store/subscriptionsStore";
+import type { RegisterResponse } from "~/interfaces/auth.interface";
 
 definePageMeta({
   layout: "login",
@@ -35,12 +37,35 @@ async function redirectTologinPage() {
   await navigateTo("/login");
 }
 
-function handleSaveRegister(values: RegisterValues) {
+async function handleSaveRegister(values: RegisterValues) {
   const { name, username, password, email } = values;
   try {
-    authStore.registerUser(name, username, password, email);
-  } catch (error) {
-    console.error(error);
+    const statusCode: number | undefined = await authStore.registerUser(
+      name,
+      username,
+      password,
+      email,
+    );
+
+    if (statusCode === 201) {
+      useNuxtApp().$toast.success(
+        "Utilisateur enregistré, veuillez vous connecter",
+      );
+      setTimeout(() => {
+        navigateTo("/login");
+      }, 2000);
+    }
+  } catch (error: unknown) {
+    if (typeof error === "object" && error !== null && "statusCode" in error) {
+      const statusCode = (error as { statusCode: number }).statusCode;
+      if (statusCode === 409) {
+        return useNuxtApp().$toast.error(
+          'Nom d"utilisateur ou email déjà utilisé. Veuillez essayer une autre valeur',
+        );
+      }
+    } else {
+      useNuxtApp().$toast.error("Une erreur est survenue");
+    }
   }
 }
 
