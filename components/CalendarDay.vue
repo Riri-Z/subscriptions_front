@@ -10,12 +10,16 @@
     @click="handleClickDay"
   >
     <p>{{ day }}</p>
+    <!-- TODO : COMPONENT DISPLAY ICON CURRENT SUBSCRIPTION -->
+    <p v-if="subscriptionActive">xxXXX</p>
   </button>
 </template>
 
 <script lang="ts" setup>
 import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
+import type { Subscription } from "~/types/store/subscriptionsStore";
 
 const subscriptionStore = useSubscriptionsStore();
 
@@ -25,13 +29,36 @@ const props = defineProps<{
   currentDate: Dayjs | null | 0;
 }>();
 
-// Logic to check if current day is the selected one
-const isSelectedDay = computed(() => {
-  if (props.sourceDate && props.day && subscriptionStore.selectedDate) {
-    const currentDay = props.sourceDate
+const completeDate: Ref<string | null> = ref(null);
+
+//TODO : Move this to calendar component, and in the store when we getSubscriptionsMonthly, update store state to save the date with their subscription , and pass them tby props to calendarDAY
+onMounted(() => {
+  if (props.sourceDate && props.day) {
+    completeDate.value = props.sourceDate
       .set("date", props.day)
       .format("YYYY-MM-DD");
-    return currentDay === subscriptionStore.selectedDate;
+  } else {
+    return;
+  }
+  if (completeDate.value) {
+    const res = subscriptionStore.getSubscriptionsByDay(
+      dayjs(completeDate.value),
+    );
+    if (res && res?.length > 0) {
+      subscriptionActive.value = res;
+    }
+  }
+});
+
+// Logic to check if current day is the selected one
+const isSelectedDay = computed(() => {
+  if (
+    props.sourceDate &&
+    props.day &&
+    subscriptionStore.selectedDate &&
+    completeDate.value
+  ) {
+    return completeDate.value === subscriptionStore.selectedDate;
   }
 });
 
@@ -44,4 +71,6 @@ function handleClickDay() {
     return console.info("No date available");
   }
 }
+
+const subscriptionActive: Ref<Subscription[] | null> = ref(null);
 </script>

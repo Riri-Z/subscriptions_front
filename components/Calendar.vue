@@ -74,23 +74,13 @@ const {
 } = useDate();
 
 const subscriptionStore = useSubscriptionsStore();
-//Logic hightLight selected day
 
 //Load subscription on mount component
 onMounted(async () => {
-  const res = await subscriptionStore.getSubscriptionsMonthly(
-    startDayOftheMonth.value,
-  );
-  if (res) {
-    const result = subscriptionStore.getSubscriptionsByDay(
-      dayjs("2024-11-05T10:39:55.178Z"),
-    );
-    debugger;
-    console.log(result);
-  }
+  await subscriptionStore.getSubscriptionsMonthly(startDayOftheMonth.value);
 });
 
-////Load subscription when user update month
+//Load subscription when user update month
 watch(startDayOftheMonth, async (newDate) => {
   try {
     subscriptionStore.setSelectedDate(dayjs(newDate));

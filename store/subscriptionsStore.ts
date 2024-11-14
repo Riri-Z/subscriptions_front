@@ -20,19 +20,29 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
   getters: {
     getSubscriptionsByDay: (state) => (date: Dayjs) => {
       // Check if date is provide, and subscriptionsCurrentMonth is not null
+
       if (!state?.subscriptionsCurrentMonth || !date) {
         return null;
       }
       const result = [];
       // Verify if nextPayements in each subscriptionsCurrentMonth matc the provided date
       for (const subscription of state.subscriptionsCurrentMonth) {
-        const matchDate = subscription.nextsPayements.find(
-          (element) =>
-            dayjs(element).format("YYYY-MM-DD") === date.format("YYYY-MM-DD"),
-        );
+        const matchDate = subscription.nextsPayements.find((element) => {
+          const currentDay = dayjs(element).format("YYYY-MM-DD");
+          const propsDay = date.format("YYYY-MM-DD");
 
-        if (matchDate) result.push(subscription);
+          return currentDay === propsDay;
+        });
+
+        if (matchDate) {
+          result.push(subscription);
+        }
       }
+      if (result.length > 0) {
+        console.log("date", date);
+        console.log("result", result);
+      }
+
       return result;
     },
   },
