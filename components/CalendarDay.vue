@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO : ADD icons for each subscriptions cdt = nextPayements.includes( selectedDay) -->
   <button
     class="flex h-16 w-16 flex-col rounded-xl p-2"
     :class="{
@@ -11,7 +10,16 @@
   >
     <p>{{ day }}</p>
     <!-- TODO : COMPONENT DISPLAY ICON CURRENT SUBSCRIPTION -->
-    <p v-if="subscriptionActive">xxXXX</p>
+    <section class="flex flex-row flex-wrap">
+      <span
+        v-if="subscriptionActive"
+        v-for="subscription in subscriptionActive"
+      >
+        <p>
+          {{ subscription?.subscription?.name?.[0] }}
+        </p>
+      </span>
+    </section>
   </button>
 </template>
 
@@ -30,6 +38,8 @@ const props = defineProps<{
 }>();
 
 const completeDate: Ref<string | null> = ref(null);
+
+const subscriptionActive: Ref<Subscription[] | null> = ref(null);
 
 //TODO : Move this to calendar component, and in the store when we getSubscriptionsMonthly, update store state to save the date with their subscription , and pass them tby props to calendarDAY
 onMounted(() => {
@@ -71,6 +81,4 @@ function handleClickDay() {
     return console.info("No date available");
   }
 }
-
-const subscriptionActive: Ref<Subscription[] | null> = ref(null);
 </script>

@@ -2,8 +2,9 @@
   <div
     class="flex flex-col justify-center gap-4 rounded-xl bg-black p-10 align-middle text-white"
   >
-    <section id="header" class="flex flex-row justify-between">
+    <header id="header" class="flex flex-row justify-between">
       <div id="month" class="flex flex-row justify-center gap-2 align-middle">
+        <!-- Month navigation -->
         <section class="flex justify-center align-middle">
           <span
             class="flex h-[35px] w-[35px] cursor-pointer justify-center text-3xl"
@@ -18,7 +19,6 @@
             @:click="handleNextMonth"
           >
             <p class="hover:text-purple-300">></p>
-            <!-- TODO  : use icon  -->
           </span>
         </section>
 
@@ -27,11 +27,14 @@
           <p>{{ currentYear }}</p>
         </div>
       </div>
+      <!-- SPEND AMOUNT -->
       <div id="totalSpend">
         <p>Monthly spend</p>
         <p id="sum" class="text-end">40€</p>
       </div>
-    </section>
+    </header>
+    <!-- TODO : ADD loading spinner -->
+
     <div>
       <section id="days" class="mb-6 grid h-6 grid-cols-7 gap-2">
         <p
@@ -42,7 +45,14 @@
           {{ dayName }}
         </p>
       </section>
-      <section class="grid grid-cols-7 gap-2">
+      <div
+        v-if="subscriptionStore.loading"
+        class="flex h-[400px] w-[500px] justify-center align-bottom"
+      >
+        <p class="content-center">Loading</p>
+      </div>
+
+      <section v-else class="grid grid-cols-7 gap-2">
         <CalendarDay
           v-for="day in arrOfDays"
           :key="day?.id"

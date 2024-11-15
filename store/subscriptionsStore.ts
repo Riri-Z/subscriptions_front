@@ -38,15 +38,14 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
           result.push(subscription);
         }
       }
-      if (result.length > 0) {
-        console.log("date", date);
-        console.log("result", result);
-      }
 
       return result;
     },
   },
   actions: {
+    setSelectedSubscriptions(subscriptions: Subscription[]) {
+      return;
+    },
     openDetails() {
       this.isOpenDetails = true;
     },
