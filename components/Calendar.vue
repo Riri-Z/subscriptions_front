@@ -35,24 +35,19 @@
     </header>
     <!-- TODO : ADD loading spinner -->
 
-    <div>
-      <section id="days" class="mb-6 grid h-6 grid-cols-7 gap-2">
+    <main class="flex h-max w-[530px] flex-col">
+      <!--  DAYS OF THE WEEKS -->
+      <section id="days" class="mb-6 grid h-6 w-full grid-cols-7 gap-2">
         <p
           v-for="dayName in arrNameOfDays"
           :key="dayName"
-          class="w-16 rounded-xl bg-slate-600 p-2 text-center text-xs"
+          class="rounded-xl bg-slate-600 p-2 text-center text-xs"
         >
           {{ dayName }}
         </p>
       </section>
-      <div
-        v-if="subscriptionStore.loading"
-        class="flex h-[400px] w-[500px] justify-center align-bottom"
-      >
-        <p class="content-center">Loading</p>
-      </div>
 
-      <section v-else class="grid grid-cols-7 gap-2">
+      <section class="grid w-full grid-cols-7 gap-2">
         <CalendarDay
           v-for="day in arrOfDays"
           :key="day?.id"
@@ -63,7 +58,7 @@
           "
         />
       </section>
-    </div>
+    </main>
   </div>
 </template>
 

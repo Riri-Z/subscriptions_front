@@ -21,7 +21,7 @@ const handleOpenModalAddSubscription = () => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex w-56 flex-col justify-around rounded-xl bg-black p-4 align-middle"
+    class="flex h-[300px] w-full flex-col justify-around rounded-xl bg-black p-4 align-middle lg:h-full lg:w-56"
   >
     <h1 class="text-center">Vos prélévements prévus le {{ selectedDate }}</h1>
     <div

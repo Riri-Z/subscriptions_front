@@ -16,14 +16,13 @@
       />
       <ErrorMessage class="text-xs text-red-400" :name="name" />
     </div>
-    <SubmitForm label="Submit" :disabled="!meta.valid"></SubmitForm>
+    <SubmitForm label="Connexion" :disabled="!meta.valid"></SubmitForm>
   </Form>
 </template>
 
 <script lang="ts" setup>
 import { Form, Field, ErrorMessage, type GenericObject } from "vee-validate";
 import SubmitForm from "./SubmitForm.vue";
-import type { RegisterValues } from "~/schema/register";
 
 const props = defineProps({
   schema: {

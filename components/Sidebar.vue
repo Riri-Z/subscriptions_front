@@ -1,18 +1,17 @@
 <template>
   <div
     id="sidebar"
-    class="flex md:w-20 min-w-full flex-row justify-between bg-card-color md:flex-col"
+    class="flex w-full flex-row justify-around bg-card-color lg:w-28 lg:flex-col"
   >
-    <!-- FIX this : when not in mobile with sidebar is full-->
     <span
-      class="ml-8 mt-8 h-[65px] border-b-2 border-none text-center text-primary-white-color md:mt-6 md:border-gray-300"
+      class="mt-auto h-[65px] text-center text-primary-white-color lg:mt-1 lg:border-b-2 lg:border-gray-300"
       >Subscriptions tracker</span
     >
-    <div class="hidden md:flex-auto">
-      <!--TODO : Responsive : burger menu -->
-      <div
+    <!-- ICONS NAVLINK -->
+    <div class="flex flex-row lg:flex-col">
+      <main
         v-for="icon in icons"
-        class="flex h-28 cursor-pointer fill-slate-200 text-white transition-all duration-300 hover:bg-gray-600"
+        class="flex cursor-pointer gap-5 fill-slate-200 text-white transition-all duration-300 hover:bg-gray-600 lg:h-28"
         @click="handleNavLink(icon.name)"
       >
         <NuxtImg
@@ -23,10 +22,9 @@
           width="24"
           height="24"
         />
-      </div>
+      </main>
     </div>
-
-    <div class="m-auto transition-all duration-300 hover:bg-gray-600 md:py-10">
+    <div class="py-10 transition-all duration-300 hover:bg-gray-600">
       <SignOut />
     </div>
   </div>
@@ -35,6 +33,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
+
+const { isMobileOrTablet } = useDevice();
 
 interface Icon {
   id: number;
@@ -48,21 +48,21 @@ const icons = ref<Icon[]>([
     name: "home",
     path: "/icons/home.svg",
   },
-  {
+  /*   {
     id: 2,
     name: "profile",
     path: "/icons/profile.svg",
-  },
+  }, */
   {
     id: 3,
     name: "calendar",
     path: "/icons/calendar.svg",
   },
-  {
+  /*   {
     id: 4,
     name: "settings",
     path: "/icons/settings.svg",
-  },
+  }, */
 ]);
 
 async function handleNavLink(route: string) {

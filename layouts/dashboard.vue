@@ -1,8 +1,8 @@
 <template>
-  <div class="flex h-[100vh] md:h-[100vh] min-w-full md:w-[100vw] flex-col md:flex-row">
+  <div class="flex h-[100vh] min-w-full flex-col lg:flex-row">
     <Sidebar />
 
-    <div class="flex h-[100vh] md:flex-1 bg-custom-gradient"><slot /></div>
+    <div class="flex bg-custom-gradient md:flex-1 lg:h-[100vh]"><slot /></div>
   </div>
 </template>
 

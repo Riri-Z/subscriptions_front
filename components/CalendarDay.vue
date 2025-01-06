@@ -1,10 +1,9 @@
 <template>
   <button
-    class="flex h-16 w-16 flex-col rounded-xl p-2"
+    class="fex-col flex h-16 rounded-xl bg-slate-800 p-2"
     :class="{
-      'bg-green-color': isSelectedDay,
-      'bg-slate-600': day !== null,
-      'bg-slate-800': day === null,
+      'bg-green-700': isSelectedDay,
+      'bg-slate-500': day !== null,
     }"
     @click="handleClickDay"
   >
@@ -41,13 +40,14 @@ const completeDate: Ref<string | null> = ref(null);
 
 const subscriptionActive: Ref<Subscription[] | null> = ref(null);
 
-//TODO : Move this to calendar component, and in the store when we getSubscriptionsMonthly, update store state to save the date with their subscription , and pass them tby props to calendarDAY
+//TODO : Move this to calendar component, and in the store when we getSubscriptionsMonthly, update store state to save the date with their subscription , and pass them by props to calendarDAY
 onMounted(() => {
   if (props.sourceDate && props.day) {
     completeDate.value = props.sourceDate
       .set("date", props.day)
       .format("YYYY-MM-DD");
   } else {
+    console.error("missing sourceDate & day props");
     return;
   }
   if (completeDate.value) {
@@ -62,13 +62,11 @@ onMounted(() => {
 
 // Logic to check if current day is the selected one
 const isSelectedDay = computed(() => {
-  if (
-    props.sourceDate &&
-    props.day &&
-    subscriptionStore.selectedDate &&
-    completeDate.value
-  ) {
-    return completeDate.value === subscriptionStore.selectedDate;
+  if (props.currentDate && subscriptionStore.selectedDate) {
+    return (
+      props.currentDate &&
+      props.currentDate.format("YYYY-MM-DD") == subscriptionStore.selectedDate
+    );
   }
 });
 

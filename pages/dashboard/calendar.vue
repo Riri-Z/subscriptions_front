@@ -1,6 +1,11 @@
 <template>
-  <div class="m-auto flex flex-row text-primary-white-color">
-    <main v-if="!subscriptionStore.isModalOpen" class="flex gap-2">
+  <div
+    class="m-auto flex flex-row text-primary-white-color lg:w-9/12 lg:justify-center"
+  >
+    <main
+      v-if="!subscriptionStore.isModalOpen"
+      class="mt-2 flex flex-col gap-2 lg:mt-0 lg:flex-row"
+    >
       <Calendar />
       <CardsSubscriptionsDetails
         v-if="selectedDate && subscriptionsCurrentMonth"

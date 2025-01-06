@@ -1,4 +1,9 @@
 export default defineNuxtRouteMiddleware((to, from) => {
+  const { status } = useAuth();
+  /*
+    if(status.value === "authenticated") {
+      return navigateTo("/dashboard/calendar");
+    } */
   if (to.path === "/") {
     return navigateTo("/login");
   }

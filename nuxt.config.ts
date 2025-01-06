@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@sidebase/nuxt-auth",
     "nuxt-auth-utils",
+    "@nuxtjs/device", // TODO : check if we still need it
   ],
   auth: {
     isEnabled: true,

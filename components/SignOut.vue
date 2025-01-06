@@ -9,7 +9,7 @@
         width="20"
         height="20"
       />
-      <p class="text-sm">&nbsp;Quitter</p>
+      <!-- <p class="text-sm">&nbsp;Quitter</p> -->
     </div>
   </button>
 </template>
