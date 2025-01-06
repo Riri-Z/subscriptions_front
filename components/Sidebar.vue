@@ -1,10 +1,15 @@
 <template>
-  <div id="sidebar" class="flex w-28 flex-col bg-card-color">
+  <div
+    id="sidebar"
+    class="flex md:w-20 min-w-full flex-row justify-between bg-card-color md:flex-col"
+  >
+    <!-- FIX this : when not in mobile with sidebar is full-->
     <span
-      class="mt-6 h-[65px] border-b-2 border-gray-300 text-center text-primary-white-color"
+      class="ml-8 mt-8 h-[65px] border-b-2 border-none text-center text-primary-white-color md:mt-6 md:border-gray-300"
       >Subscriptions tracker</span
     >
-    <div class="flex-auto">
+    <div class="hidden md:flex-auto">
+      <!--TODO : Responsive : burger menu -->
       <div
         v-for="icon in icons"
         class="flex h-28 cursor-pointer fill-slate-200 text-white transition-all duration-300 hover:bg-gray-600"
@@ -21,7 +26,7 @@
       </div>
     </div>
 
-    <div class="py-10 transition-all duration-300 hover:bg-gray-600">
+    <div class="m-auto transition-all duration-300 hover:bg-gray-600 md:py-10">
       <SignOut />
     </div>
   </div>
