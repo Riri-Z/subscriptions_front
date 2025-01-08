@@ -4,7 +4,7 @@
   >
     <main
       v-if="!subscriptionStore.isModalOpen"
-      class="mt-2 flex flex-col gap-2 lg:mt-0 lg:flex-row"
+      class="flex flex-col gap-4 p-4 lg:mt-0 lg:flex-row"
     >
       <Calendar />
       <CardsSubscriptionsDetails

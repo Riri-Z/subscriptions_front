@@ -4,15 +4,16 @@
     class="flex h-20 w-full flex-row bg-card-color lg:h-full lg:w-28 lg:flex-col"
   >
     <span
-      class="hidden h-[65px] text-center text-primary-white-color lg:mt-4 lg:inline lg:border-b-2 lg:border-gray-300"
-      >Subscriptions tracker</span
+      class="align-center hidden h-[125px] text-center text-primary-white-color lg:flex lg:border-b-2 lg:border-gray-300"
     >
+      <h1 class="m-auto">Subscriptions tracker</h1>
+    </span>
 
     <!-- ICONS NAVLINK -->
     <div class="flex w-full flex-row justify-around lg:flex-col">
       <div
         v-for="icon in icons"
-        class="flex cursor-pointer gap-5 fill-slate-200 text-white transition-all duration-300 hover:bg-gray-600 lg:h-28"
+        class="flex cursor-pointer gap-5 fill-slate-200 text-white transition-all duration-300 lg:h-28 lg:hover:bg-gray-600"
         @click="handleNavLink(icon.name)"
       >
         <NuxtImg
