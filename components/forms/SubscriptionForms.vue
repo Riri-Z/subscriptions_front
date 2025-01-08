@@ -6,7 +6,6 @@ import {
   BillingCycle,
   SubscriptionCategory,
 } from "~/types/store/subscriptionsStore";
-
 const CATEGORIES_OPTIONS: SubscriptionCategory = ref([
   { value: SubscriptionCategory.FOOD, text: "Alimentation" },
   { value: SubscriptionCategory.HEALTH, text: "Santé" },
@@ -34,7 +33,7 @@ const validationSchema = yup.object({
 
   endDate: yup.string(),
   billingCycle: yup.mixed<BillingCycle>().oneOf(Object.values(BillingCycle)),
-  category: yup
+  subscriptionCategory: yup
     .mixed<SubscriptionCategory>()
     .oneOf(Object.values(SubscriptionCategory)),
 });
@@ -46,7 +45,7 @@ const { errors, handleSubmit, defineField } = useForm({
     subscriptionName: "",
     startDate: subscriptionStore.selectedDate,
     billingCycle: "MONTHLY",
-    category: SubscriptionCategory.OTHER,
+    subscriptionCategory: SubscriptionCategory.OTHER,
     endDate: "",
   },
 });
@@ -57,6 +56,7 @@ const [subscriptionName, subscriptionNameAttrs] =
 const [startDate, startDateAttrs] = defineField("startDate");
 const [endDate, endDateAttrs] = defineField("endDate");
 const [billingCycle, billingCycleAttrs] = defineField("billingCycle");
+const [subscriptionCategory, subscriptionCategoryAttrs] = defineField("subscriptionCategory");
 
 const emit = defineEmits(["postSubscription"]);
 
@@ -143,18 +143,18 @@ const onSubmit = handleSubmit((values) => {
       <option value="YEARLY">Annuel</option>
     </select>
     <!-- Category  -->
-    <label class="text-primary-black-color font-bold" for="category"
+    <label class="text-primary-black-color font-bold" for="subscriptionCategory"
       >Catégorie<span class="text-red-500"> *</span></label
     >
     <select
-      id="category"
-      v-model="category"
+      id="subscriptionCategory"
+      v-model="subscriptionCategory"
       class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
       name="billingCycle"
-      v-bind="billingCycleAttrs"
+      v-bind="subscriptionCategoryAttrs"
     >
-      <option v-for="category in CATEGORIES_OPTIONS" :value="category.value">
-        {{ category.text }}
+      <option v-for="subscriptionCategory in CATEGORIES_OPTIONS" :value="subscriptionCategory.value">
+        {{ subscriptionCategory.text }}
       </option>
     </select>
 
