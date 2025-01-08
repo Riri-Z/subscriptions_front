@@ -1,15 +1,14 @@
 <template>
-  <button class="flex w-full items-center text-white" @click="handleSignOut">
+  <button class="flex items-center text-white lg:h-28" @click="handleSignOut">
     <div class="mx-auto flex flex-row gap-1">
       <NuxtImg
         :key="icon.id"
         class=""
         :src="icon.path"
         :alt="icon.name"
-        width="20"
-        height="20"
+        width="16"
+        height="16"
       />
-      <!-- <p class="text-sm">&nbsp;Quitter</p> -->
     </div>
   </button>
 </template>

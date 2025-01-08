@@ -1,15 +1,16 @@
 <template>
   <div
     id="sidebar"
-    class="flex w-full flex-row justify-around bg-card-color lg:w-28 lg:flex-col"
+    class="flex h-20 w-full flex-row bg-card-color lg:h-full lg:w-28 lg:flex-col"
   >
     <span
-      class="mt-auto h-[65px] text-center text-primary-white-color lg:mt-1 lg:border-b-2 lg:border-gray-300"
+      class="hidden h-[65px] text-center text-primary-white-color lg:mt-4 lg:inline lg:border-b-2 lg:border-gray-300"
       >Subscriptions tracker</span
     >
+
     <!-- ICONS NAVLINK -->
-    <div class="flex flex-row lg:flex-col">
-      <main
+    <div class="flex w-full flex-row justify-around lg:flex-col">
+      <div
         v-for="icon in icons"
         class="flex cursor-pointer gap-5 fill-slate-200 text-white transition-all duration-300 hover:bg-gray-600 lg:h-28"
         @click="handleNavLink(icon.name)"
@@ -22,11 +23,13 @@
           width="24"
           height="24"
         />
-      </main>
-    </div>
-    <div class="py-10 transition-all duration-300 hover:bg-gray-600">
+      </div>
       <SignOut />
     </div>
+
+    <!-- LOGOUT -->
+    <!-- <div class="py-10 transition-all duration-300 hover:bg-gray-600">
+    </div> -->
   </div>
 </template>
 
