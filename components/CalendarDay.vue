@@ -1,6 +1,6 @@
 <template>
   <button
-    class="fex-col flex h-16 rounded-xl p-2"
+    class="fex-col flex h-10 rounded-xl p-2 lg:h-16"
     :class="{
       'bg-slate-500': day !== null && !selectedDay,
       'bg-slate-800': day === null,
@@ -8,7 +8,7 @@
     }"
     @click="handleClickDay"
   >
-    <p>{{ day }}</p>
+    <p class="text-xs lg:text-base">{{ day }}</p>
     <!-- TODO : COMPONENT DISPLAY ICON CURRENT SUBSCRIPTION -->
     <section class="flex flex-row flex-wrap">
       <span

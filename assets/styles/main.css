@@ -8,9 +8,9 @@
   width: 8px;
 }
 
-@media (max-width: 1249px) {
+@media (max-width: 1250px) {
   ::-webkit-scrollbar {
-    width: 0px;
+    width: 4px;
   }
 }
 

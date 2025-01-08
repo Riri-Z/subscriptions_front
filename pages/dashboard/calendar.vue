@@ -1,4 +1,5 @@
 <template>
+  <!-- CALENDAR -->
   <div
     class="m-auto flex flex-row text-primary-white-color lg:w-9/12 lg:justify-center"
   >

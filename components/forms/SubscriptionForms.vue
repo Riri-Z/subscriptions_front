@@ -56,7 +56,9 @@ const [subscriptionName, subscriptionNameAttrs] =
 const [startDate, startDateAttrs] = defineField("startDate");
 const [endDate, endDateAttrs] = defineField("endDate");
 const [billingCycle, billingCycleAttrs] = defineField("billingCycle");
-const [subscriptionCategory, subscriptionCategoryAttrs] = defineField("subscriptionCategory");
+const [subscriptionCategory, subscriptionCategoryAttrs] = defineField(
+  "subscriptionCategory",
+);
 
 const emit = defineEmits(["postSubscription"]);
 
@@ -153,7 +155,10 @@ const onSubmit = handleSubmit((values) => {
       name="billingCycle"
       v-bind="subscriptionCategoryAttrs"
     >
-      <option v-for="subscriptionCategory in CATEGORIES_OPTIONS" :value="subscriptionCategory.value">
+      <option
+        v-for="subscriptionCategory in CATEGORIES_OPTIONS"
+        :value="subscriptionCategory.value"
+      >
         {{ subscriptionCategory.text }}
       </option>
     </select>
