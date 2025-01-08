@@ -2,7 +2,19 @@
 import { useField, useForm, ErrorMessage } from "vee-validate";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import * as yup from "yup";
-import { BillingCycle } from "~/types/store/subscriptionsStore";
+import {
+  BillingCycle,
+  SubscriptionCategory,
+} from "~/types/store/subscriptionsStore";
+
+const CATEGORIES_OPTIONS: SubscriptionCategory = ref([
+  { value: SubscriptionCategory.FOOD, text: "Alimentation" },
+  { value: SubscriptionCategory.HEALTH, text: "Santé" },
+  { value: SubscriptionCategory.SPORT, text: "Sport" },
+  { value: SubscriptionCategory.FINANCE, text: "Finance" },
+  { value: SubscriptionCategory.ENTERTAINMENT, text: "Loisir" },
+  { value: SubscriptionCategory.OTHER, text: "Autre" },
+]);
 
 const subscriptionStore = useSubscriptionsStore();
 
@@ -22,6 +34,9 @@ const validationSchema = yup.object({
 
   endDate: yup.string(),
   billingCycle: yup.mixed<BillingCycle>().oneOf(Object.values(BillingCycle)),
+  category: yup
+    .mixed<SubscriptionCategory>()
+    .oneOf(Object.values(SubscriptionCategory)),
 });
 
 const { errors, handleSubmit, defineField } = useForm({
@@ -31,6 +46,7 @@ const { errors, handleSubmit, defineField } = useForm({
     subscriptionName: "",
     startDate: subscriptionStore.selectedDate,
     billingCycle: "MONTHLY",
+    category: SubscriptionCategory.OTHER,
     endDate: "",
   },
 });
@@ -50,13 +66,13 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-  <h1 class="py-4 text-center text-2xl text-primary-white-color">
+  <h1 class="text-primary-black-color py-2 text-center text-2xl">
     Ajouter un abonnement
   </h1>
   <form class="flex flex-col gap-2 p-2" @submit="onSubmit">
     <!-- subscriptionName -->
     <label
-      class="block text-sm font-bold text-primary-white-color"
+      class="text-primary-black-color block text-sm font-bold"
       for="subscriptionName"
       >Nom<span class="text-red-500"> *</span></label
     >
@@ -70,7 +86,7 @@ const onSubmit = handleSubmit((values) => {
     <span class="text-xs text-red-400">{{ errors.subscriptionName }}</span>
 
     <!-- amount  -->
-    <label class="font-bold text-primary-white-color" for="amount"
+    <label class="text-primary-black-color font-bold" for="amount"
       >Montant<span class="text-red-500"> *</span></label
     >
     <input
@@ -85,7 +101,7 @@ const onSubmit = handleSubmit((values) => {
 
     <!--  startDate-->
 
-    <label class="font-bold text-primary-white-color" for="startDate"
+    <label class="text-primary-black-color font-bold" for="startDate"
       >Date de début<span class="text-red-500"> *</span></label
     >
     <input
@@ -98,7 +114,7 @@ const onSubmit = handleSubmit((values) => {
     />
     <span class="text-xs text-red-400">{{ errors.startDate }}</span>
     <!-- endDate -->
-    <label class="font-bold text-primary-white-color" for="endDate"
+    <label class="text-primary-black-color font-bold" for="endDate"
       >Date de fin
     </label>
     <input
@@ -112,8 +128,8 @@ const onSubmit = handleSubmit((values) => {
     <span class="text-xs text-red-400">{{ errors.endDate }}</span>
 
     <!--BillingCycle  -->
-    <label class="font-bold text-primary-white-color" for="billingCycle"
-      >billingCycle<span class="text-red-500"> *</span></label
+    <label class="text-primary-black-color font-bold" for="billingCycle"
+      >Cycle de paiement<span class="text-red-500"> *</span></label
     >
     <select
       id="billingCycle"
@@ -123,18 +139,34 @@ const onSubmit = handleSubmit((values) => {
       v-bind="billingCycleAttrs"
     >
       <option value="WEEKLY">Hebdomadaire</option>
-      <option value="MONTHLY">Mensuelle</option>
-      <option value="YEARLY">Annuelle</option>
+      <option value="MONTHLY">Mensuel</option>
+      <option value="YEARLY">Annuel</option>
     </select>
+    <!-- Category  -->
+    <label class="text-primary-black-color font-bold" for="category"
+      >Catégorie<span class="text-red-500"> *</span></label
+    >
+    <select
+      id="category"
+      v-model="category"
+      class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
+      name="billingCycle"
+      v-bind="billingCycleAttrs"
+    >
+      <option v-for="category in CATEGORIES_OPTIONS" :value="category.value">
+        {{ category.text }}
+      </option>
+    </select>
+
     <section class="flex">
       <button
         type="submit"
-        class="border-white-950 my-5 mr-5 h-10 w-full rounded-md border-2 text-white hover:bg-blue-500 disabled:bg-slate-300 disabled:shadow"
+        class="border-white-950 my-5 mr-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
       >
         Sauvegarder
       </button>
       <button
-        class="border-white-950 my-5 ml-5 h-10 w-full rounded-md border-2 text-white hover:bg-blue-500 hover:shadow-box-shadow-color disabled:bg-slate-300 disabled:shadow"
+        class="border-white-950 my-5 ml-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 hover:shadow-box-shadow-color disabled:bg-slate-300 disabled:shadow"
         @click="subscriptionStore.closeModal"
       >
         Fermer

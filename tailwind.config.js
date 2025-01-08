@@ -22,7 +22,7 @@ export default {
         "primary-white-color": "#fafafa",
         "dark-button-color": "#21182b",
         "card-color": "#282828",
-        "green-color": "#66bb6a",
+        "green-color": "#166534",
       },
       backgroundImage: {
         "custom-gradient":

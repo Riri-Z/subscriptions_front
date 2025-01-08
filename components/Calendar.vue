@@ -29,7 +29,7 @@
       </div>
       <!-- SPEND AMOUNT -->
       <div id="totalSpend">
-        <p>Monthly spend</p>
+        <p>Dépense prévue</p>
         <p id="sum" class="text-end">40€</p>
       </div>
     </header>

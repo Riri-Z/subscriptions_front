@@ -22,7 +22,7 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   <Teleport v-if="subscriptionStore.isModalOpen" to="#sidebar">
     <div
       v-if="subscriptionStore.isModalOpen"
-      class="fixed left-[41%] top-[10%] z-[50] flex w-[400px] max-w-lg flex-col justify-evenly gap-2 rounded-lg bg-purple-800 p-6"
+      class="absolute left-1/2 top-[3%] z-[50] flex min-w-80 -translate-x-1/2 flex-col justify-evenly gap-2 rounded-lg bg-white p-6 md:top-[20%] md:w-[300px] lg:w-[400px]"
     >
       <SubscriptionForms @post-subscription="handlePostSubscription" />
     </div>

@@ -27,7 +27,17 @@ export interface PostSubscriptions {
   endDate: Date | string;
   amount: number;
   billingCycle: BillingCycle;
+  category: SubscriptionCategory;
   statusSubscription: StatusSubscription;
+}
+
+export enum SubscriptionCategory {
+  LEISURE = "LEISURE",
+  FOOD = "FOOD",
+  SANT = "SPORT",
+  HEALTH = "HEALTH",
+  FINANCE = "FINANCE",
+  OTHER = "OTHER",
 }
 
 export interface SubscriptionsStore {

@@ -21,12 +21,12 @@ const handleOpenModalAddSubscription = () => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex h-[300px] w-full flex-col justify-around rounded-xl bg-black p-4 align-middle lg:h-full lg:w-56"
+    class="flex h-[300px] w-full flex-col justify-between rounded-xl bg-black p-4 align-middle lg:h-full lg:w-56"
   >
     <h1 class="text-center">Vos prélévements prévus le {{ selectedDate }}</h1>
     <div
       v-if="subscriptionsCurrentMonth && subscriptionsCurrentMonth.length > 0"
-      class="flex max-h-[300px] flex-col gap-4 overflow-y-auto"
+      class="flex max-h-[300px] flex-col gap-2 overflow-y-auto"
     >
       <div
         v-for="subscription in subscriptionsCurrentMonth"
@@ -45,10 +45,10 @@ const handleOpenModalAddSubscription = () => {
     </div>
     <div class="flex justify-center">
       <button
-        class="flex flex-col rounded-md bg-green-color p-2 text-sm"
+        class="w-full rounded-md bg-green-color p-2 text-sm"
         @click="handleOpenModalAddSubscription"
       >
-        Ajouter un abonnement
+        <p class="text-center">Ajouter un abonnement</p>
       </button>
     </div>
   </div>

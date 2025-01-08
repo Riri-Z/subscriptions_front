@@ -25,6 +25,7 @@
 
 <script lang="ts" setup>
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
+import dayjs, { Dayjs } from "dayjs";
 import type { Subscription } from "~/types/store/subscriptionsStore";
 const subscriptionStore = useSubscriptionsStore();
 
