@@ -1,10 +1,15 @@
 import dayjs, { type Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
+import dayOfYear from "dayjs/plugin/dayOfYear";
+
 dayjs.extend(utc);
+dayjs.extend(dayOfYear);
 
 export const useDate = () => {
+  const getDayInMonth = (date: string) => {
+    return dayjs(date).date();
+  };
   const sourceDate: Ref<Dayjs> = ref(dayjs(new Date()).set("date", 1));
-
   const currentMonth: ComputedRef<number> = computed(() =>
     sourceDate.value.get("month"),
   );
@@ -80,5 +85,6 @@ export const useDate = () => {
     arrOfDays,
     startDayOftheMonth,
     sourceDate,
+    getDayInMonth,
   };
 };
