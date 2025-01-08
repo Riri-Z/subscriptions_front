@@ -22,6 +22,7 @@ export interface Subscription {
 }
 
 export interface PostSubscriptions {
+  id?: number;
   subscriptionName: string;
   startDate: Date | string;
   endDate: Date | string;
@@ -44,6 +45,7 @@ export interface SubscriptionsStore {
   isModalOpen: boolean;
   isOpenDetails: boolean;
   subscriptions: null | Subscription[];
+  selectedSubscription: null | Subscription;
   subscriptionsCurrentMonth: null | Subscription[];
   loading: boolean;
   selectedDate: null | string;

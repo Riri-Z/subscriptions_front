@@ -13,6 +13,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     isModalOpen: false,
     isOpenDetails: false,
     subscriptions: null as Subscription[] | null,
+    selectedSubscription: null as Subscription | null,
     subscriptionsCurrentMonth: null as Subscription[] | null,
     loading: false,
     selectedDate: null,
@@ -43,8 +44,8 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
   },
   actions: {
-    setSelectedSubscriptions(subscriptions: Subscription[]) {
-      return;
+    setSelectedSubscription(subscriptions: Subscription) {
+      this.selectedSubscription = subscriptions;
     },
     openDetails() {
       this.isOpenDetails = true;
@@ -56,6 +57,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       this.isModalOpen = true;
     },
     closeModal() {
+      this.selectedSubscription = null;
       this.isModalOpen = false;
     },
     setSelectedDate(date: Dayjs) {
@@ -65,17 +67,51 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         this.selectedDate = date.format("YYYY-MM-DD");
       }
     },
+    /*
+    j'envoie les données, dedans il y  a un id ? si non je crée un abonnement, si oui je met à jour l'abonnement
+
+
+    */
+    async updateSubscription(formData: Partial<PostSubscriptions>) {
+      if (!this.selectedSubscription?.id) {
+        console.error("no id provided");
+        /*
+      TODO : fermer la modal ici , attendre le retour , avec loading  sur la modal
+      */
+        return;
+      }
+      try {
+        const updatedSubscription = {
+          ...this.selectedSubscription,
+          ...formData,
+        };
+        console.log("updatedSubscription", updatedSubscription);
+        console.log(this.selectedSubscription.id);
+        const resultUpdateSubscription = await useAPI<
+          ApiResponse<Subscription>
+        >("/user-subscriptions/" + this.selectedSubscription.id, {
+          method: "patch",
+          body: updatedSubscription,
+        });
+        if (resultUpdateSubscription?.statusCode !== 200) {
+          throw new Error("failed updating subscription");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.loading = false;
+        this.closeModal();
+      }
+    },
     async postUserSubscriptions(formData: Partial<PostSubscriptions>) {
       this.loading = true;
-
       try {
-        const resultPostNewUserSubscription = await useAPI<ApiResponse>(
-          "/user-subscriptions",
-          {
-            method: "post",
-            body: formData,
-          },
-        );
+        const resultPostNewUserSubscription = await useAPI<
+          ApiResponse<Subscription>
+        >("/user-subscriptions", {
+          method: "post",
+          body: formData,
+        });
         if (resultPostNewUserSubscription?.statusCode !== 201) {
           throw new Error("failed creating new subscription");
         }

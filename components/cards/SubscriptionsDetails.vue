@@ -16,27 +16,45 @@ defineProps({
 const handleOpenModalAddSubscription = () => {
   subscriptionStore.openModal();
 };
+
+function handleClickSubscriptionDetail(subscription: Subscription) {
+  subscriptionStore.setSelectedSubscription(subscription);
+  subscriptionStore.openModal(subscription);
+}
 </script>
 
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex h-[300px] w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle md:justify-around lg:h-full lg:w-56"
+    class="flex h-[300px] w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle md:justify-around lg:h-full lg:w-4/6"
   >
     <h1 class="text-center">Vos prélévements prévus le {{ selectedDate }}</h1>
     <div
       v-if="subscriptionsCurrentMonth && subscriptionsCurrentMonth.length > 0"
       class="flex max-h-[300px] flex-col gap-2 overflow-y-auto"
     >
+      <!-- LIST OF SUBSCRIPTION -->
       <div
         v-for="subscription in subscriptionsCurrentMonth"
         class="mx-2 flex cursor-pointer flex-col rounded-md p-2 text-sm odd:bg-gray-900 even:bg-gray-700 hover:bg-green-color"
         :key="subscription.id"
+        @click="handleClickSubscriptionDetail(subscription)"
       >
         <!-- Each subscription details -->
-        <section class=" ">
-          <p>Nom : {{ subscription?.subscription?.name }}</p>
-          <p>Montant : {{ subscription?.amount }} €</p>
+        <section class="flex flex-row justify-between">
+          <div>
+            <p>Nom : {{ subscription?.subscription?.name }}</p>
+            <p>Montant : {{ subscription?.amount }} €</p>
+          </div>
+          <div class="bg-red flex items-center">
+            <NuxtImg
+              class="m-auto"
+              alt="clipboard icon"
+              src="/icons/edit.svg"
+              width="24"
+              height="24"
+            />
+          </div>
         </section>
       </div>
     </div>

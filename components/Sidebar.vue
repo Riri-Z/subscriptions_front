@@ -27,10 +27,6 @@
       </div>
       <SignOut />
     </div>
-
-    <!-- LOGOUT -->
-    <!-- <div class="py-10 transition-all duration-300 hover:bg-gray-600">
-    </div> -->
   </div>
 </template>
 

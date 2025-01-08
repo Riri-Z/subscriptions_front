@@ -9,7 +9,11 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
     delete formData.endDate;
   }
   try {
-    await subscriptionStore.postUserSubscriptions(formData);
+    if (subscriptionStore.selectedSubscription) {
+      await subscriptionStore.updateSubscription(formData);
+    } else {
+      await subscriptionStore.postUserSubscriptions(formData);
+    }
   } catch (error) {
     console.error(error);
   } finally {

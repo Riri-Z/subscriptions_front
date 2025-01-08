@@ -2,6 +2,7 @@
 import { useField, useForm, ErrorMessage } from "vee-validate";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import * as yup from "yup";
+import dayjs from "dayjs";
 import {
   BillingCycle,
   SubscriptionCategory,
@@ -23,7 +24,7 @@ const validationSchema = yup.object({
     .number()
     .default(0)
     .min(0)
-    .max(999)
+    .max(999999)
     .typeError("Doit être un nombre valide")
     .required("Un montant est requis"),
   startDate: yup
@@ -38,16 +39,41 @@ const validationSchema = yup.object({
     .oneOf(Object.values(SubscriptionCategory)),
 });
 
+const defaultFormValue = computed(() => {
+  if (subscriptionStore && subscriptionStore?.selectedSubscription) {
+    return {
+      amount: subscriptionStore.selectedSubscription.amount,
+      subscriptionName:
+        subscriptionStore.selectedSubscription.subscription.name,
+      startDate: subscriptionStore.selectedSubscription.startDate
+        ? dayjs(subscriptionStore.selectedSubscription.startDate).format(
+            "YYYY-MM-DD",
+          )
+        : "",
+      endDate: subscriptionStore.selectedSubscription.endDate
+        ? dayjs(subscriptionStore.selectedSubscription.endDate).format(
+            "YYYY-MM-DD",
+          )
+        : "",
+      billingCycle: subscriptionStore.selectedSubscription.billingCycle,
+      subscriptionCategory:
+        subscriptionStore.selectedSubscription.subscription.category,
+    };
+  } else {
+    return {
+      amount: 0,
+      subscriptionName: "",
+      startDate: subscriptionStore.selectedDate,
+      endDate: "",
+      billingCycle: BillingCycle.MONTHLY,
+      subscriptionCategory: SubscriptionCategory.OTHER,
+    };
+  }
+});
+
 const { errors, handleSubmit, defineField } = useForm({
   validationSchema: validationSchema,
-  initialValues: {
-    amount: 0,
-    subscriptionName: "",
-    startDate: subscriptionStore.selectedDate,
-    billingCycle: "MONTHLY",
-    subscriptionCategory: SubscriptionCategory.OTHER,
-    endDate: "",
-  },
+  initialValues: defaultFormValue.value,
 });
 
 const [amount, amountAttrs] = defineField("amount");
@@ -65,13 +91,22 @@ const emit = defineEmits(["postSubscription"]);
 const onSubmit = handleSubmit((values) => {
   emit("postSubscription", values);
 });
+
+function handleCancelSubscription() {
+  subscriptionStore.setSelectedSubscription(null);
+  subscriptionStore.closeModal();
+}
 </script>
 
 <template>
   <h1 class="text-primary-black-color py-2 text-center text-2xl">
-    Ajouter un abonnement
+    {{
+      subscriptionStore.selectedSubscription
+        ? "Editer l'abonnement"
+        : "Ajouter un abonnement"
+    }}
   </h1>
-  <form class="flex flex-col gap-2 p-2" @submit="onSubmit">
+  <form class="flex flex-col gap-2 p-2">
     <!-- subscriptionName -->
     <label
       class="text-primary-black-color block text-sm font-bold"
@@ -165,16 +200,18 @@ const onSubmit = handleSubmit((values) => {
 
     <section class="flex">
       <button
-        type="submit"
+        @click="onSubmit"
+        type="button"
         class="border-white-950 my-5 mr-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
       >
         Sauvegarder
       </button>
       <button
+        type="button"
         class="border-white-950 my-5 ml-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 hover:shadow-box-shadow-color disabled:bg-slate-300 disabled:shadow"
-        @click="subscriptionStore.closeModal"
+        @click="handleCancelSubscription"
       >
-        Fermer
+        Annuler
       </button>
     </section>
   </form>
