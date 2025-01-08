@@ -1,9 +1,10 @@
 <template>
   <button
-    class="fex-col flex h-16 rounded-xl bg-slate-800 p-2"
+    class="fex-col flex h-16 rounded-xl p-2"
     :class="{
-      'bg-green-700': isSelectedDay,
-      'bg-slate-500': day !== null,
+      'bg-slate-500': day !== null && !selectedDay,
+      'bg-slate-800': day === null,
+      'bg-green-800': selectedDay,
     }"
     @click="handleClickDay"
   >
@@ -23,21 +24,18 @@
 </template>
 
 <script lang="ts" setup>
-import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import type { Subscription } from "~/types/store/subscriptionsStore";
-
 const subscriptionStore = useSubscriptionsStore();
 
 const props = defineProps<{
   day: null | number;
   sourceDate: Dayjs | null;
   currentDate: Dayjs | null | 0;
+  selectedDay: boolean;
 }>();
 
 const completeDate: Ref<string | null> = ref(null);
-
 const subscriptionActive: Ref<Subscription[] | null> = ref(null);
 
 //TODO : Move this to calendar component, and in the store when we getSubscriptionsMonthly, update store state to save the date with their subscription , and pass them by props to calendarDAY
@@ -46,9 +44,6 @@ onMounted(() => {
     completeDate.value = props.sourceDate
       .set("date", props.day)
       .format("YYYY-MM-DD");
-  } else {
-    console.error("missing sourceDate & day props");
-    return;
   }
   if (completeDate.value) {
     const res = subscriptionStore.getSubscriptionsByDay(
@@ -57,16 +52,6 @@ onMounted(() => {
     if (res && res?.length > 0) {
       subscriptionActive.value = res;
     }
-  }
-});
-
-// Logic to check if current day is the selected one
-const isSelectedDay = computed(() => {
-  if (props.currentDate && subscriptionStore.selectedDate) {
-    return (
-      props.currentDate &&
-      props.currentDate.format("YYYY-MM-DD") == subscriptionStore.selectedDate
-    );
   }
 });
 

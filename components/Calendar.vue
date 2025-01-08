@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col justify-center gap-4 rounded-xl bg-black p-10 align-middle text-white"
+    class="flex flex-col justify-center gap-4 rounded-xl bg-black p-6 align-middle text-white"
   >
     <header id="header" class="flex flex-row justify-between">
       <div id="month" class="flex flex-row justify-center gap-2 align-middle">
@@ -35,13 +35,13 @@
     </header>
     <!-- TODO : ADD loading spinner -->
 
-    <main class="flex h-max w-[530px] flex-col">
+    <main class="flex h-max flex-col lg:w-[600px]">
       <!--  DAYS OF THE WEEKS -->
       <section id="days" class="mb-6 grid h-6 w-full grid-cols-7 gap-2">
         <p
           v-for="dayName in arrNameOfDays"
           :key="dayName"
-          class="rounded-xl bg-slate-600 p-2 text-center text-xs"
+          class="rounded-xl bg-slate-600 p-2 text-center text-xs lg:text-sm"
         >
           {{ dayName }}
         </p>
@@ -52,6 +52,7 @@
           v-for="day in arrOfDays"
           :key="day?.id"
           :day="day && day.dayValue"
+          :selected-day="isSelectedDay(day?.dayValue)"
           :source-date="sourceDate"
           :current-date="
             day && day.dayValue && sourceDate.set('date', day.dayValue)
@@ -76,9 +77,15 @@ const {
   arrOfDays,
   startDayOftheMonth,
   sourceDate,
+  getDayInMonth,
 } = useDate();
 
 const subscriptionStore = useSubscriptionsStore();
+
+function isSelectedDay(day: number) {
+  if (!subscriptionStore.selectedDate || !day) return false;
+  return day === parseInt(getDayInMonth(subscriptionStore.selectedDate));
+}
 
 //Load subscription on mount component
 onMounted(async () => {
