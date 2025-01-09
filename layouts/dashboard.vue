@@ -1,5 +1,9 @@
 <template>
-  <div class="flex h-[100vh] min-w-full flex-col-reverse lg:flex-row">
+  <div
+    id="dashboard
+  "
+    class="flex h-[100vh] min-w-full flex-col-reverse lg:flex-row"
+  >
     <Sidebar />
 
     <div

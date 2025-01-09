@@ -7,14 +7,20 @@ import {
   BillingCycle,
   SubscriptionCategory,
 } from "~/types/store/subscriptionsStore";
-const CATEGORIES_OPTIONS: SubscriptionCategory = ref([
+
+interface CategoryOption {
+  value: SubscriptionCategory;
+  text: string;
+}
+
+const CATEGORIES_OPTIONS: CategoryOption[] = [
   { value: SubscriptionCategory.FOOD, text: "Alimentation" },
   { value: SubscriptionCategory.HEALTH, text: "Santé" },
   { value: SubscriptionCategory.SPORT, text: "Sport" },
   { value: SubscriptionCategory.FINANCE, text: "Finance" },
-  { value: SubscriptionCategory.ENTERTAINMENT, text: "Loisir" },
+  { value: SubscriptionCategory.LEISURE, text: "Loisir" },
   { value: SubscriptionCategory.OTHER, text: "Autre" },
-]);
+];
 
 const subscriptionStore = useSubscriptionsStore();
 
@@ -39,7 +45,7 @@ const validationSchema = yup.object({
     .oneOf(Object.values(SubscriptionCategory)),
 });
 
-const defaultFormValue = computed(() => {
+const defaultSubscriptionFormValue = computed(() => {
   if (subscriptionStore && subscriptionStore?.selectedSubscription) {
     return {
       amount: subscriptionStore.selectedSubscription.amount,
@@ -63,7 +69,7 @@ const defaultFormValue = computed(() => {
     return {
       amount: 0,
       subscriptionName: "",
-      startDate: subscriptionStore.selectedDate,
+      startDate: subscriptionStore.selectedDate || "",
       endDate: "",
       billingCycle: BillingCycle.MONTHLY,
       subscriptionCategory: SubscriptionCategory.OTHER,
@@ -73,7 +79,7 @@ const defaultFormValue = computed(() => {
 
 const { errors, handleSubmit, defineField } = useForm({
   validationSchema: validationSchema,
-  initialValues: defaultFormValue.value,
+  initialValues: defaultSubscriptionFormValue.value,
 });
 
 const [amount, amountAttrs] = defineField("amount");
@@ -99,7 +105,7 @@ function handleCancelSubscription() {
 </script>
 
 <template>
-  <h1 class="text-primary-black-color py-2 text-center text-2xl">
+  <h1 class="text-primary-black-color py-1 text-center text-2xl md:py-2">
     {{
       subscriptionStore.selectedSubscription
         ? "Editer l'abonnement"
@@ -192,7 +198,7 @@ function handleCancelSubscription() {
     >
       <option
         v-for="subscriptionCategory in CATEGORIES_OPTIONS"
-        :value="subscriptionCategory.value"
+        :value="subscriptionCategory?.value"
       >
         {{ subscriptionCategory.text }}
       </option>
@@ -202,13 +208,13 @@ function handleCancelSubscription() {
       <button
         @click="onSubmit"
         type="button"
-        class="border-white-950 my-5 mr-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
+        class="border-white-950 mr-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow md:my-5"
       >
         Sauvegarder
       </button>
       <button
         type="button"
-        class="border-white-950 my-5 ml-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 hover:shadow-box-shadow-color disabled:bg-slate-300 disabled:shadow"
+        class="border-white-950 ml-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 hover:shadow-box-shadow-color disabled:bg-slate-300 disabled:shadow md:my-5"
         @click="handleCancelSubscription"
       >
         Annuler

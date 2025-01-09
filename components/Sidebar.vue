@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidebar"
-    class="flex h-20 w-full flex-row bg-card-color lg:h-full lg:w-28 lg:flex-col"
+    class="flex h-8 w-full flex-row bg-card-color lg:h-full lg:w-28 lg:flex-col"
   >
     <span
       class="align-center hidden h-[125px] text-center text-primary-white-color lg:flex lg:border-b-2 lg:border-gray-300"
@@ -20,10 +20,18 @@
           :key="icon.id"
           class="m-auto fill-slate-200 text-white"
           :src="icon.path"
-          :alt="icon.name"
           width="24"
           height="24"
-        />
+          v-slot="{ src, isLoaded, imgAttrs }"
+        >
+          <img v-if="isLoaded" v-bind="imgAttrs" :src="src" :alt="icon.name" />
+   <!--  TODO : refactor      <img
+            v-else
+            v-bind="imgAttrs"
+            :src="{icons/loading.svg}"
+            alt="loading"
+          /> -->
+        </NuxtImg>
       </div>
       <SignOut />
     </div>

@@ -23,10 +23,10 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
 </script>
 <!-- TODO : If we use multiple modal, update this one with <slot> components -->
 <template>
-  <Teleport v-if="subscriptionStore.isModalOpen" to="#sidebar">
+  <Teleport v-if="subscriptionStore.isModalOpen" to="#calendar">
     <div
       v-if="subscriptionStore.isModalOpen"
-      class="absolute left-1/2 top-[3%] z-[50] flex min-w-80 -translate-x-1/2 flex-col justify-evenly gap-2 rounded-lg bg-white p-6 md:top-[20%] md:w-[300px] lg:w-[400px]"
+      class="my-4 flex w-[90vw] flex-col justify-evenly gap-1 rounded-lg bg-white p-4 text-black md:gap-2 lg:w-[400px]"
     >
       <SubscriptionForms @post-subscription="handlePostSubscription" />
     </div>

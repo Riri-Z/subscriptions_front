@@ -10,7 +10,7 @@
   >
     <p class="text-xs lg:text-base">{{ day }}</p>
     <!-- TODO : COMPONENT DISPLAY ICON CURRENT SUBSCRIPTION -->
-    <section class="flex flex-row flex-wrap">
+    <!-- TODO :   refactor this    <section class="flex flex-row flex-wrap">
       <span
         v-if="subscriptionActive"
         v-for="subscription in subscriptionActive"
@@ -19,7 +19,7 @@
           {{ subscription?.subscription?.name?.[0] }}
         </p>
       </span>
-    </section>
+    </section> -->
   </button>
 </template>
 
@@ -35,12 +35,22 @@ const props = defineProps<{
   currentDate: Dayjs | null | 0;
   selectedDay: boolean;
 }>();
-
+/*
 const completeDate: Ref<string | null> = ref(null);
 const subscriptionActive: Ref<Subscription[] | null> = ref(null);
 
 //TODO : Move this to calendar component, and in the store when we getSubscriptionsMonthly, update store state to save the date with their subscription , and pass them by props to calendarDAY
-onMounted(() => {
+watch(() => subscriptionStore.subscriptionsCurrentMonth, () => {
+  if (completeDate.value) {
+    const res = subscriptionStore.getSubscriptionsByDay(
+      dayjs(completeDate.value),
+    );
+    if (res && res?.length > 0) {
+      subscriptionActive.value = res;
+    }
+  }
+});
+onBeforeMount(() => {
   if (props.sourceDate && props.day) {
     completeDate.value = props.sourceDate
       .set("date", props.day)
@@ -55,7 +65,7 @@ onMounted(() => {
     }
   }
 });
-
+*/
 // Select day
 function handleClickDay() {
   if (props.currentDate) {

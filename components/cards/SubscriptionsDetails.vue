@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { Subscription } from "~/types/store/subscriptionsStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
+import dayjs from "dayjs";
 
 const subscriptionStore = useSubscriptionsStore();
 
@@ -19,8 +20,21 @@ const handleOpenModalAddSubscription = () => {
 
 function handleClickSubscriptionDetail(subscription: Subscription) {
   subscriptionStore.setSelectedSubscription(subscription);
-  subscriptionStore.openModal(subscription);
+  subscriptionStore.openModal();
 }
+
+const subscriptionByDay: Ref<Subscription[] | null> = ref(null);
+// Filter subscription by selected day
+watch(
+  () => subscriptionStore.selectedDate,
+  () => {
+    subscriptionByDay.value = subscriptionStore.selectedDate
+      ? subscriptionStore.getSubscriptionsByDay(
+          dayjs(subscriptionStore.selectedDate),
+        )
+      : null;
+  },
+);
 </script>
 
 <template>
@@ -35,7 +49,7 @@ function handleClickSubscriptionDetail(subscription: Subscription) {
     >
       <!-- LIST OF SUBSCRIPTION -->
       <div
-        v-for="subscription in subscriptionsCurrentMonth"
+        v-for="subscription in subscriptionByDay"
         class="mx-2 flex cursor-pointer flex-col rounded-md p-2 text-sm odd:bg-gray-900 even:bg-gray-700 hover:bg-green-color"
         :key="subscription.id"
         @click="handleClickSubscriptionDetail(subscription)"

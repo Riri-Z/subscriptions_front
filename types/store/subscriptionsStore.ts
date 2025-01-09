@@ -35,7 +35,7 @@ export interface PostSubscriptions {
 export enum SubscriptionCategory {
   LEISURE = "LEISURE",
   FOOD = "FOOD",
-  SANT = "SPORT",
+  SPORT = "SPORT",
   HEALTH = "HEALTH",
   FINANCE = "FINANCE",
   OTHER = "OTHER",

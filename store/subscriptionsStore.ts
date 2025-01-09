@@ -44,7 +44,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
   },
   actions: {
-    setSelectedSubscription(subscriptions: Subscription) {
+    setSelectedSubscription(subscriptions: Subscription | null) {
       this.selectedSubscription = subscriptions;
     },
     openDetails() {
@@ -127,9 +127,12 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     async getAllSubscriptions() {
       this.loading = true;
       try {
-        const subscriptions = await useAPI<ApiResponse>("/user-subscriptions", {
-          method: "GET",
-        });
+        await useAPI<ApiResponse<{}>>(
+          "/user-subscriptions",
+          {
+            method: "GET",
+          },
+        );
       } catch (error) {
         console.error(error);
       } finally {
