@@ -19,6 +19,15 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     selectedDate: null,
   }),
   getters: {
+    getTotalExpensesByMonth: (state) => {
+      if (!state.subscriptionsCurrentMonth) {
+        return 0;
+      }
+      return state.subscriptionsCurrentMonth.reduce(
+        (accumulator, subscription) => accumulator + subscription?.amount,
+        0,
+      );
+    },
     getSubscriptionsByDay: (state) => (date: Dayjs) => {
       // Check if date is provide, and subscriptionsCurrentMonth is not null
 
@@ -127,12 +136,9 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     async getAllSubscriptions() {
       this.loading = true;
       try {
-        await useAPI<ApiResponse<{}>>(
-          "/user-subscriptions",
-          {
-            method: "GET",
-          },
-        );
+        await useAPI<ApiResponse<{}>>("/user-subscriptions", {
+          method: "GET",
+        });
       } catch (error) {
         console.error(error);
       } finally {

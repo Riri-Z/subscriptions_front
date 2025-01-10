@@ -28,7 +28,9 @@
       <!-- SPEND AMOUNT -->
       <div id="totalSpend">
         <p class="text-sm md:text-base">Dépense prévue</p>
-        <p id="sum" class="text-end">40€</p>
+        <p id="sum" class="text-end">
+          {{ subscriptionStore.getTotalExpensesByMonth }} €
+        </p>
       </div>
     </header>
     <!-- TODO : ADD loading spinner -->
@@ -50,7 +52,7 @@
           v-for="day in arrOfDays"
           :key="day?.id"
           :day="day && day.dayValue"
-          :selected-day="isSelectedDay(day?.dayValue)"
+          :selected-day="isSelectedDay(day?.dayValue ?? null)"
           :source-date="sourceDate"
           :current-date="
             day && day.dayValue && sourceDate.set('date', day.dayValue)
@@ -80,9 +82,9 @@ const {
 
 const subscriptionStore = useSubscriptionsStore();
 
-function isSelectedDay(day: number) {
+function isSelectedDay(day: number | null) {
   if (!subscriptionStore.selectedDate || !day) return false;
-  return day === parseInt(getDayInMonth(subscriptionStore.selectedDate));
+  return day === getDayInMonth(subscriptionStore.selectedDate);
 }
 
 //Load subscription on mount component
@@ -90,10 +92,15 @@ onMounted(async () => {
   await subscriptionStore.getSubscriptionsMonthly(startDayOftheMonth.value);
 });
 
-//Load subscription when user update month
+//Load subscription when user switch month
 watch(startDayOftheMonth, async (newDate) => {
   try {
-    subscriptionStore.setSelectedDate(dayjs(newDate));
+    // When we switch month, reset selected date
+    if (subscriptionStore.selectedDate) {
+      const dateStartOfMonth = dayjs(newDate).startOf("month");
+      subscriptionStore.setSelectedDate(dateStartOfMonth);
+    }
+    // Fetch subscription for the new month
     await subscriptionStore.getSubscriptionsMonthly(newDate);
   } catch (error) {
     console.error(error);
