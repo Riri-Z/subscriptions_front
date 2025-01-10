@@ -13,6 +13,7 @@
         :id="name"
         :name="name"
         v-bind="attrs"
+        validate-on-input
       />
       <ErrorMessage class="text-xs text-red-400" :name="name" />
     </div>
