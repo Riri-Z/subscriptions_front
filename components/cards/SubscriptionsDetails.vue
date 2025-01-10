@@ -23,26 +23,23 @@ function handleClickSubscriptionDetail(subscription: Subscription) {
   subscriptionStore.openModal();
 }
 
-const subscriptionByDay: Ref<Subscription[] | null> = ref(null);
-// Filter subscription by selected day
-watch(
-  () => subscriptionStore.selectedDate,
-  () => {
-    subscriptionByDay.value = subscriptionStore.selectedDate
-      ? subscriptionStore.getSubscriptionsByDay(
-          dayjs(subscriptionStore.selectedDate),
-        )
-      : null;
-  },
-);
+const subscriptionByDay = computed(() => {
+  return subscriptionStore.selectedDate
+    ? subscriptionStore.getSubscriptionsByDay(
+        dayjs(subscriptionStore.selectedDate),
+      )
+    : null;
+});
 </script>
 
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex h-[300px] w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle md:justify-around lg:h-full lg:w-4/6"
+    class="flex h-[300px] w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle md:justify-between lg:h-full lg:w-4/6"
   >
-    <h1 class="text-center">Vos prélévements prévus le {{ selectedDate }}</h1>
+    <h1 class="m-1 text-center">
+      Vos prélévements prévus le {{ selectedDate }}
+    </h1>
     <div
       v-if="subscriptionsCurrentMonth && subscriptionsCurrentMonth.length > 0"
       class="flex max-h-[300px] flex-col gap-2 overflow-y-auto"
@@ -75,7 +72,7 @@ watch(
     <div v-else>
       <p>Pas de prélevements prévue</p>
     </div>
-    <div class="flex justify-center">
+    <div class="m-2 flex justify-center">
       <button
         class="w-full rounded-md bg-green-color p-2 text-sm"
         @click="handleOpenModalAddSubscription"
