@@ -8,7 +8,7 @@ export const registerSchema = yup.object({
     .min(4, 'Le nom d"utilisateur doit être de 4 lettres minimum'),
   email: yup
     .string()
-    .email("Le format suivant est attendu ex : myemail@domaine.com")
+    .email("Le format suivant est attendu ex : email@example.com")
     .required("Email obligatoire"),
   password: yup
     .string()
