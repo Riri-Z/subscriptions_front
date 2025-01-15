@@ -41,9 +41,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-
-const { isMobileOrTablet } = useDevice();
-
 interface Icon {
   id: number;
   name: string;

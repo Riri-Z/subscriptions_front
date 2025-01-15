@@ -9,29 +9,7 @@ export const useDate = () => {
   const getDayInMonth = (date: string) => {
     return dayjs(date).date();
   };
-  const sourceDate: Ref<Dayjs> = ref(dayjs(new Date()).set("date", 1));
-  const currentMonth: ComputedRef<number> = computed(() =>
-    sourceDate.value.get("month"),
-  );
-  const currentYear: ComputedRef<number> = computed(() => {
-    return sourceDate.value.get("year");
-  });
-  const numberOfDays: ComputedRef<number> = computed(() => {
-    return sourceDate.value.daysInMonth();
-  });
-  const startDayName: ComputedRef<number> = computed(() => {
-    return sourceDate.value.startOf("month").get("day");
-  });
 
-  const startDayOftheMonth: ComputedRef<string> = computed(() => {
-    return sourceDate.value.format("YYYY-MM-DD");
-  });
-  const handlePreviousMonth = (): void => {
-    sourceDate.value = sourceDate.value.subtract(1, "month");
-  };
-  const handleNextMonth = (): void => {
-    sourceDate.value = sourceDate.value.add(1, "month");
-  };
   const arrNameOfDays: Ref<string[]> = ref([
     "Dimanche",
     "Lundi",
@@ -41,24 +19,33 @@ export const useDate = () => {
     "Vendredi",
     "Samedi",
   ]);
+  /*
 
+ type return arr of days
+  {
+    id: number;
+    dayValue: number | null;
+    currentMonth: boolean;
+    date: Dayjs;
+  } */
   // This method initialize the day of the month
-  const arrOfDays: ComputedRef<
-    {
-      id: number;
-      dayValue: number | null;
-      currentMonth: boolean;
-      date: Dayjs;
-    }[]
-  > = computed(() => {
-    const totalDays = numberOfDays.value;
+  const arrOfDays = (
+    /* numberDaysInMonth:number , startDayValueOfTheWeek:number,totalCells:number, currentDate:Dayjs  */
+
+    currentDate: Dayjs,
+  ) => {
+    /*     const totalDays = numberOfDays.value;
     const firstDayOfMonth = startDayName.value;
+    const totalCells = 42; // 6 weeks * 7 days */
+
+    const numberDaysInMonth = currentDate.daysInMonth();
+    const startDayValueOfTheWeek = currentDate.startOf("month").get("day");
     const totalCells = 42; // 6 weeks * 7 days
     let nextDayValueMonth = 1;
     return new Array(totalCells).fill(null).map((_, index) => {
-      const dayValue = index - firstDayOfMonth + 1;
+      const dayValue = index - startDayValueOfTheWeek + 1;
       if (dayValue < 1) {
-        const previousMonth = sourceDate.value.subtract(1, "month");
+        const previousMonth = currentDate.subtract(1, "month");
         const numberOfDaysInPreviousMonth = previousMonth.daysInMonth();
 
         return {
@@ -75,17 +62,13 @@ export const useDate = () => {
         };
       }
 
-      if (dayValue > 0 && dayValue <= totalDays) {
+      if (dayValue > 0 && dayValue <= numberDaysInMonth) {
         return {
           id: index,
           dayValue,
           currentMonth: true,
           date: dayjs(
-            new Date(
-              sourceDate.value.year(),
-              sourceDate.value.month(),
-              dayValue,
-            ),
+            new Date(currentDate.year(), currentDate.month(), dayValue),
           ),
         };
       } else {
@@ -94,20 +77,16 @@ export const useDate = () => {
           dayValue: nextDayValueMonth,
           currentMonth: false,
           date: dayjs(
-            new Date(
-              sourceDate.value.year(),
-              sourceDate.value.month(),
-              dayValue,
-            ),
+            new Date(currentDate.year(), currentDate.month(), dayValue),
           ),
         };
         nextDayValueMonth = nextDayValueMonth + 1;
         return result;
       }
     });
-  });
+  };
 
-  const arrNameOfMonth: Ref<string[]> = ref([
+  const arrNameOfMonth = [
     "janvier",
     "février",
     "mars",
@@ -120,21 +99,15 @@ export const useDate = () => {
     "octobre",
     "novembre",
     "décembre",
-  ]);
+  ];
 
-  const currentMonthString: ComputedRef<string> = computed(() => {
-    return capitalized(arrNameOfMonth.value[currentMonth.value]);
-  });
+  const currentMonthString = (month: number) => {
+    return capitalized(arrNameOfMonth[month]);
+  };
   return {
-    handlePreviousMonth,
-    handleNextMonth,
-    currentYear,
-    currentMonth,
-    currentMonthString,
-    arrNameOfDays,
-    arrOfDays,
-    startDayOftheMonth,
-    sourceDate,
     getDayInMonth,
+    arrNameOfDays,
+    currentMonthString,
+    arrOfDays,
   };
 };

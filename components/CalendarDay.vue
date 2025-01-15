@@ -26,11 +26,11 @@
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import { Dayjs } from "dayjs";
 import type { Subscription } from "~/types/store/subscriptionsStore";
-import { useDate } from "~/composables/useDate";
+import { useDateStore } from "~/store/dateStore";
 
+const dateStore = useDateStore();
 const emit = defineEmits(["onNextMonth", "onPreviousMonth"]);
 const subscriptionStore = useSubscriptionsStore();
-const { getDayInMonth, handlePreviousMonth, handleNextMonth } = useDate();
 
 const props = defineProps<{
   day: null | number;
@@ -50,7 +50,7 @@ watch(
       subscriptionStore.subscriptionsCurrentMonth?.forEach((subscription) => {
         if (
           subscription.nextsPayements.length > 0 &&
-          getDayInMonth(subscription.nextsPayements[0]) === props.day
+          useDate().getDayInMonth(subscription.nextsPayements[0]) === props.day
         ) {
           activeSubscription.push(subscription);
         }
@@ -67,13 +67,12 @@ function handleClickDay() {
     // In case user click on date in previous month
 
     if (props.sourceDate && props.currentDate < props.sourceDate) {
-      emit("onPreviousMonth");
+      /*      dateStore.setPreviousMonth(); */
       subscriptionStore.setSelectedDate(props.currentDate.subtract(1, "month"));
     }
     // In case user click on date in next month
     if (props.sourceDate && props.currentDate > props.sourceDate) {
-      emit("onNextMonth");
-      handleNextMonth();
+      /*      dateStore.setNextMonth(); */
 
       subscriptionStore.setSelectedDate(props.currentDate.add(1, "month"));
     }

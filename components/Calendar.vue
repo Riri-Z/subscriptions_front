@@ -8,7 +8,7 @@
         <section class="flex justify-center gap-2 align-middle">
           <span
             class="flex cursor-pointer items-center justify-center text-xl lg:text-3xl"
-            @:click="handlePreviousMonth"
+            @:click="dateStore.setPreviousMonth()"
           >
             <p class="hover:text-purple-300"><</p>
             <!-- TODO  : use icon  -->
@@ -16,12 +16,12 @@
 
           <span
             class="flex cursor-pointer items-center justify-center text-xl lg:text-3xl"
-            @:click="handleNextMonth"
+            @:click="dateStore.setNextMonth()"
           >
             <p class="hover:text-purple-300">></p>
           </span>
           <p class="flex items-center justify-center text-xl lg:text-3xl">
-            {{ currentMonthString }} {{ currentYear }}
+            {{ dateStore.getCurrentMonthString }} {{ dateStore.getCurrentYear }}
           </p>
         </section>
       </div>
@@ -49,14 +49,12 @@
 
       <section class="grid w-full grid-cols-7 gap-2">
         <CalendarDay
-          v-for="day in arrOfDays"
+          v-for="day in dateStore.daysInMonth"
           :key="day?.id"
           :day="day && day.dayValue"
-          :selected-day="isSelectedDay(day?.dayValue ?? null)"
-          :source-date="sourceDate"
+          :selected-day="isSelectedDay(day.date)"
+          :source-date="dateStore.sourceDate"
           :current-month="day?.currentMonth"
-          :on-previous-month="handlePreviousMonth"
-          :on-next-month="handleNextMonth"
           :current-date="day?.date"
         />
       </section>
@@ -65,46 +63,31 @@
 </template>
 
 <script lang="ts" setup>
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useDate } from "~/composables/useDate";
+import { useDateStore } from "~/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-
 const {
-  handlePreviousMonth,
-  handleNextMonth,
-  currentYear,
-  currentMonthString,
   arrNameOfDays,
   arrOfDays,
-  startDayOftheMonth,
-  sourceDate,
-  getDayInMonth,
+  /*   startDayOftheMonth,
+  sourceDate, */
 } = useDate();
 
+const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
 
-function isSelectedDay(day: number | null) {
+const activeDate = ref(dateStore.currentDate);
+
+function isSelectedDay(day: Dayjs) {
   if (!subscriptionStore.selectedDate || !day) return false;
-  return day === getDayInMonth(subscriptionStore.selectedDate);
+  return day.format("YYYY-MM-DD") === subscriptionStore.selectedDate;
 }
 
 //Load subscription on mount component
 onMounted(async () => {
-  await subscriptionStore.getSubscriptionsMonthly(startDayOftheMonth.value);
-});
-
-//Load subscription when user switch month
-watch(startDayOftheMonth, async (newDate) => {
-  try {
-    // When we switch month, reset selected date
-    if (subscriptionStore.selectedDate) {
-      const dateStartOfMonth = dayjs(newDate).startOf("month");
-      subscriptionStore.setSelectedDate(dateStartOfMonth);
-    }
-    // Fetch subscription for the new month
-    await subscriptionStore.getSubscriptionsMonthly(newDate);
-  } catch (error) {
-    console.error(error);
-  }
+  await subscriptionStore.getSubscriptionsMonthly(
+    dayjs(dateStore.currentDate).format("YYYY-MM-DD"),
+  );
 });
 </script>

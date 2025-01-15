@@ -42,6 +42,7 @@ async function handleLogin(values: Login) {
     };
     await signIn(credentials, { callbackUrl: "/dashboard" });
   } catch (error) {
+    console.log(error);
     useNuxtApp().$toast.error('Nom d"utilisateur ou Mot de passe incorrect.');
   }
 }

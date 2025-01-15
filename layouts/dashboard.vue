@@ -15,5 +15,10 @@
 </template>
 
 <script lang="ts" setup>
+import dayjs from "dayjs";
 import Sidebar from "~/components/Sidebar.vue";
+import { useDateStore } from "~/store/dateStore";
+
+const dateStore = useDateStore();
+dateStore.setDaysInMonth(dayjs(new Date()));
 </script>
