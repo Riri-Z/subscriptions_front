@@ -8,7 +8,7 @@ const props = defineProps<{
   <!-- TODO : COMPONENT DISPLAY ICON CURRENT SUBSCRIPTION -->
   <!-- TODO : Better display on mobile-->
   <span
-    class="flex h-5 w-5 flex-row justify-center rounded-full bg-gray-800 align-middle text-xs"
+    class="flex h-5 w-5 flex-row justify-center rounded-full bg-blue-800 align-middle text-xs"
   >
     {{ props.name?.[0].toLowerCase() }}
   </span>

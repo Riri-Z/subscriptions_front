@@ -54,9 +54,10 @@
           :day="day && day.dayValue"
           :selected-day="isSelectedDay(day?.dayValue ?? null)"
           :source-date="sourceDate"
-          :current-date="
-            day && day.dayValue && sourceDate.set('date', day.dayValue)
-          "
+          :current-month="day?.currentMonth"
+          :on-previous-month="handlePreviousMonth"
+          :on-next-month="handleNextMonth"
+          :current-date="day?.date"
         />
       </section>
     </main>

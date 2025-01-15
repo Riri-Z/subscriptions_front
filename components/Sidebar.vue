@@ -25,7 +25,7 @@
           v-slot="{ src, isLoaded, imgAttrs }"
         >
           <img v-if="isLoaded" v-bind="imgAttrs" :src="src" :alt="icon.name" />
-   <!--  TODO : refactor      <img
+          <!--  TODO : refactor      <img
             v-else
             v-bind="imgAttrs"
             :src="{icons/loading.svg}"
