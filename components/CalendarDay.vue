@@ -1,6 +1,6 @@
 <template>
   <button
-    class="fex-col flex h-10 rounded-xl p-2 lg:h-16"
+    class="flex h-12 flex-col rounded-xl p-2 sm:h-14 lg:h-16 lg:gap-2 xl:h-20"
     :class="{
       'bg-slate-500': day !== null && !selectedDay,
       'bg-slate-800': day === null,
@@ -8,24 +8,23 @@
     }"
     @click="handleClickDay"
   >
-    <p class="text-xs lg:text-base">{{ day }}</p>
-    <!-- TODO : COMPONENT DISPLAY ICON CURRENT SUBSCRIPTION -->
-    <section class="flex flex-row flex-wrap">
-      <span
-        v-if="subscriptionActive"
+    <p class="text-sm lg:text-base">{{ day }}</p>
+    <section
+      v-if="subscriptionActive"
+      class="flex flex-row self-center sm:gap-1"
+    >
+      <BadgeSubscription
         v-for="subscription in subscriptionActive"
-      >
-        <p>
-          {{ subscription?.subscription?.name?.[0] }}
-        </p>
-      </span>
+        :key="subscription.id"
+        :name="subscription.subscription.name"
+      />
     </section>
   </button>
 </template>
 
 <script lang="ts" setup>
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import type { Subscription } from "~/types/store/subscriptionsStore";
 import { useDate } from "~/composables/useDate";
 const subscriptionStore = useSubscriptionsStore();

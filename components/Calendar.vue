@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col justify-center gap-4 rounded-xl bg-black p-5 align-middle text-white"
+    class="flex flex-col gap-4 rounded-xl bg-black p-5 align-middle text-white md:h-fit md:w-fit md:p-8 lg:w-[33rem] xl:w-[50rem]"
   >
     <header id="header" class="flex flex-row justify-between">
       <div id="month" class="flex flex-row justify-center gap-2 align-middle">
@@ -35,9 +35,9 @@
     </header>
     <!-- TODO : ADD loading spinner -->
 
-    <main class="flex h-max flex-col md:w-[30rem]">
+    <main class="flex flex-col">
       <!--  DAYS OF THE WEEKS -->
-      <section id="days" class="mb-6 grid h-6 w-full grid-cols-7 gap-2">
+      <section id="days" class="mb-6 grid w-full grid-cols-7 gap-2">
         <p
           v-for="dayName in arrNameOfDays"
           :key="dayName"

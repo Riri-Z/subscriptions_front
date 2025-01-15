@@ -214,7 +214,7 @@ function handleCancelSubscription() {
       </button>
       <button
         type="button"
-        class="border-white-950 ml-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 hover:shadow-box-shadow-color disabled:bg-slate-300 disabled:shadow md:my-5"
+        class="border-white-950 ml-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow md:my-5"
         @click="handleCancelSubscription"
       >
         Annuler

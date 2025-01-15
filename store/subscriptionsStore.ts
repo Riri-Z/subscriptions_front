@@ -94,8 +94,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
           ...this.selectedSubscription,
           ...formData,
         };
-        console.log("updatedSubscription", updatedSubscription);
-        console.log(this.selectedSubscription.id);
+
         const resultUpdateSubscription = await useAPI<
           ApiResponse<Subscription>
         >("/user-subscriptions/" + this.selectedSubscription.id, {

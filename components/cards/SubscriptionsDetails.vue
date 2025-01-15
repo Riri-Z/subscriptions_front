@@ -35,14 +35,14 @@ const subscriptionByDay = computed(() => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex h-[300px] w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle md:justify-between lg:h-full lg:w-4/6"
+    class="flex w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle lg:h-full lg:w-[20rem]"
   >
     <h1 class="m-1 text-center">
       Vos prélévements prévus le {{ selectedDate }}
     </h1>
     <div
-      v-if="subscriptionsCurrentMonth && subscriptionsCurrentMonth.length > 0"
-      class="flex max-h-[300px] flex-col gap-2 overflow-y-auto"
+      v-if="subscriptionByDay && subscriptionByDay.length > 0"
+      class="flex max-h-[300px] flex-col gap-2 overflow-y-auto lg:h-[100%]"
     >
       <!-- LIST OF SUBSCRIPTION -->
       <div
@@ -70,9 +70,9 @@ const subscriptionByDay = computed(() => {
       </div>
     </div>
     <div v-else>
-      <p>Pas de prélevements prévue</p>
+      <p class="m-1">Pas de prélevements prévue ce jour</p>
     </div>
-    <div class="m-2 flex justify-center">
+    <div class="m-2 mt-auto flex justify-center">
       <button
         class="w-full rounded-md bg-green-color p-2 text-sm"
         @click="handleOpenModalAddSubscription"

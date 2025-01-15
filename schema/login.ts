@@ -4,7 +4,7 @@ export const loginSchema = yup.object({
   username: yup
     .string()
     .required("Nom obligatoire")
-    .min(4, "Le num d'utilisateur doit être de 4 charactères minimum"),
+    .min(4, "Le nom d'utilisateur doit être de 4 charactères minimum"),
   password: yup
     .string()
     .required("Mot de passe est obligatoire")
