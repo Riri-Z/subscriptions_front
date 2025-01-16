@@ -7,7 +7,6 @@ const subscriptionStore = useSubscriptionsStore();
 
 defineProps({
   selectedDate: { type: String },
-  // get subsSelectedDate
   subscriptionsCurrentMonth: {
     type: Array as PropType<Subscription[]>,
     default: () => [],

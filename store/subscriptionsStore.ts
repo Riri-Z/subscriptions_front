@@ -10,15 +10,16 @@ import type {
 
 export const useSubscriptionsStore = defineStore("subscriptions", {
   state: (): SubscriptionsStore => ({
-    isModalOpen: false,
-    isOpenDetails: false,
+    isModalOpen: true,
+    isOpenDetails: true,
     subscriptions: null as Subscription[] | null,
     selectedSubscription: null as Subscription | null,
     subscriptionsCurrentMonth: null as Subscription[] | null,
     loading: false,
-    selectedDate: null,
+    selectedDate: dayjs(new Date()).format("YYYY-MM-DD"),
   }),
   getters: {
+    getSelectedDate: (state) => state.selectedDate,
     getTotalExpensesByMonth: (state) => {
       if (!state.subscriptionsCurrentMonth) {
         return 0;

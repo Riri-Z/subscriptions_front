@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-4 rounded-xl bg-black p-5 align-middle text-white md:h-fit md:w-fit md:p-8 lg:w-[33rem] xl:w-[50rem]"
+    class="flex flex-col gap-4 rounded-xl bg-black p-5 align-middle text-white md:h-fit md:w-fit md:p-8 lg:w-[44rem] xl:w-[50rem]"
   >
     <header id="header" class="flex flex-row justify-between">
       <div id="month" class="flex flex-row justify-center gap-2 align-middle">
@@ -46,7 +46,12 @@
           {{ dayName.slice(0, 3) }}
         </p>
       </section>
-
+      <!-- TODO : Add transition ;)
+      <span
+        class=" flex  h-full w-full sm:h-14 lg:h-16 lg:gap-2 xl:h-20"
+        v-if="subscriptionStore.loading"
+        >LOADING</span
+      > -->
       <section class="grid w-full grid-cols-7 gap-2">
         <CalendarDay
           v-for="day in dateStore.daysInMonth"
@@ -67,21 +72,13 @@ import dayjs, { Dayjs } from "dayjs";
 import { useDate } from "~/composables/useDate";
 import { useDateStore } from "~/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-const {
-  arrNameOfDays,
-  arrOfDays,
-  /*   startDayOftheMonth,
-  sourceDate, */
-} = useDate();
+const { arrNameOfDays } = useDate();
 
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
 
-const activeDate = ref(dateStore.currentDate);
-
-function isSelectedDay(day: Dayjs) {
-  if (!subscriptionStore.selectedDate || !day) return false;
-  return day.format("YYYY-MM-DD") === subscriptionStore.selectedDate;
+function isSelectedDay(date: Dayjs) {
+  return date.format("YYYY-MM-DD") === subscriptionStore.selectedDate;
 }
 
 //Load subscription on mount component

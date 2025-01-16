@@ -35,19 +35,22 @@ export const useDateStore = defineStore("date", {
     async setPreviousMonth() {
       this.currentDate = this.currentDate.subtract(1, "month");
       await subscriptionStore.getSubscriptionsMonthly(
-        this.currentDate.format("YYYY-MM-DD"),
+        this.currentDate.set("date",1).format("YYYY-MM-DD"),
       );
       this.setDaysInMonth(this.currentDate);
     },
     async setNextMonth() {
       this.currentDate = this.currentDate.add(1, "month");
       await subscriptionStore.getSubscriptionsMonthly(
-        this.currentDate.format("YYYY-MM-DD"),
+        this.currentDate.set("date",1).format("YYYY-MM-DD"),
       );
       this.setDaysInMonth(this.currentDate);
     },
     setDaysInMonth(date: Dayjs) {
       this.daysInMonth = useDate().arrOfDays(date);
+    },
+    setCurrentDate(date: Dayjs) {
+      this.currentDate = date;
     },
   },
 });

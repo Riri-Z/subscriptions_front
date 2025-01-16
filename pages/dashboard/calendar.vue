@@ -10,8 +10,10 @@
     >
       <Calendar />
       <CardsSubscriptionsDetails
-        v-if="selectedDate && subscriptionsCurrentMonth"
-        :selected-date="dayjs(selectedDate).format('DD-MM-YYYY')"
+        v-if="subscriptionStore.getSelectedDate && subscriptionsCurrentMonth"
+        :selected-date="
+          dayjs(subscriptionStore.getSelectedDate).format('DD-MM-YYYY')
+        "
         :subscriptions-current-month="subscriptionsCurrentMonth"
       />
     </main>
@@ -27,7 +29,6 @@ const subscriptionStore = useSubscriptionsStore();
 const subscriptionsCurrentMonth = computed(
   () => subscriptionStore?.subscriptionsCurrentMonth,
 );
-const selectedDate = computed(() => subscriptionStore.selectedDate);
 definePageMeta({
   layout: "dashboard",
 });
