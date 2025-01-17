@@ -2,6 +2,7 @@
 import { registerSchema } from "~/schema/register";
 import { loginSchema, type Login } from "~/schema/login";
 import FormComponent from "~/components/forms/FormComponent.vue";
+import type { CustomError } from "~/types/error/error";
 
 const { signIn } = useAuth();
 
@@ -41,9 +42,19 @@ async function handleLogin(values: Login) {
       password: values.password,
     };
     await signIn(credentials, { callbackUrl: "/dashboard" });
-  } catch (error) {
-    console.log(error);
-    useNuxtApp().$toast.error('Nom d"utilisateur ou mot de passe incorrect.');
+  } catch (error: unknown) {
+    console.log({ error });
+    if (error === undefined) {
+      useNuxtApp().$toast.error(
+        "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
+      );
+      return;
+    }
+    if ((error as CustomError)?.statusCode) {
+      useNuxtApp().$toast.error('Nom d"utilisateur ou mot de passe incorrect.');
+      return;
+    }
+    useNuxtApp().$toast.error("Une erreur inconnue s'est produite.");
   }
 }
 </script>
