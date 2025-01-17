@@ -71,11 +71,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       this.isModalOpen = false;
     },
     setSelectedDate(date: Dayjs) {
-      if (this.selectedDate === date.format("YYYY-MM-DD")) {
-        this.selectedDate = null;
-      } else {
-        this.selectedDate = date.format("YYYY-MM-DD");
-      }
+      this.selectedDate = date.format("YYYY-MM-DD");
     },
     /*
     j'envoie les données, dedans il y  a un id ? si non je crée un abonnement, si oui je met à jour l'abonnement
