@@ -2,6 +2,7 @@
 import type { Subscription } from "~/types/store/subscriptionsStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import dayjs from "dayjs";
+import { toast } from "vue3-toastify";
 
 const subscriptionStore = useSubscriptionsStore();
 
@@ -13,13 +14,40 @@ defineProps({
   },
 });
 
+const labelConfirmAction: Ref<string | null> = ref(null);
+
 const handleOpenModalAddSubscription = () => {
   subscriptionStore.openModal();
 };
 
+function handleOpenConfirmationDelete(subscription: Subscription) {
+  subscriptionStore.setSelectedSubscription(subscription);
+  labelConfirmAction.value = subscription.subscription.name;
+}
+
+async function handleDeleteSubscription(subscription: Subscription) {
+  subscriptionStore.setSelectedSubscription(subscription);
+  try {
+    const result = await subscriptionStore.deleteSubscription(subscription);
+    if (result) {
+      useNuxtApp().$toast.success("Abonnement supprimé avec succès");
+    }
+  } catch {
+    return useNuxtApp().$toast.error(
+      "Une erreur est survenue lors de la tentative de suppréssion de l'abonnement",
+    );
+  }
+}
+
 function handleClickSubscriptionDetail(subscription: Subscription) {
   subscriptionStore.setSelectedSubscription(subscription);
   subscriptionStore.openModal();
+}
+
+function handleCancel() {
+  console.log("called cancel");
+  subscriptionStore.setSelectedSubscription(null);
+  labelConfirmAction.value = null;
 }
 
 const subscriptionByDay = computed(() => {
@@ -48,7 +76,6 @@ const subscriptionByDay = computed(() => {
         v-for="subscription in subscriptionByDay"
         class="mx-2 flex cursor-pointer flex-col rounded-md p-2 text-sm odd:bg-gray-900 even:bg-gray-700 hover:bg-green-color"
         :key="subscription.id"
-        @click="handleClickSubscriptionDetail(subscription)"
       >
         <!-- Each subscription details -->
         <section class="flex flex-row justify-between">
@@ -56,13 +83,23 @@ const subscriptionByDay = computed(() => {
             <p>Nom : {{ subscription?.subscription?.name }}</p>
             <p>Montant : {{ subscription?.amount }} €</p>
           </div>
-          <div class="bg-red flex items-center">
+          <div class="bg-red flex items-center gap-2">
             <NuxtImg
               class="m-auto"
               alt="clipboard icon"
               src="/icons/edit.svg"
               width="24"
               height="24"
+              @click="handleClickSubscriptionDetail(subscription)"
+            />
+            <NuxtImg
+              class="m-auto"
+              alt="clipboard delete icon"
+              src="/icons/remove.png"
+              fill="white"
+              width="24"
+              height="24"
+              @click="handleOpenConfirmationDelete(subscription)"
             />
           </div>
         </section>
@@ -79,5 +116,12 @@ const subscriptionByDay = computed(() => {
         <p class="text-center">Ajouter un abonnement</p>
       </button>
     </div>
+    <CardsConfirmAction
+      v-if="labelConfirmAction && subscriptionStore.selectedSubscription"
+      :label="labelConfirmAction"
+      :subscription="subscriptionStore.selectedSubscription"
+      @delete-subscription="handleDeleteSubscription"
+      @cancel-action="handleCancel"
+    />
   </div>
 </template>

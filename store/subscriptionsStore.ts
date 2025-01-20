@@ -108,6 +108,21 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         this.closeModal();
       }
     },
+    async deleteSubscription(subscription: Subscription) {
+      try {
+        return await useAPI<ApiResponse<Subscription>>(
+          "/user-subscriptions" + "/" + subscription.id,
+          {
+            method: "delete",
+          },
+        );
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        this.setSelectedSubscription(null);
+      }
+    },
     async postUserSubscriptions(formData: Partial<PostSubscriptions>) {
       this.loading = true;
       try {
