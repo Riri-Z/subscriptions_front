@@ -48,6 +48,8 @@ const subscriptionActive = computed(() => {
 
 // Select day
 async function handleClickDay(day: Dayjs) {
+  // Do nothing if a subscription is selected
+  if (subscriptionStore.selectedSubscription) return;
   try {
     if (props.currentDate) {
       subscriptionStore.setSelectedDate(day);

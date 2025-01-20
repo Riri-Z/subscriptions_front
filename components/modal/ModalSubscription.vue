@@ -16,8 +16,12 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
     } else {
       await subscriptionStore.postUserSubscriptions(formData);
     }
+    useNuxtApp().$toast.success("Abonnement mis à jour avec succès !");
   } catch (error) {
     console.error(error);
+    useNuxtApp().$toast.error(
+      "Une erreur est survenue lors de la tentative de mis à jour",
+    );
   } finally {
     await subscriptionStore.getSubscriptionsMonthly(
       dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),

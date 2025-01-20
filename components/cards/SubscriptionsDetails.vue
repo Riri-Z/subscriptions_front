@@ -2,10 +2,10 @@
 import type { Subscription } from "~/types/store/subscriptionsStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import dayjs from "dayjs";
-import { toast } from "vue3-toastify";
+import { useDateStore } from "~/store/dateStore";
 
 const subscriptionStore = useSubscriptionsStore();
-
+const dateStore = useDateStore();
 defineProps({
   selectedDate: { type: String },
   subscriptionsCurrentMonth: {
@@ -30,11 +30,15 @@ async function handleDeleteSubscription(subscription: Subscription) {
   try {
     const result = await subscriptionStore.deleteSubscription(subscription);
     if (result) {
-      useNuxtApp().$toast.success("Abonnement supprimé avec succès");
+      useNuxtApp().$toast.success("Abonnement supprimé avec succès !");
     }
   } catch {
     return useNuxtApp().$toast.error(
       "Une erreur est survenue lors de la tentative de suppréssion de l'abonnement",
+    );
+  } finally {
+    await subscriptionStore.getSubscriptionsMonthly(
+      dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),
     );
   }
 }
@@ -116,7 +120,7 @@ const subscriptionByDay = computed(() => {
         <p class="text-center">Ajouter un abonnement</p>
       </button>
     </div>
-    <CardsConfirmAction
+    <CardsConfirmDeleteAction
       v-if="labelConfirmAction && subscriptionStore.selectedSubscription"
       :label="labelConfirmAction"
       :subscription="subscriptionStore.selectedSubscription"
