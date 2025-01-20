@@ -2,7 +2,9 @@
 import SubscriptionForms from "~/components/forms/SubscriptionForms.vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import type { PostSubscriptions } from "~/types/store/subscriptionsStore";
+import { useDateStore } from "~/store/dateStore";
 const subscriptionStore = useSubscriptionsStore();
+const dateStore = useDateStore();
 
 async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   if (formData.endDate === "") {
@@ -17,6 +19,9 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   } catch (error) {
     console.error(error);
   } finally {
+    await subscriptionStore.getSubscriptionsMonthly(
+      dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),
+    );
     subscriptionStore.closeModal();
   }
 }

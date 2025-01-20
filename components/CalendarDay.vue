@@ -42,19 +42,18 @@ const props = defineProps<{
 
 const subscriptionActive = computed(() => {
   return subscriptionStore.selectedDate
-    ? subscriptionStore.getSubscriptionsByDay(
-      props.currentDate
-      )
+    ? subscriptionStore.getSubscriptionsByDay(props.currentDate)
     : null;
 });
-
 
 // Select day
 async function handleClickDay(day: Dayjs) {
   try {
     if (props.currentDate) {
       subscriptionStore.setSelectedDate(day);
-      dateStore.setCurrentDate(day);
+      if (props.currentMonth) {
+        dateStore.setCurrentDate(day);
+      }
     }
   } catch (error) {
     console.error(error);

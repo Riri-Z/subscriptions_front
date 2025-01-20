@@ -19,31 +19,27 @@ export const useDate = () => {
     "Vendredi",
     "Samedi",
   ]);
-  /*
 
- type return arr of days
-  {
+  type Day = {
     id: number;
     dayValue: number | null;
     currentMonth: boolean;
     date: Dayjs;
-  } */
-  // This method initialize the day of the month
-  const arrOfDays = (
-    /* numberDaysInMonth:number , startDayValueOfTheWeek:number,totalCells:number, currentDate:Dayjs  */
-
-    currentDate: Dayjs,
-  ) => {
-    /*     const totalDays = numberOfDays.value;
-    const firstDayOfMonth = startDayName.value;
-    const totalCells = 42; // 6 weeks * 7 days */
-
+  };
+  // This method initialize the days of the month
+  /**
+   * Initialize the day of the month
+   * @param currentDate  Dayjs
+   * @returns Day[]
+   */
+  function arrOfDays(currentDate: Dayjs): Day[] {
     const numberDaysInMonth = currentDate.daysInMonth();
-    const startDayValueOfTheWeek = currentDate.startOf("month").get("day");
-    const totalCells = 42; // 6 weeks * 7 days
+    const startDayValueOfTheWeek = currentDate.startOf("month").get("day"); //eg : 0 for sunday, 1 for monday
+    const totalDays = 42; // 6 weeks * 7 days
     let nextDayValueMonth = 1;
-    return new Array(totalCells).fill(null).map((_, index) => {
+    return new Array(totalDays).fill(null).map((_, index) => {
       const dayValue = index - startDayValueOfTheWeek + 1;
+      // Compute date day for previous month
       if (dayValue < 1) {
         const previousMonth = currentDate.subtract(1, "month");
         const numberOfDaysInPreviousMonth = previousMonth.daysInMonth();
@@ -61,8 +57,8 @@ export const useDate = () => {
           ),
         };
       }
-
-      if (dayValue > 0 && dayValue <= numberDaysInMonth) {
+      // Compute date day for current month
+      else if (dayValue > 0 && dayValue <= numberDaysInMonth) {
         return {
           id: index,
           dayValue,
@@ -72,6 +68,8 @@ export const useDate = () => {
           ),
         };
       } else {
+        // Compute date day for next month
+
         const result = {
           id: index,
           dayValue: nextDayValueMonth,
@@ -84,7 +82,7 @@ export const useDate = () => {
         return result;
       }
     });
-  };
+  }
 
   const arrNameOfMonth = [
     "janvier",
