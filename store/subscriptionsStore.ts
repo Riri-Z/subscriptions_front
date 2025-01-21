@@ -57,6 +57,9 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     setSelectedSubscription(subscriptions: Subscription | null) {
       this.selectedSubscription = subscriptions;
     },
+    setLoading(value: boolean) {
+      this.loading = value;
+    },
     openDetails() {
       this.isOpenDetails = true;
     },
@@ -81,10 +84,10 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     async updateSubscription(formData: Partial<PostSubscriptions>) {
       if (!this.selectedSubscription?.id) {
         console.error("no id provided");
-        /*
-      TODO : fermer la modal ici , attendre le retour , avec loading  sur la modal
-      */
-        return;
+        throw Error(
+          "Id is missing in the following formData : " +
+            JSON.stringify(formData),
+        );
       }
       try {
         const updatedSubscription = {

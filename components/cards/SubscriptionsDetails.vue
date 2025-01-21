@@ -3,6 +3,7 @@ import type { Subscription } from "~/types/store/subscriptionsStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import dayjs from "dayjs";
 import { useDateStore } from "~/store/dateStore";
+import { deleteSubscriptionMessages } from "~/utils/constants/Constants";
 
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
@@ -26,17 +27,22 @@ function handleOpenConfirmationDelete(subscription: Subscription) {
 }
 
 async function handleDeleteSubscription(subscription: Subscription) {
+  if (!subscription || !subscription.id) {
+    return useNuxtApp().$toast.error(deleteSubscriptionMessages.error);
+  }
+
+  subscriptionStore.setLoading(true);
   subscriptionStore.setSelectedSubscription(subscription);
   try {
     const result = await subscriptionStore.deleteSubscription(subscription);
     if (result) {
-      useNuxtApp().$toast.success("Abonnement supprimé avec succès !");
+      useNuxtApp().$toast.success(deleteSubscriptionMessages.success);
     }
-  } catch {
-    return useNuxtApp().$toast.error(
-      "Une erreur est survenue lors de la tentative de suppréssion de l'abonnement",
-    );
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'abonnement :", error);
+    return useNuxtApp().$toast.error(deleteSubscriptionMessages.error);
   } finally {
+    subscriptionStore.setLoading(false); // Arrêt du chargement
     await subscriptionStore.getSubscriptionsMonthly(
       dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),
     );
@@ -49,7 +55,6 @@ function handleClickSubscriptionDetail(subscription: Subscription) {
 }
 
 function handleCancel() {
-  console.log("called cancel");
   subscriptionStore.setSelectedSubscription(null);
   labelConfirmAction.value = null;
 }

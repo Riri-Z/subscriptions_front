@@ -3,10 +3,16 @@ import SubscriptionForms from "~/components/forms/SubscriptionForms.vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import type { PostSubscriptions } from "~/types/store/subscriptionsStore";
 import { useDateStore } from "~/store/dateStore";
+import { postSubscriptionMessages } from "~/utils/constants/Constants";
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
 
 async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
+  if (!formData.id) {
+    return useNuxtApp().$toast.error(
+      postSubscriptionMessages.subscriptionIncomplet,
+    );
+  }
   if (formData.endDate === "") {
     delete formData.endDate;
   }
@@ -16,12 +22,13 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
     } else {
       await subscriptionStore.postUserSubscriptions(formData);
     }
-    useNuxtApp().$toast.success("Abonnement mis à jour avec succès !");
+    useNuxtApp().$toast.success(postSubscriptionMessages.success);
   } catch (error) {
-    console.error(error);
-    useNuxtApp().$toast.error(
-      "Une erreur est survenue lors de la tentative de mis à jour",
+    console.error(
+      "Une erreur est survenue durant la tentative de mis à jour ",
+      error,
     );
+    useNuxtApp().$toast.error(postSubscriptionMessages.error);
   } finally {
     await subscriptionStore.getSubscriptionsMonthly(
       dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),

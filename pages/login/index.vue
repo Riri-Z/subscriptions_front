@@ -3,6 +3,7 @@ import { registerSchema } from "~/schema/register";
 import { loginSchema, type Login } from "~/schema/login";
 import FormComponent from "~/components/forms/FormComponent.vue";
 import type { CustomError } from "~/types/error/error";
+import { loginMessages } from "~/utils/constants/Constants";
 
 const { signIn } = useAuth();
 
@@ -36,6 +37,10 @@ const formSchema = {
 };
 
 async function handleLogin(values: Login) {
+  if (!values.username || !values.password) {
+    return useNuxtApp().$toast.error(loginMessages.missingInput);
+  }
+
   try {
     const credentials = {
       username: values.username,
@@ -45,16 +50,14 @@ async function handleLogin(values: Login) {
   } catch (error: unknown) {
     console.log({ error });
     if (error === undefined) {
-      useNuxtApp().$toast.error(
-        "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
-      );
+      useNuxtApp().$toast.error(loginMessages.errorUndefined);
       return;
     }
     if ((error as CustomError)?.statusCode) {
-      useNuxtApp().$toast.error('Nom d"utilisateur ou mot de passe incorrect.');
+      useNuxtApp().$toast.error(loginMessages.wrongCredentials);
       return;
     }
-    useNuxtApp().$toast.error("Une erreur inconnue s'est produite.");
+    useNuxtApp().$toast.error(loginMessages.unknownError);
   }
 }
 </script>

@@ -22,8 +22,7 @@
 import { registerSchema, type RegisterValues } from "~/schema/register";
 import { useAuthStore } from "~/store/authStore";
 import FormComponent from "~/components/forms/FormComponent.vue";
-import type { ApiResponse } from "~/types/store/subscriptionsStore";
-import type { RegisterResponse } from "~/interfaces/auth.interface";
+import { registerMessages } from "~/utils/constants/Constants";
 
 definePageMeta({
   layout: "login",
@@ -48,9 +47,7 @@ async function handleSaveRegister(values: RegisterValues) {
     );
 
     if (statusCode === 201) {
-      useNuxtApp().$toast.success(
-        "Utilisateur enregistré, veuillez vous connecter",
-      );
+      useNuxtApp().$toast.success(registerMessages.success);
       setTimeout(() => {
         navigateTo("/login");
       }, 2000);
@@ -59,12 +56,10 @@ async function handleSaveRegister(values: RegisterValues) {
     if (typeof error === "object" && error !== null && "statusCode" in error) {
       const statusCode = (error as { statusCode: number }).statusCode;
       if (statusCode === 409) {
-        return useNuxtApp().$toast.error(
-          'Nom d"utilisateur ou email déjà utilisé. Veuillez essayer une autre valeur',
-        );
+        return useNuxtApp().$toast.error(registerMessages.error);
       }
     } else {
-      useNuxtApp().$toast.error("Une erreur est survenue");
+      useNuxtApp().$toast.error(registerMessages.unknownError);
     }
   }
 }
