@@ -2,7 +2,7 @@ export type ApiResponse<T> = {
   statusCode: number;
   body: T;
 };
-export interface Subscription {
+export interface UserSubscription {
   id: number;
   userId: number;
   subscriptionId: number;
@@ -12,11 +12,11 @@ export interface Subscription {
   amount: number;
   billingCycle: BillingCycle;
   status: StatusSubscription;
+  category: string;
   subscription: {
     id: number;
     name: string;
     icon_name: string;
-    category: string;
   };
   nextsPayements: string[];
 }
@@ -44,9 +44,9 @@ export enum SubscriptionCategory {
 export interface SubscriptionsStore {
   isModalOpen: boolean;
   isOpenDetails: boolean;
-  subscriptions: null | Subscription[];
-  selectedSubscription: null | Subscription;
-  subscriptionsCurrentMonth: null | Subscription[];
+  subscriptions: null | UserSubscription[];
+  selectedSubscription: null | UserSubscription;
+  subscriptionsCurrentMonth: null | UserSubscription[];
   loading: boolean;
   selectedDate: null | string;
 }

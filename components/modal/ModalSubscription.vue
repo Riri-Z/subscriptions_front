@@ -8,11 +8,7 @@ const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
 
 async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
-  if (!formData.id) {
-    return useNuxtApp().$toast.error(
-      postSubscriptionMessages.subscriptionIncomplet,
-    );
-  }
+  // TODO : check guard if everything is present
   if (formData.endDate === "") {
     delete formData.endDate;
   }

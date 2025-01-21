@@ -29,10 +29,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { Subscription } from "~/types/store/subscriptionsStore";
+import type { UserSubscription } from "~/types/store/subscriptionsStore";
 
 const props = defineProps<{
   label: string;
-  subscription: Subscription;
+  subscription: UserSubscription;
 }>();
 </script>

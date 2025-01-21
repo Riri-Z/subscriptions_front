@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Subscription } from "~/types/store/subscriptionsStore";
+import type { UserSubscription } from "~/types/store/subscriptionsStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import dayjs from "dayjs";
 import { useDateStore } from "~/store/dateStore";
@@ -10,7 +10,7 @@ const dateStore = useDateStore();
 defineProps({
   selectedDate: { type: String },
   subscriptionsCurrentMonth: {
-    type: Array as PropType<Subscription[]>,
+    type: Array as PropType<UserSubscription[]>,
     default: () => [],
   },
 });
@@ -21,12 +21,12 @@ const handleOpenModalAddSubscription = () => {
   subscriptionStore.openModal();
 };
 
-function handleOpenConfirmationDelete(subscription: Subscription) {
+function handleOpenConfirmationDelete(subscription: UserSubscription) {
   subscriptionStore.setSelectedSubscription(subscription);
   labelConfirmAction.value = subscription.subscription.name;
 }
 
-async function handleDeleteSubscription(subscription: Subscription) {
+async function handleDeleteSubscription(subscription: UserSubscription) {
   if (!subscription || !subscription.id) {
     return useNuxtApp().$toast.error(deleteSubscriptionMessages.error);
   }
@@ -49,7 +49,7 @@ async function handleDeleteSubscription(subscription: Subscription) {
   }
 }
 
-function handleClickSubscriptionDetail(subscription: Subscription) {
+function handleClickSubscriptionDetail(subscription: UserSubscription) {
   subscriptionStore.setSelectedSubscription(subscription);
   subscriptionStore.openModal();
 }

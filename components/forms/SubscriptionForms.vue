@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useField, useForm, ErrorMessage } from "vee-validate";
+import {  useForm } from "vee-validate";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import * as yup from "yup";
 import dayjs from "dayjs";
@@ -40,7 +40,7 @@ const validationSchema = yup.object({
 
   endDate: yup.string(),
   billingCycle: yup.mixed<BillingCycle>().oneOf(Object.values(BillingCycle)),
-  subscriptionCategory: yup
+  category: yup
     .mixed<SubscriptionCategory>()
     .oneOf(Object.values(SubscriptionCategory)),
 });
@@ -62,8 +62,7 @@ const defaultSubscriptionFormValue = computed(() => {
           )
         : "",
       billingCycle: subscriptionStore.selectedSubscription.billingCycle,
-      subscriptionCategory:
-        subscriptionStore.selectedSubscription.subscription.category,
+      category: subscriptionStore.selectedSubscription.category,
     };
   } else {
     return {
@@ -72,7 +71,7 @@ const defaultSubscriptionFormValue = computed(() => {
       startDate: subscriptionStore.selectedDate || "",
       endDate: "",
       billingCycle: BillingCycle.MONTHLY,
-      subscriptionCategory: SubscriptionCategory.OTHER,
+      category: SubscriptionCategory.OTHER,
     };
   }
 });
@@ -88,9 +87,7 @@ const [subscriptionName, subscriptionNameAttrs] =
 const [startDate, startDateAttrs] = defineField("startDate");
 const [endDate, endDateAttrs] = defineField("endDate");
 const [billingCycle, billingCycleAttrs] = defineField("billingCycle");
-const [subscriptionCategory, subscriptionCategoryAttrs] = defineField(
-  "subscriptionCategory",
-);
+const [category, subscriptionCategoryAttrs] = defineField("category");
 
 const emit = defineEmits(["postSubscription"]);
 
@@ -186,21 +183,18 @@ function handleCancelSubscription() {
       <option value="YEARLY">Annuel</option>
     </select>
     <!-- Category  -->
-    <label class="text-primary-black-color font-bold" for="subscriptionCategory"
+    <label class="text-primary-black-color font-bold" for="category"
       >Catégorie<span class="text-red-500"> *</span></label
     >
     <select
-      id="subscriptionCategory"
-      v-model="subscriptionCategory"
+      id="category"
+      v-model="category"
       class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
       name="billingCycle"
       v-bind="subscriptionCategoryAttrs"
     >
-      <option
-        v-for="subscriptionCategory in CATEGORIES_OPTIONS"
-        :value="subscriptionCategory?.value"
-      >
-        {{ subscriptionCategory.text }}
+      <option v-for="category in CATEGORIES_OPTIONS" :value="category?.value">
+        {{ category.text }}
       </option>
     </select>
 

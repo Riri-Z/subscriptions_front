@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 import type {
   ApiResponse,
   PostSubscriptions,
-  Subscription,
+  UserSubscription,
   SubscriptionsStore,
 } from "~/types/store/subscriptionsStore";
 
@@ -12,9 +12,9 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
   state: (): SubscriptionsStore => ({
     isModalOpen: true,
     isOpenDetails: true,
-    subscriptions: null as Subscription[] | null,
-    selectedSubscription: null as Subscription | null,
-    subscriptionsCurrentMonth: null as Subscription[] | null,
+    subscriptions: null as UserSubscription[] | null,
+    selectedSubscription: null as UserSubscription | null,
+    subscriptionsCurrentMonth: null as UserSubscription[] | null,
     loading: false,
     selectedDate: dayjs(new Date()).format("YYYY-MM-DD"),
   }),
@@ -54,7 +54,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
   },
   actions: {
-    setSelectedSubscription(subscriptions: Subscription | null) {
+    setSelectedSubscription(subscriptions: UserSubscription | null) {
       this.selectedSubscription = subscriptions;
     },
     setLoading(value: boolean) {
@@ -96,7 +96,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         };
 
         const resultUpdateSubscription = await useAPI<
-          ApiResponse<Subscription>
+          ApiResponse<UserSubscription>
         >("/user-subscriptions/" + this.selectedSubscription.id, {
           method: "patch",
           body: updatedSubscription,
@@ -111,9 +111,9 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         this.closeModal();
       }
     },
-    async deleteSubscription(subscription: Subscription) {
+    async deleteSubscription(subscription: UserSubscription) {
       try {
-        return await useAPI<ApiResponse<Subscription>>(
+        return await useAPI<ApiResponse<UserSubscription>>(
           "/user-subscriptions" + "/" + subscription.id,
           {
             method: "delete",
@@ -130,7 +130,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       this.loading = true;
       try {
         const resultPostNewUserSubscription = await useAPI<
-          ApiResponse<Subscription>
+          ApiResponse<UserSubscription>
         >("/user-subscriptions", {
           method: "post",
           body: formData,
@@ -163,7 +163,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       this.loading = true;
       const url = "/user-subscriptions/" + date;
       try {
-        const subscriptionsCurrentMonth = await useAPI<Subscription[]>(url, {
+        const subscriptionsCurrentMonth = await useAPI<UserSubscription[]>(url, {
           method: "GET",
         });
         if (subscriptionsCurrentMonth) {
