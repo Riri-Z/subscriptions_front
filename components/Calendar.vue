@@ -1,24 +1,31 @@
 <template>
   <div
-    class="flex h-fit w-[350px] flex-col gap-2 rounded-xl bg-black p-6 align-middle text-white md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem]"
+    class="flex h-[450px] w-[90vw] flex-col gap-4 rounded-xl bg-black p-2 align-middle text-white md:h-fit md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem]"
   >
     <!-- Month navigation -->
     <header id="header" class="flex flex-row justify-between">
-      <div id="month" class="flex flex-row justify-center gap-2 align-middle">
+      <div
+        id="month"
+        class="flex flex-row justify-center gap-1 align-middle md:ml-2"
+      >
         <section class="flex justify-center gap-2 align-middle">
-          <span
-            class="flex cursor-pointer items-center justify-center text-xl lg:text-3xl"
-            @:click="dateStore.setPreviousMonth()"
-          >
-            <p class="hover:text-purple-300"><</p>
-          </span>
+          <div class="flex min-w-8">
+            <NuxtImg
+              class="cursor-pointer hover:text-purple-300"
+              src="icons/chevron-left.svg"
+              width="32"
+              alt="chevron left"
+              @:click="dateStore.setPreviousMonth()"
+            />
 
-          <span
-            class="flex cursor-pointer items-center justify-center text-xl lg:text-3xl"
-            @click="dateStore.setNextMonth()"
-          >
-            <p class="hover:text-purple-300">></p>
-          </span>
+            <NuxtImg
+              class="cursor-pointer hover:text-purple-300"
+              src="icons/chevron-right.svg"
+              width="32"
+              alt="chevron right"
+              @click="dateStore.setNextMonth()"
+            />
+          </div>
           <section
             class="flex items-center justify-center gap-2 text-base md:text-lg lg:text-3xl"
           >
@@ -32,7 +39,7 @@
         </section>
       </div>
       <!-- SPEND AMOUNT -->
-      <div id="totalSpend">
+      <div id="totalSpend" class="mr-4">
         <p class="text-sm md:text-base">Dépense prévue</p>
         <p id="sum" class="text-end text-lg">
           {{ subscriptionStore.getTotalExpensesByMonth }} €
@@ -41,7 +48,7 @@
     </header>
 
     <main
-      class="m-1 flex h-[350px] flex-col justify-center md:m-4 md:h-[450px] lg:h-[500px] laptop:h-[580px] 2xl:h-[600px]"
+      class="m-1 mt-0 flex h-[350px] flex-col justify-center md:m-4 md:mt-1 md:h-[450px] lg:h-[500px] laptop:h-[580px] 2xl:h-[600px]"
     >
       <MonthList v-if="displayMonth" @select-month="handleSelectMonth" />
 
