@@ -2,7 +2,7 @@
   <div
     id="dashboard
   "
-    class="flex h-[100vh] min-w-full flex-col-reverse lg:flex-row"
+    class="flex h-[100vh] flex-col-reverse lg:flex-row"
   >
     <Sidebar />
 

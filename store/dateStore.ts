@@ -30,6 +30,7 @@ export const useDateStore = defineStore("date", {
     getCurrentYear: (state) => state.currentDate.get("year"),
     getNumberOfDays: (state) => state.currentDate.date(),
     getDayInMonth: (state) => state.currentDate.get("date"),
+    getCurrentDate: (state) => state.currentDate,
   },
   actions: {
     async setPreviousMonth() {
@@ -52,6 +53,9 @@ export const useDateStore = defineStore("date", {
     },
     setCurrentDate(date: Dayjs) {
       this.currentDate = date;
+    },
+    setSourceDate(date: Dayjs) {
+      this.sourceDate = date;
     },
   },
 });
