@@ -71,7 +71,7 @@ const subscriptionByDay = computed(() => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle lg:h-full lg:w-[20rem]"
+    class="flex w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle md:w-full lg:h-full lg:w-[25vw] 2xl:w-[15vw]"
   >
     <h1 class="m-1 text-center">
       Vos prélévements prévus le {{ selectedDate }}
@@ -104,8 +104,7 @@ const subscriptionByDay = computed(() => {
             <NuxtImg
               class="m-auto"
               alt="clipboard delete icon"
-              src="/icons/remove.png"
-              fill="white"
+              src="/icons/remove.svg"
               width="24"
               height="24"
               @click="handleOpenConfirmationDelete(subscription)"

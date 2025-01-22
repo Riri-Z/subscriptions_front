@@ -163,9 +163,12 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       this.loading = true;
       const url = "/user-subscriptions/" + date;
       try {
-        const subscriptionsCurrentMonth = await useAPI<UserSubscription[]>(url, {
-          method: "GET",
-        });
+        const subscriptionsCurrentMonth = await useAPI<UserSubscription[]>(
+          url,
+          {
+            method: "GET",
+          },
+        );
         if (subscriptionsCurrentMonth) {
           this.subscriptionsCurrentMonth = subscriptionsCurrentMonth;
           return true;

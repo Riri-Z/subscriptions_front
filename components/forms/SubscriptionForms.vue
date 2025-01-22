@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {  useForm } from "vee-validate";
+import { useForm } from "vee-validate";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import * as yup from "yup";
 import dayjs from "dayjs";
