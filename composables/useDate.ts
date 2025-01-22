@@ -10,7 +10,7 @@ export const useDate = () => {
     return dayjs(date).date();
   };
 
-  const arrNameOfDays: Ref<string[]> = ref([
+  const NAME_DAYS: Ref<string[]> = ref([
     "Dimanche",
     "Lundi",
     "Mardi",
@@ -84,7 +84,7 @@ export const useDate = () => {
     });
   }
 
-  const arrNameOfMonth = [
+  const MONTH_NAME = [
     "janvier",
     "février",
     "mars",
@@ -100,11 +100,12 @@ export const useDate = () => {
   ];
 
   const currentMonthString = (month: number) => {
-    return capitalized(arrNameOfMonth[month]);
+    return capitalized(MONTH_NAME[month]);
   };
   return {
     getDayInMonth,
-    arrNameOfDays,
+    NAME_DAYS,
+    MONTH_NAME,
     currentMonthString,
     arrOfDays,
   };
