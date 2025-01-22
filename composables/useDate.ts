@@ -85,22 +85,23 @@ export const useDate = () => {
   }
 
   const MONTH_NAME = [
-    "janvier",
-    "février",
-    "mars",
-    "avril",
-    "mai",
-    "juin",
-    "juillet",
-    "août",
-    "septembre",
-    "octobre",
-    "novembre",
-    "décembre",
+    //Months are zero indexed, so January is month 0.
+    { key: 0, value: "janvier" },
+    { key: 1, value: "février" },
+    { key: 2, value: "mars" },
+    { key: 3, value: "avril" },
+    { key: 4, value: "mai" },
+    { key: 5, value: "juin" },
+    { key: 6, value: "juillet" },
+    { key: 7, value: "août" },
+    { key: 8, value: "septembre" },
+    { key: 9, value: "octobre" },
+    { key: 10, value: "novembre" },
+    { key: 11, value: "décembre" },
   ];
 
   const currentMonthString = (month: number) => {
-    return capitalized(MONTH_NAME[month]);
+    return capitalized(MONTH_NAME[month].value);
   };
   return {
     getDayInMonth,
