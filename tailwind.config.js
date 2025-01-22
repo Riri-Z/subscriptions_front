@@ -29,6 +29,9 @@ export default {
           "linear-gradient(to right, #551F91 0%, #3B1C7A 100%)",
       },
     },
+    screens: {
+      laptop: "1440px",
+    },
   },
   plugins: [],
 };
