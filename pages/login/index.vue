@@ -3,7 +3,7 @@ import { registerSchema } from "~/schema/register";
 import { loginSchema, type Login } from "~/schema/login";
 import FormComponent from "~/components/forms/FormComponent.vue";
 import type { CustomError } from "~/types/error/error";
-import { loginMessages } from "~/utils/constants/Constants";
+import { loginMessages } from "~/utils/constants/toast-status-message";
 
 const { signIn } = useAuth();
 

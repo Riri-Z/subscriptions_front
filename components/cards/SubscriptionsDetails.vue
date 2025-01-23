@@ -3,7 +3,7 @@ import type { UserSubscription } from "~/types/store/subscriptionsStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import dayjs from "dayjs";
 import { useDateStore } from "~/store/dateStore";
-import { deleteSubscriptionMessages } from "~/utils/constants/Constants";
+import { deleteSubscriptionMessages } from "~/utils/constants/toast-status-message";
 
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();

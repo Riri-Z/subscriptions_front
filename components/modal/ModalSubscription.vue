@@ -3,7 +3,7 @@ import SubscriptionForms from "~/components/forms/SubscriptionForms.vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import type { PostSubscriptions } from "~/types/store/subscriptionsStore";
 import { useDateStore } from "~/store/dateStore";
-import { postSubscriptionMessages } from "~/utils/constants/Constants";
+import { postSubscriptionMessages } from "~/utils/constants/toast-status-message";
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
 
