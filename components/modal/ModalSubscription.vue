@@ -38,7 +38,7 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   <Teleport v-if="subscriptionStore.isModalOpen" to="#calendar">
     <div
       v-if="subscriptionStore.isModalOpen"
-      class="my-4 flex w-[90vw] flex-col justify-evenly gap-1 rounded-lg bg-white p-4 text-black md:gap-2 lg:w-[400px]"
+      class="text-wite my-4 flex w-[90vw] flex-col justify-evenly gap-1 rounded-lg bg-black bg-opacity-15 p-4 md:gap-2 lg:w-[400px]"
     >
       <SubscriptionForms @post-subscription="handlePostSubscription" />
     </div>

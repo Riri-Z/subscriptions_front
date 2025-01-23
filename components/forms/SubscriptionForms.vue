@@ -119,7 +119,7 @@ function handleCancelSubscription() {
     <input
       id="subscriptionName"
       v-model="subscriptionName"
-      class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
+      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="subscriptionName"
       v-bind="subscriptionNameAttrs"
     />
@@ -132,7 +132,7 @@ function handleCancelSubscription() {
     <input
       id="amount"
       v-model="amount"
-      class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
+      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       type="number"
       name="amount"
       v-bind="amountAttrs"
@@ -148,7 +148,7 @@ function handleCancelSubscription() {
       id="startDate"
       v-model="startDate"
       type="date"
-      class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
+      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="startDate"
       v-bind="startDateAttrs"
     />
@@ -161,7 +161,7 @@ function handleCancelSubscription() {
       id="endDate"
       v-model="endDate"
       type="date"
-      class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
+      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="endDate"
       v-bind="endDateAttrs"
     />
@@ -174,7 +174,7 @@ function handleCancelSubscription() {
     <select
       id="billingCycle"
       v-model="billingCycle"
-      class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
+      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="billingCycle"
       v-bind="billingCycleAttrs"
     >
@@ -189,7 +189,7 @@ function handleCancelSubscription() {
     <select
       id="category"
       v-model="category"
-      class="rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
+      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="billingCycle"
       v-bind="subscriptionCategoryAttrs"
     >
@@ -202,13 +202,13 @@ function handleCancelSubscription() {
       <button
         @click="onSubmit"
         type="button"
-        class="border-white-950 mr-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow md:my-5"
+        class="mr-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow md:my-5"
       >
         Sauvegarder
       </button>
       <button
         type="button"
-        class="border-white-950 ml-5 h-10 w-full rounded-md border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow md:my-5"
+        class="ml-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow md:my-5"
         @click="handleCancelSubscription"
       >
         Annuler
