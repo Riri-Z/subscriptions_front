@@ -7,16 +7,17 @@ const props = defineProps<{
 // Compute translate value based on window size
 const translateValue = computed(() => {
   const size = window.innerWidth;
-  if (size > 1024) {
-    // md screen
-    return `translateX(${20 * props.index}px)`;
-  } else if (size > 768) {
-    return `translateX(${15 * props.index}px)`;
-  } else {
-    // sm screen
-    return `translateX(${15 * props.index}px)`;
-  }
+
+  return `translateX(${getTranslationFactor(size) * props.index}px)`;
 });
+
+const getTranslationFactor = (size: number) => {
+  if (size > 1024) return 20;
+  if (size > 1000) return 18;
+  if (size > 768) return 13;
+  if (size > 480) return 15;
+  return 10;
+};
 
 const randomColor = ref(
   letterColorMap[props.name?.toLowerCase()[0]]
