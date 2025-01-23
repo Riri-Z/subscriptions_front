@@ -10,14 +10,10 @@
   >
     <p class="text-sm lg:text-base">{{ day }}</p>
     <section
-      v-if="subscriptionActive"
-      class="flex flex-row self-center sm:gap-1"
+      v-if="subscriptionActive && subscriptionActive.length > 0"
+      class="flex w-full flex-row self-center bg-yellow-300"
     >
-      <BadgeSubscription
-        v-for="subscription in subscriptionActive"
-        :key="subscription.id"
-        :name="subscription.subscription.name"
-      />
+      <BadgeContainer :active-subscription="subscriptionActive" />
     </section>
   </button>
 </template>
@@ -26,6 +22,7 @@
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
+import BadgeContainer from "./BadgeContainer.vue";
 
 const dateStore = useDateStore();
 const emit = defineEmits(["onNextMonth", "onPreviousMonth"]);
