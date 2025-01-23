@@ -41,14 +41,14 @@
       <!-- SPEND AMOUNT -->
       <div id="totalSpend" class="mr-4">
         <p class="text-sm md:text-base">Dépense prévue</p>
-        <p id="sum" class="text-end text-lg">
+        <p id="sum" class="text-end text-2xl">
           {{ subscriptionStore.getTotalExpensesByMonth }} €
         </p>
       </div>
     </header>
 
     <main
-      class="m-1 mt-0 flex h-[350px] flex-col justify-center md:m-2 md:h-[450px] lg:h-[500px] xl:mb-12 laptop:h-[580px] 2xl:h-[600px]"
+      class="m-1 mt-0 flex h-[350px] flex-col justify-center md:h-[450px] lg:h-[500px] xl:mb-12 laptop:h-[580px] 2xl:h-[600px]"
     >
       <MonthList v-if="displayMonth" @select-month="handleSelectMonth" />
 

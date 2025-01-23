@@ -6,9 +6,7 @@
   >
     <Sidebar />
 
-    <div
-      class="flex h-full overflow-auto bg-custom-gradient md:flex-1 lg:h-[100vh]"
-    >
+    <div class="flex h-full overflow-auto bg-blue-100 md:flex-1 lg:h-[100vh]">
       <slot />
     </div>
   </div>
