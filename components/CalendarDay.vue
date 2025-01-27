@@ -1,6 +1,6 @@
 <template>
   <button
-    class="flex h-12 cursor-pointer flex-col rounded-xl p-2 sm:h-14 lg:h-16 lg:gap-2 xl:h-20"
+    class="flex h-12 cursor-pointer flex-col rounded-xl p-2 sm:h-14 lg:h-16 lg:gap-1 xl:h-20"
     :class="{
       'bg-slate-500': currentMonth && !selectedDay,
       'bg-slate-800': !currentMonth && !selectedDay,
@@ -11,7 +11,7 @@
     <p class="text-sm lg:text-base">{{ day }}</p>
     <section
       v-if="subscriptionActive && subscriptionActive.length > 0"
-      class="flex w-full flex-row self-center bg-yellow-300"
+      class="flex w-full flex-row self-center"
     >
       <BadgeContainer :active-subscription="subscriptionActive" />
     </section>
@@ -22,7 +22,7 @@
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
-import BadgeContainer from "./BadgeContainer.vue";
+import BadgeContainer from "./badge/BadgeContainer.vue";
 
 const dateStore = useDateStore();
 const emit = defineEmits(["onNextMonth", "onPreviousMonth"]);

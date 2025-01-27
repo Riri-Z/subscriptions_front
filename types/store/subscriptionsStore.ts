@@ -17,8 +17,10 @@ export interface UserSubscription {
     id: number;
     name: string;
     icon_name: string;
+    icon_url: string | null;
   };
   nextsPayements: string[];
+  computed?: boolean;
 }
 
 export interface PostSubscriptions {

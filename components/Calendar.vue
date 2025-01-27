@@ -48,7 +48,7 @@
     </header>
 
     <main
-      class="m-1 mt-0 flex h-[350px] flex-col justify-center md:h-[450px] lg:h-[500px] xl:mb-12 laptop:h-[580px] 2xl:h-[600px]"
+      class="m-1 mt-0 flex h-[350px] flex-col justify-center md:h-[450px] lg:h-[500px] xl:mb-3 laptop:h-[580px] 2xl:h-[600px]"
     >
       <MonthList v-if="displayMonth" @select-month="handleSelectMonth" />
 
