@@ -73,12 +73,10 @@ const subscriptionByDay = computed(() => {
     v-if="selectedDate && subscriptionsCurrentMonth"
     class="flex w-full flex-col gap-4 rounded-xl bg-black bg-opacity-15 p-4 align-middle md:w-full lg:h-full lg:w-[25vw] 2xl:w-[15vw]"
   >
-    <h1 class="m-1 text-center">
-      Vos prélévements prévus le {{ selectedDate }}
-    </h1>
+    <h1 class="m-1 text-center">Abonnements actifs :</h1>
     <div
       v-if="subscriptionByDay && subscriptionByDay.length > 0"
-      class="flex max-h-[300px] flex-col gap-2 overflow-y-auto lg:h-[100%]"
+      class="flex h-fit flex-col gap-2 overflow-y-auto"
     >
       <!-- LIST OF SUBSCRIPTION -->
       <div
