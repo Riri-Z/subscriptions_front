@@ -6,8 +6,9 @@ import dayjs from "dayjs";
 import {
   BillingCycle,
   SubscriptionCategory,
+  type Subscription,
 } from "~/types/store/subscriptionsStore";
-
+import SuggestionList from "./SuggestionList.vue";
 interface CategoryOption {
   value: SubscriptionCategory;
   text: string;
@@ -23,6 +24,12 @@ const CATEGORIES_OPTIONS: CategoryOption[] = [
 ];
 
 const subscriptionStore = useSubscriptionsStore();
+
+onMounted(() => {
+  subscriptionStore.getAvailableSubscriptionWithIcon();
+});
+
+const displaySuggestionStatus = ref(false);
 
 const validationSchema = yup.object({
   subscriptionName: yup.string().required("Un nom est requis"),
@@ -99,31 +106,58 @@ function handleCancelSubscription() {
   subscriptionStore.setSelectedSubscription(null);
   subscriptionStore.closeModal();
 }
+
+/**
+ * Allow to toggle displaySuggestionStatus
+ */
+function handleFocusInputName(value: boolean) {
+  displaySuggestionStatus.value = value;
+}
+
+function handleSelectSubscription(subscription: Subscription) {
+  console.log("subscription.name", subscription.name);
+  // Update sbscription name
+  subscriptionName.value = subscription.name;
+  // toggle to false suggestion and therefore hide suggestion
+  handleFocusInputName(false);
+}
 </script>
 
 <template>
-  <h1 class="text-primary-black-color py-1 text-center text-2xl md:py-2">
+  <h1 class="text-primary-black-color m-4 py-1 text-center text-2xl md:py-2">
     {{
       subscriptionStore.selectedSubscription
         ? "Editer l'abonnement"
         : "Ajouter un abonnement"
     }}
   </h1>
-  <form class="flex flex-col gap-2 p-2">
-    <!-- subscriptionName -->
+  <form class="flex flex-col gap-3 p-2">
+    <!-- subscription Name -->
     <label
       class="text-primary-black-color block text-sm font-bold"
       for="subscriptionName"
       >Nom<span class="text-red-500"> *</span></label
     >
-    <input
-      id="subscriptionName"
-      v-model="subscriptionName"
-      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
-      name="subscriptionName"
-      v-bind="subscriptionNameAttrs"
-    />
-    <span class="text-xs text-red-400">{{ errors.subscriptionName }}</span>
+    <div class="relative">
+      <!-- Autocomple is disable to prevent double suggestion, "one-time-code" instead of false works in chrome -->
+      <input
+        id="subscriptionName"
+        v-model="subscriptionName"
+        @focus="handleFocusInputName(true)"
+        autocomplete="one-time-code"
+        @blur="handleFocusInputName(false)"
+        list="subscriptions-lists"
+        class="w-full rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+        name="subscriptionName"
+        v-bind="subscriptionNameAttrs"
+      />
+      <SuggestionList
+        v-if="displaySuggestionStatus"
+        :subscription="subscriptionStore.availableSubscriptionWithIcon"
+        @select-subscription="handleSelectSubscription"
+      />
+      <span class="text-xs text-red-400">{{ errors.subscriptionName }}</span>
+    </div>
 
     <!-- amount  -->
     <label class="text-primary-black-color font-bold" for="amount"
@@ -132,6 +166,7 @@ function handleCancelSubscription() {
     <input
       id="amount"
       v-model="amount"
+      @focus="handleFocusInputName(false)"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       type="number"
       name="amount"
@@ -202,13 +237,13 @@ function handleCancelSubscription() {
       <button
         @click="onSubmit"
         type="button"
-        class="mr-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow md:my-5"
+        class="my-4 mr-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
       >
         Sauvegarder
       </button>
       <button
         type="button"
-        class="ml-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow md:my-5"
+        class="my-4 ml-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
         @click="handleCancelSubscription"
       >
         Annuler
