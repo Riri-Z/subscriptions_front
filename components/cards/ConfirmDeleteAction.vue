@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute left-[50%] top-[50%] h-fit w-fit translate-x-[-50%] translate-y-[-50%] rounded-md border bg-white text-black"
+    class="absolute left-[50%] top-[50%] z-[50] h-fit w-fit translate-x-[-50%] translate-y-[-50%] rounded-md bg-gray-600 text-white"
     @keydown.escape="$emit('cancelAction')"
   >
     <div class="m-4 flex flex-col gap-4 align-middle">
@@ -10,18 +10,18 @@
           {{ props.label }}
         </p>
       </h1>
-      <div class="flex flex-row">
+      <div class="flex flex-row justify-center">
         <button
           @click="$emit('deleteSubscription', props.subscription)"
-          class="border-white-950 mr-5 h-10 w-full rounded-lg border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300"
+          class="mr-5 h-10 w-[8rem] rounded-lg bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300"
         >
-          Continuer
+          <p>Continuer</p>
         </button>
         <button
           @click="$emit('cancelAction')"
-          class="border-white-950 rounded- mr-5 h-10 w-full border-2 bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300"
+          class="rounded- mr-5 h-10 w-[8rem] rounded-lg bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300"
         >
-          Annuler
+          <p>Annuler</p>
         </button>
       </div>
     </div>

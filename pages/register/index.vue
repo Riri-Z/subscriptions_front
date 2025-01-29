@@ -22,7 +22,7 @@
 import { registerSchema, type RegisterValues } from "~/schema/register";
 import { useAuthStore } from "~/store/authStore";
 import FormComponent from "~/components/forms/FormComponent.vue";
-import { registerMessages } from "~/utils/constants/Constants";
+import { registerMessages } from "~/utils/constants/toast-status-message";
 
 definePageMeta({
   layout: "login",

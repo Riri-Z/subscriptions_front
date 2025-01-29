@@ -13,12 +13,16 @@ export interface UserSubscription {
   billingCycle: BillingCycle;
   status: StatusSubscription;
   category: string;
-  subscription: {
-    id: number;
-    name: string;
-    icon_name: string;
-  };
+  subscription: Subscription;
   nextsPayements: string[];
+  computed?: boolean;
+}
+
+export interface Subscription {
+  id: number;
+  name: string;
+  icon_name: string;
+  icon_url: string | null;
 }
 
 export interface PostSubscriptions {
@@ -49,6 +53,7 @@ export interface SubscriptionsStore {
   subscriptionsCurrentMonth: null | UserSubscription[];
   loading: boolean;
   selectedDate: null | string;
+  availableSubscriptionWithIcon: any;
 }
 
 export enum StatusSubscription {

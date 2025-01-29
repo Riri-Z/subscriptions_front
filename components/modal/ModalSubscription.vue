@@ -3,7 +3,7 @@ import SubscriptionForms from "~/components/forms/SubscriptionForms.vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import type { PostSubscriptions } from "~/types/store/subscriptionsStore";
 import { useDateStore } from "~/store/dateStore";
-import { postSubscriptionMessages } from "~/utils/constants/Constants";
+import { postSubscriptionMessages } from "~/utils/constants/toast-status-message";
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
 
@@ -38,7 +38,7 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   <Teleport v-if="subscriptionStore.isModalOpen" to="#calendar">
     <div
       v-if="subscriptionStore.isModalOpen"
-      class="my-4 flex w-[90vw] flex-col justify-evenly gap-1 rounded-lg bg-white p-4 text-black md:gap-2 lg:w-[400px]"
+      class="text-wite my-2 flex w-[90vw] flex-col justify-evenly gap-1 rounded-lg bg-black bg-opacity-15 px-4 md:gap-2 lg:w-[400px] lg:p-4"
     >
       <SubscriptionForms @post-subscription="handlePostSubscription" />
     </div>

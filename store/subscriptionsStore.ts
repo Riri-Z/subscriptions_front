@@ -6,6 +6,7 @@ import type {
   PostSubscriptions,
   UserSubscription,
   SubscriptionsStore,
+  Subscription,
 } from "~/types/store/subscriptionsStore";
 
 export const useSubscriptionsStore = defineStore("subscriptions", {
@@ -17,6 +18,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     subscriptionsCurrentMonth: null as UserSubscription[] | null,
     loading: false,
     selectedDate: dayjs(new Date()).format("YYYY-MM-DD"),
+    availableSubscriptionWithIcon: [],
   }),
   getters: {
     getSelectedDate: (state) => state.selectedDate,
@@ -124,6 +126,23 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         throw error;
       } finally {
         this.setSelectedSubscription(null);
+      }
+    },
+    async getAvailableSubscriptionWithIcon() {
+      try {
+        const result = await useAPI<ApiResponse<Subscription[] | null>>(
+          "/subscriptions/with-icons",
+          {
+            method: "GET",
+          },
+        );
+        if (result?.body) {
+          this.availableSubscriptionWithIcon = result.body;
+        } else {
+          this.availableSubscriptionWithIcon = [];
+        }
+      } catch (error) {
+        console.error(error);
       }
     },
     async postUserSubscriptions(formData: Partial<PostSubscriptions>) {

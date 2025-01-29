@@ -1,5 +1,8 @@
 <template>
-  <button class="flex items-center text-white lg:h-28" @click="handleSignOut">
+  <button
+    class="flex items-center text-white lg:h-28 lg:hover:bg-gray-600"
+    @click="handleSignOut"
+  >
     <div class="mx-auto flex flex-row gap-1">
       <NuxtImg
         :key="icon.id"

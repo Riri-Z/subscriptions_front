@@ -3,7 +3,7 @@ import type { UserSubscription } from "~/types/store/subscriptionsStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import dayjs from "dayjs";
 import { useDateStore } from "~/store/dateStore";
-import { deleteSubscriptionMessages } from "~/utils/constants/Constants";
+import { deleteSubscriptionMessages } from "~/utils/constants/toast-status-message";
 
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
@@ -71,19 +71,17 @@ const subscriptionByDay = computed(() => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex w-full flex-col gap-4 rounded-xl bg-black p-4 align-middle md:w-full lg:h-full lg:w-[25vw] 2xl:w-[15vw]"
+    class="flex w-full flex-col gap-4 rounded-xl bg-black bg-opacity-15 p-4 align-middle text-base md:w-full md:text-2xl lg:h-full lg:w-[25vw] 2xl:w-[15vw]"
   >
-    <h1 class="m-1 text-center">
-      Vos prélévements prévus le {{ selectedDate }}
-    </h1>
+    <h1 class="m-1 text-center">Abonnements actifs :</h1>
     <div
       v-if="subscriptionByDay && subscriptionByDay.length > 0"
-      class="flex max-h-[300px] flex-col gap-2 overflow-y-auto lg:h-[100%]"
+      class="flex h-fit flex-col gap-2 overflow-y-auto"
     >
       <!-- LIST OF SUBSCRIPTION -->
       <div
         v-for="subscription in subscriptionByDay"
-        class="mx-2 flex cursor-pointer flex-col rounded-md p-2 text-sm odd:bg-gray-900 even:bg-gray-700 hover:bg-green-color"
+        class="mx-2 flex cursor-pointer flex-col rounded-md p-2 odd:bg-gray-900 even:bg-gray-700 hover:bg-green-color"
         :key="subscription.id"
       >
         <!-- Each subscription details -->
