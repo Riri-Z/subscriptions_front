@@ -27,8 +27,8 @@ const emit = defineEmits<{
         :alt="subscription.name"
         width="18"
         height="18"
-      >
-      </img>
+      />
+
       <p>{{ subscription.name }}</p>
     </span>
   </div>

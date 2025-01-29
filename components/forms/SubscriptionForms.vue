@@ -145,7 +145,8 @@ function handleSelectSubscription(subscription: Subscription) {
         v-model="subscriptionName"
         @focus="handleFocusInputName(true)"
         autocomplete="one-time-code"
-        @blur="handleFocusInputName(false)"
+        @keyup.escape="handleFocusInputName(false)"
+        @keyup.enter="handleFocusInputName(false)"
         list="subscriptions-lists"
         class="w-full rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
         name="subscriptionName"
@@ -156,7 +157,6 @@ function handleSelectSubscription(subscription: Subscription) {
         :subscription="subscriptionStore.availableSubscriptionWithIcon"
         @select-subscription="handleSelectSubscription"
       />
-      <span class="text-xs text-red-400">{{ errors.subscriptionName }}</span>
     </div>
 
     <!-- amount  -->
@@ -182,6 +182,7 @@ function handleSelectSubscription(subscription: Subscription) {
     <input
       id="startDate"
       v-model="startDate"
+      @focus="handleFocusInputName(false)"
       type="date"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="startDate"
@@ -195,6 +196,7 @@ function handleSelectSubscription(subscription: Subscription) {
     <input
       id="endDate"
       v-model="endDate"
+      @focus="handleFocusInputName(false)"
       type="date"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="endDate"
@@ -209,6 +211,7 @@ function handleSelectSubscription(subscription: Subscription) {
     <select
       id="billingCycle"
       v-model="billingCycle"
+      @focus="handleFocusInputName(false)"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="billingCycle"
       v-bind="billingCycleAttrs"
@@ -224,6 +227,7 @@ function handleSelectSubscription(subscription: Subscription) {
     <select
       id="category"
       v-model="category"
+      @focus="handleFocusInputName(false)"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="billingCycle"
       v-bind="subscriptionCategoryAttrs"
