@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     client: true,
   },
   image: {
-    provider: 'netlify',
+    provider: 'static',
   },
   css: ["~/assets/styles/main.css"],
   postcss: {
