@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     cloudflare: {
       baseURL: 'https://pub-e18515fe0aef4c2c8cef72d4467d2f61.r2.dev/'
     },
-    provider: 'netlify',
   },
   css: ["~/assets/styles/main.css"],
   postcss: {
