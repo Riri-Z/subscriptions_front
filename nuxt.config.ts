@@ -5,11 +5,6 @@ export default defineNuxtConfig({
     server: true,
     client: true,
   },
-  image: {
-    cloudflare: {
-      baseURL: 'https://pub-e18515fe0aef4c2c8cef72d4467d2f61.r2.dev/'
-    },
-  },
   css: ["~/assets/styles/main.css"],
   postcss: {
     plugins: {
