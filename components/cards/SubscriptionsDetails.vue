@@ -71,7 +71,7 @@ const subscriptionByDay = computed(() => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex w-full flex-col gap-4 rounded-xl bg-black bg-opacity-15 p-4 align-middle text-base md:w-full md:text-2xl lg:h-full lg:w-[25vw] 2xl:w-[15vw]"
+    class="flex w-full flex-col gap-4 rounded-xl bg-black bg-opacity-15 p-4 align-middle text-base md:w-full lg:h-full lg:w-[25vw] 2xl:w-[15vw]"
   >
     <h1 class="m-1 text-center">Abonnements actifs :</h1>
     <div
