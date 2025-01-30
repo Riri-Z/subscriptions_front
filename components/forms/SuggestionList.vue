@@ -20,15 +20,15 @@ const emit = defineEmits<{
       class="flex min-h-10 cursor-pointer items-center gap-2 hover:bg-slate-400"
       @click="emit('selectSubscription', subscription)"
     >
-      <NuxtImg
+      <img
         class="ml-2"
         v-if="subscription.icon_url"
         :src="subscription.icon_url"
         :alt="subscription.name"
         width="18"
         height="18"
-      >
-      </NuxtImg>
+      />
+
       <p>{{ subscription.name }}</p>
     </span>
   </div>
