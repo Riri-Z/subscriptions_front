@@ -7,10 +7,10 @@
     <Sidebar v-if="toggleSidebar" />
 
     <div
-      class="relative flex h-full w-full overflow-auto bg-gradient-to-r from-[#551F91] from-0% to-[#3B1C7A] to-100% md:flex-1 lg:h-[100vh]"
+      class="relative flex h-full w-full flex-col overflow-auto bg-gradient-to-r from-[#551F91] from-0% to-[#3B1C7A] to-100% md:flex-1 lg:h-[100vh]"
     >
       <span
-        class="absolute right-[1rem] my-3 md:hidden"
+        class="mx-5 my-2 flex self-end md:hidden"
         @click="handleToggleSideBar"
       >
         <NuxtImg

@@ -13,13 +13,10 @@
     <div class="flex w-full flex-col justify-around">
       <div
         v-for="icon in icons"
-        class="flex h-28 cursor-pointer gap-5 fill-slate-200 text-white transition-all duration-300 lg:hover:bg-gray-600"
-        @click="handleNavLink(icon.name)"
+        class="flex h-28 cursor-pointer gap-5 fill-slate-200 text-xs text-white transition-all duration-300 lg:text-base lg:hover:bg-gray-600"
+        @click="handleNavLink(icon.route)"
       >
-        <NavBarNavButton
-          :icon="icon"
-          @handle-click="handleNavLink(icon.name)"
-        ></NavBarNavButton>
+        <NavBarNavButton :icon="icon"></NavBarNavButton>
       </div>
     </div>
   </div>
@@ -32,24 +29,28 @@ const { signOut } = useAuth();
 interface Icon {
   id: number;
   name: string;
+  route: string;
   path: string;
 }
 
 const icons = ref<Icon[]>([
   {
     id: 1,
-    name: "home",
+    name: "acceuil",
+    route: "home",
     path: "/icons/home.svg",
   },
 
   {
     id: 2,
-    name: "calendar",
+    name: "Calendrier",
+    route: "calendar",
     path: "/icons/calendar.svg",
   },
   {
     id: 3,
-    name: "logout",
+    name: "Déconnexion",
+    route: "logout",
     path: "/icons/logout.svg",
   },
 ]);
