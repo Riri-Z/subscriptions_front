@@ -41,7 +41,7 @@ const badgeValue = computed(() => {
       :icon_url="props.icon_url"
     >
     </BadgeIcon>
-    <p v-else class="m-auto text-center">
+    <p v-else>
       {{ badgeValue }}
     </p>
   </span>
