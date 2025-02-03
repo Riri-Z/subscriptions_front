@@ -14,8 +14,4 @@
 defineProps<{
   icon: { name: string; path: string; route: string; id: number };
 }>();
-
-const emit = defineEmits<{
-  handleClick: [value: string];
-}>();
 </script>
