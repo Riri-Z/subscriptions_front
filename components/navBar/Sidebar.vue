@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidebar"
-    class="absolute z-10 flex h-full w-52 flex-col bg-card-color md:relative md:w-36 lg:w-44"
+    class="absolute z-10 flex h-full w-44 flex-col bg-card-color md:relative md:w-36 lg:w-44"
   >
     <span
       class="align-center flex h-[125px] border-b-2 border-gray-300 text-center text-primary-white-color"
@@ -32,6 +32,7 @@ interface Icon {
   route: string;
   path: string;
 }
+const emit = defineEmits(["toggleSidebar"]);
 
 const icons = ref<Icon[]>([
   {
@@ -68,6 +69,10 @@ async function handleSignOut() {
 }
 
 async function handleNavLink(route: string) {
+  /* si width <900 on ferme */
+  if (window.innerWidth < 768) {
+    emit("toggleSidebar");
+  }
   if (route === "logout") {
     return await handleSignOut();
   }
