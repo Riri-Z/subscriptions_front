@@ -2,11 +2,11 @@
   <!-- CALENDAR -->
   <div
     id="calendar"
-    class="m-auto flex flex-row text-primary-white-color lg:justify-center"
+    class="mx-auto mt-4 flex flex-row text-primary-white-color md:m-auto lg:justify-center"
   >
     <main
       v-if="!subscriptionStore.isModalOpen"
-      class="flex flex-col gap-4 p-4 lg:mt-0 lg:flex-row"
+      class="flex flex-col gap-4 lg:mt-0 lg:flex-row"
     >
       <Calendar />
       <CardsSubscriptionsDetails

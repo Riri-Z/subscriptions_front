@@ -8,7 +8,4 @@
 definePageMeta({
   layout: "dashboard",
 });
-/*
-on init load user information
-*/
 </script>

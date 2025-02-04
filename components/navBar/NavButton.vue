@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="flex w-full gap-2 self-center p-12 md:p-8"
-    @click="emit('handleClick', icon.name)"
-  >
+  <button class="flex w-full gap-2 self-center p-12 md:p-8">
     <NuxtImg :key="icon.id" :src="icon.path" width="24" height="24"> </NuxtImg>
     <p class="flex self-center">
       {{
@@ -15,10 +12,6 @@
 
 <script lang="ts" setup>
 defineProps<{
-  icon: { name: string; path: string; id: number };
-}>();
-
-const emit = defineEmits<{
-  handleClick: [value: string];
+  icon: { name: string; path: string; route: string; id: number };
 }>();
 </script>
