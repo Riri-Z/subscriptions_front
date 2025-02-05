@@ -18,7 +18,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     subscriptionsCurrentMonth: null as UserSubscription[] | null,
     loading: false,
     selectedDate: dayjs(new Date()).format("YYYY-MM-DD"),
-    availableSubscriptionWithIcon: [],
+    availableSuggestionSubscriptionWithIcon: [],
   }),
   getters: {
     getSelectedDate: (state) => state.selectedDate,
@@ -128,7 +128,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         this.setSelectedSubscription(null);
       }
     },
-    async getAvailableSubscriptionWithIcon() {
+    async getavailableSuggestionSubscriptionWithIcon() {
       try {
         const result = await useAPI<ApiResponse<Subscription[] | null>>(
           "/subscriptions/with-icons",
@@ -137,9 +137,9 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
           },
         );
         if (result?.body) {
-          this.availableSubscriptionWithIcon = result.body;
+          this.availableSuggestionSubscriptionWithIcon = result.body;
         } else {
-          this.availableSubscriptionWithIcon = [];
+          this.availableSuggestionSubscriptionWithIcon = [];
         }
       } catch (error) {
         console.error(error);

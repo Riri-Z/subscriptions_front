@@ -13,13 +13,13 @@
       <div class="flex flex-row justify-center">
         <button
           @click="$emit('deleteSubscription', props.subscription)"
-          class="mr-5 h-10 w-[8rem] rounded-lg bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300"
+          class="bg-green-color mr-5 h-10 w-[8rem] rounded-lg text-white hover:bg-green-600 disabled:bg-slate-300"
         >
           <p>Continuer</p>
         </button>
         <button
           @click="$emit('cancelAction')"
-          class="rounded- mr-5 h-10 w-[8rem] rounded-lg bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300"
+          class="rounded- bg-green-color mr-5 h-10 w-[8rem] rounded-lg text-white hover:bg-green-600 disabled:bg-slate-300"
         >
           <p>Annuler</p>
         </button>

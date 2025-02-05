@@ -71,7 +71,7 @@ const subscriptionByDay = computed(() => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="flex w-full flex-col mb-2 sm:mb-0 gap-4 rounded-xl bg-black bg-opacity-15 p-4 align-middle text-base md:w-full lg:h-full lg:w-fit 2xl:w-[15vw]"
+    class="mb-2 flex w-full flex-col gap-4 rounded-xl bg-card-color p-4 align-middle text-base sm:mb-0 lg:h-full lg:w-[16rem]"
   >
     <h1 class="m-1 text-center">Abonnements actifs :</h1>
     <div
@@ -81,7 +81,7 @@ const subscriptionByDay = computed(() => {
       <!-- LIST OF SUBSCRIPTION -->
       <div
         v-for="subscription in subscriptionByDay"
-        class="mx-2 flex cursor-pointer flex-col rounded-md p-2 odd:bg-gray-900 even:bg-gray-700 hover:bg-green-color"
+        class="hover:bg-green-color mx-2 flex cursor-pointer flex-col rounded-md p-2 odd:bg-dark-green-color even:bg-lighter-green-color text-sm"
         :key="subscription.id"
       >
         <!-- Each subscription details -->
@@ -116,7 +116,7 @@ const subscriptionByDay = computed(() => {
     </div>
     <div class="m-2 mt-auto flex justify-center">
       <button
-        class="w-full rounded-md bg-green-color p-2 text-sm"
+        class="w-full rounded-md bg-dark-green-color p-2 text-sm text-white"
         @click="handleOpenModalAddSubscription"
       >
         <p class="text-center">Ajouter un abonnement</p>

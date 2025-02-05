@@ -2,11 +2,11 @@
   <div
     id="dashboard
   "
-    class="flex h-[100vh] flex-col-reverse md:flex-row"
+    class="flex h-[100vh] flex-col-reverse bg-background-color text-main-text-color md:flex-row"
   >
     <Sidebar />
     <div
-      class="flex h-full w-full flex-col md:p-4 overflow-auto bg-gradient-to-r from-[#551F91] from-0% to-[#3B1C7A] to-100% md:flex-1 lg:h-[100vh]"
+      class="flex h-full w-full flex-col overflow-auto md:flex-1 md:p-4 lg:h-[100vh]"
     >
       <slot />
     </div>

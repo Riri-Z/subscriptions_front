@@ -26,7 +26,7 @@ const CATEGORIES_OPTIONS: CategoryOption[] = [
 const subscriptionStore = useSubscriptionsStore();
 
 onMounted(() => {
-  subscriptionStore.getAvailableSubscriptionWithIcon();
+  subscriptionStore.getavailableSuggestionSubscriptionWithIcon();
 });
 
 const displaySuggestionStatus = ref(false);
@@ -154,7 +154,7 @@ function handleSelectSubscription(subscription: Subscription) {
       />
       <SuggestionList
         v-if="displaySuggestionStatus"
-        :subscription="subscriptionStore.availableSubscriptionWithIcon"
+        :subscription="subscriptionStore.availableSuggestionSubscriptionWithIcon"
         @select-subscription="handleSelectSubscription"
       />
     </div>
@@ -241,13 +241,13 @@ function handleSelectSubscription(subscription: Subscription) {
       <button
         @click="onSubmit"
         type="button"
-        class="my-4 mr-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
+        class="my-4 mr-5 h-10 w-full rounded-md bg-dark-green-color text-white disabled:bg-slate-300 disabled:shadow"
       >
         Sauvegarder
       </button>
       <button
         type="button"
-        class="my-4 ml-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
+        class="my-4 ml-5 h-10 w-full rounded-md bg-dark-green-color text-white disabled:bg-slate-300 disabled:shadow"
         @click="handleCancelSubscription"
       >
         Annuler

@@ -68,10 +68,10 @@ async function handleLogin(values: Login) {
       <p class="mb-4 text-center">
         Connectez-vous pour continuer ou
         <a
-          class="cursor-pointer text-purple-600 hover:underline"
+          class="cursor-pointer text-green-400 underline underline-offset-4"
           @click="redirectToRegisterPage"
         >
-          inscrivez-vous ici
+          inscrivez-vous en cliquant ici
         </a>
       </p>
       <FormComponent :schema="formSchema" @submit-form="handleLogin" />
@@ -84,7 +84,6 @@ async function handleLogin(values: Login) {
 <style lang="scss" scoped>
 /* overrie the default autofill style */
 .autofill-bg:-webkit-autofill {
-  -webkit-text-fill-color: white !important;
   box-shadow: inset 0 0 0 1000px #9370db !important;
 }
 </style>

@@ -1,10 +1,11 @@
 <template>
+  <!-- Card wich represent day of the month -->
   <button
     class="flex h-12 cursor-pointer flex-col rounded-xl p-2 sm:h-14 lg:h-16 lg:gap-1 xl:h-20"
     :class="{
-      'bg-slate-500': currentMonth && !selectedDay,
-      'bg-slate-800': !currentMonth && !selectedDay,
-      'bg-green-800': selectedDay,
+      'bg-[#40916C]': currentMonth && !selectedDay,
+      'bg-dark-green-color': !currentMonth && !selectedDay,
+      'bg-[#A3B18A]': selectedDay,
     }"
     @click="handleClickDay(props.currentDate)"
   >
