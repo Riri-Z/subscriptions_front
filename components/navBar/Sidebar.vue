@@ -1,19 +1,19 @@
 <template>
   <div
     id="sidebar"
-    class="absolute z-10 flex h-full w-44 flex-col bg-card-color md:relative md:w-36 lg:w-44"
+    class="sticky h-[8%] w-full md:flex md:h-full flex-col  bg-card-color md:relative md:w-40 laptop:w-42 lg:w-44 "
   >
     <span
-      class="align-center flex h-[125px] border-b-2 border-gray-300 text-center text-primary-white-color"
+      class="hidden align-center md:flex h-[125px] md:border-b-2 md:border-gray-300 text-center text-primary-white-color"
     >
-      <h1 class="m-auto">Subscriptions tracker</h1>
+      <h1 class="m-auto p-10">Subscriptions tracker</h1>
     </span>
 
     <!-- ICONS NAVLINK -->
-    <div class="flex w-full flex-col justify-around">
+    <div class="flex w-full h-full flex-row md:flex-col justify-around md:justify-normal">
       <div
         v-for="icon in icons"
-        class="flex h-28 cursor-pointer gap-5 fill-slate-200 text-xs text-white transition-all duration-300 lg:text-base lg:hover:bg-gray-600"
+        class="flex md:h-28 cursor-pointer gap-5 fill-slate-200 text-xs text-white transition-all duration-300 lg:text-base lg:hover:bg-gray-600"
         @click="handleNavLink(icon.route)"
       >
         <NavBarNavButton :icon="icon"></NavBarNavButton>

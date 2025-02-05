@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-[450px] w-[90vw] flex-col gap-4 rounded-xl bg-black bg-opacity-15 p-2 align-middle text-white md:h-fit md:w-[550px] md:p-4 lg:w-[38rem] xl:w-[50rem]"
+    class="flex h-[450px] w-[90vw] flex-col gap-4 rounded-xl bg-black bg-opacity-15 p-2 align-middle text-white md:h-fit md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem]"
   >
     <!-- Month navigation -->
     <header id="header" class="flex flex-row justify-between">
