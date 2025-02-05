@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute left-[50%] top-[50%] z-[50] h-fit w-fit translate-x-[-50%] translate-y-[-50%] rounded-md bg-gray-600 text-white"
+    class="absolute left-[50%] top-[50%] z-[50] h-fit w-fit translate-x-[-50%] translate-y-[-50%] rounded-md bg-dark-green-color text-white"
     @keydown.escape="$emit('cancelAction')"
   >
     <div class="m-4 flex flex-col gap-4 align-middle">
@@ -13,13 +13,13 @@
       <div class="flex flex-row justify-center">
         <button
           @click="$emit('deleteSubscription', props.subscription)"
-          class="bg-green-color mr-5 h-10 w-[8rem] rounded-lg text-white hover:bg-green-600 disabled:bg-slate-300"
+          class="mr-5 h-10 w-[8rem] rounded-lg bg-lighter-green-color text-white disabled:bg-slate-300"
         >
           <p>Continuer</p>
         </button>
         <button
           @click="$emit('cancelAction')"
-          class="rounded- bg-green-color mr-5 h-10 w-[8rem] rounded-lg text-white hover:bg-green-600 disabled:bg-slate-300"
+          class="mr-5 h-10 w-[8rem] rounded-lg bg-lighter-green-color text-white"
         >
           <p>Annuler</p>
         </button>

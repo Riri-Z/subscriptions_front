@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidebar"
-    class="laptop:w-42 sticky h-[8%] w-full flex-col bg-card-color shadow-md shadow-black md:relative md:flex md:h-full md:w-40 lg:w-44"
+    class="sticky h-[8%] w-fit flex-col bg-card-color shadow-md shadow-black md:relative md:flex md:h-full md:w-[18%] lg:w-[13%]"
   >
     <span
       class="align-center text-primary-white-color hidden h-[125px] text-center md:flex md:border-b-2 md:border-dark-green-color"

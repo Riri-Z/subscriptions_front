@@ -65,12 +65,14 @@ const getTranslateValue = (index: number) => {
   return `translateX(${getTranslationFactor(windowSize.value) * index}px)`;
 };
 
-const getMaxIconsBasedOnWidth = (width: number) => {
-  if (width > 1024) return 5;
-  if (width > 768) return 4;
+/*
+ * Compute  max icon displayed on badge container
+ * Maximum displayed icon is 4
+ */
+function getMaxIconsBasedOnWidth(width: number): number {
   if (width > 480) return 3;
   return 2;
-};
+}
 
 const getTranslationFactor = (size: number) => {
   if (size > 1024) return 15;

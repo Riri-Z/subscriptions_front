@@ -1,7 +1,7 @@
 <template>
   <!-- Calendar -->
   <div
-    class="flex h-fit w-[90vw] flex-col gap-4 rounded-xl bg-card-color p-2 align-middle text-white md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem] max-h-[584px] "
+    class="flex h-fit max-h-[584px] w-[90vw] flex-col gap-4 rounded-xl bg-card-color p-2 align-middle text-white md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem]"
   >
     <!-- Month navigation -->
     <header id="header" class="flex flex-row justify-between">

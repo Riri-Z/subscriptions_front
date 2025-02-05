@@ -154,7 +154,9 @@ function handleSelectSubscription(subscription: Subscription) {
       />
       <SuggestionList
         v-if="displaySuggestionStatus"
-        :subscription="subscriptionStore.availableSuggestionSubscriptionWithIcon"
+        :subscription="
+          subscriptionStore.availableSuggestionSubscriptionWithIcon
+        "
         @select-subscription="handleSelectSubscription"
       />
     </div>
