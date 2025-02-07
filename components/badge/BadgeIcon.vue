@@ -6,7 +6,7 @@
       width="24"
       height="24"
       :alt="props.name"
-    >
+    />
   </span>
 </template>
 

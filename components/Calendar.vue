@@ -1,7 +1,9 @@
 <template>
   <!-- Calendar -->
   <div
-    class="flex h-fit max-h-[584px] w-[90vw] flex-col gap-4 rounded-xl bg-card-bg-color p-2 align-middle text-white md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem]"
+    ref="calendarContainer"
+    class="flex w-[98vw] flex-col gap-4 rounded-xl bg-card-bg-color p-2 align-middle text-white md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem]"
+    :style="{ opacity: subscriptionStore.isDeleteModalOpen ? 0.1 : 1 }"
   >
     <!-- Month navigation -->
     <header id="header" class="flex flex-row justify-between">
@@ -11,21 +13,8 @@
       >
         <section class="flex justify-center gap-2 align-middle">
           <div class="flex min-w-8">
-            <NuxtImg
-              class="cursor-pointer hover:text-purple-300"
-              src="icons/chevron-left.svg"
-              width="32"
-              alt="chevron left"
-              @:click="handlePrevMonth"
-            />
-
-            <NuxtImg
-              class="cursor-pointer hover:text-purple-300"
-              src="icons/chevron-right.svg"
-              width="32"
-              alt="chevron right"
-              @click="handleNextMonth"
-            />
+            <NavMonth nameIcon="chevron-left" @click="handlePrevMonth" />
+            <NavMonth nameIcon="chevron-right" @click="handleNextMonth" />
           </div>
           <section
             class="flex items-center justify-center gap-2 text-base md:text-lg lg:text-3xl"
@@ -47,14 +36,22 @@
         </p>
       </div>
     </header>
-    <span class="grid w-full grid-cols-7 gap-2">
+
+    <span ref="headerDays" class="grid w-full grid-cols-7 gap-2">
       <HeaderDays v-if="!displayMonth" />
     </span>
+    <main class="flex flex-col justify-center" :style="{ height: mainHeight }">
+      <MonthList
+        v-if="displayMonth"
+        :style="{ height: `${calendarHeight}px` }"
+        @select-month="handleSelectMonth"
+      />
 
-    <main class="m-1 mt-0 flex h-fit flex-col justify-center xl:mb-3">
-      <MonthList v-if="displayMonth" @select-month="handleSelectMonth" />
-
-      <section v-else class="relative">
+      <section
+        v-else
+        class="relative"
+        :style="{ height: calendarHeight + 'px' }"
+      >
         <!-- Days list -->
         <span
           v-if="isLoading"
@@ -62,7 +59,7 @@
         >
           <NuxtImg
             class="m-auto align-middle text-gray-300"
-            :style="{ height: `${dynamicHeight}px` }"
+            :style="{ height: `${calendarHeight}px` }"
             src="icons/fade-stagger-circles.svg"
             width="24"
             height="24"
@@ -98,11 +95,15 @@ const subscriptionStore = useSubscriptionsStore();
 const displayMonth: Ref<boolean> = ref(false);
 const isLoading: Ref<boolean> = ref(false);
 const calendarDay: Ref<HTMLElement | null> = ref(null);
-const dynamicHeight = ref<number>(0);
+const calendarContainer: Ref<HTMLElement | null> = ref(null);
+const mainHeight = computed(() => `${calendarHeight}px`);
+
+const { measureContainer, measureCalendar, calendarHeight } =
+  useUseCalendarDimensions();
 
 onMounted(() => {
-  console.log(calendarDay.value);
-  dynamicHeight.value = calendarDay?.value?.offsetHeight || 100;
+  measureContainer(calendarContainer.value);
+  measureCalendar(calendarDay.value);
 });
 
 function isSelectedDay(date: Dayjs) {
@@ -110,10 +111,13 @@ function isSelectedDay(date: Dayjs) {
 }
 
 function handleClickMonth() {
+  if (subscriptionStore.isDeleteModalOpen) return;
   displayMonth.value = !displayMonth.value;
 }
 
 async function handleNextMonth() {
+  if (subscriptionStore.isDeleteModalOpen) return;
+
   isLoading.value = true;
   try {
     const res = await dateStore.setNextMonth();
@@ -127,6 +131,7 @@ async function handleNextMonth() {
   }
 }
 async function handlePrevMonth() {
+  if (subscriptionStore.isDeleteModalOpen) return;
   isLoading.value = true;
   try {
     const res = await dateStore.setPreviousMonth();
@@ -141,6 +146,8 @@ async function handlePrevMonth() {
 }
 
 async function handleSelectMonth(key: number) {
+  if (subscriptionStore.isDeleteModalOpen) return;
+
   // Ignore user input if a new month is selected while one is already selected
   isLoading.value = true;
   if (key < 12) {

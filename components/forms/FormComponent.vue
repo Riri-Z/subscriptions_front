@@ -19,7 +19,7 @@
       />
       <ErrorMessage class="text-xs text-error-color" :name="name" />
     </div>
-    <SubmitForm label="Connexion" :disabled="!meta.valid"/>
+    <SubmitForm label="Connexion" :disabled="!meta.valid" />
   </Form>
 </template>
 

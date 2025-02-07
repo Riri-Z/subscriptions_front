@@ -29,6 +29,7 @@ const subscriptionStore = useSubscriptionsStore();
 const subscriptionsCurrentMonth = computed(
   () => subscriptionStore?.subscriptionsCurrentMonth,
 );
+
 definePageMeta({
   layout: "dashboard",
 });

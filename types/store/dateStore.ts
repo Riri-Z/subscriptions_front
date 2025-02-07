@@ -9,8 +9,7 @@ export interface DateStore {
 
 export interface DaysInMonth {
   id: number;
-  currentMonth: boolean
+  currentMonth: boolean;
   date: Dayjs;
   dayValue: number;
 }
-
