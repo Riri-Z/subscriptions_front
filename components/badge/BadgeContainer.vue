@@ -4,10 +4,10 @@
       v-for="(subscription, index) in subscriptionArray"
       :key="subscription.id"
       :name="subscription.subscription.name"
-      :icon_url="subscription.subscription.icon_url"
+      :icon-url="subscription.subscription.icon_url"
       :index="index"
       :translate-value="getTranslateValue(index)"
-      :isComputed="subscription?.computed ?? false"
+      :is-computed="subscription?.computed ?? false"
     />
   </div>
 </template>
@@ -46,7 +46,7 @@ function computeLastElementOfArraySubscription(
  * Compute new array of subscription based on windowSize
  */
 const subscriptionArray = computed(() => {
-  let subscription = props.activeSubscription;
+  const subscription = props.activeSubscription;
   const MAX_ICONS = getMaxIconsBasedOnWidth(windowSize.value);
 
   if (subscription.length > MAX_ICONS) {
@@ -65,12 +65,14 @@ const getTranslateValue = (index: number) => {
   return `translateX(${getTranslationFactor(windowSize.value) * index}px)`;
 };
 
-const getMaxIconsBasedOnWidth = (width: number) => {
-  if (width > 1024) return 5;
-  if (width > 768) return 4;
+/*
+ * Compute  max icon displayed on badge container
+ * Maximum displayed icon is 4
+ */
+function getMaxIconsBasedOnWidth(width: number): number {
   if (width > 480) return 3;
   return 2;
-};
+}
 
 const getTranslationFactor = (size: number) => {
   if (size > 1024) return 15;

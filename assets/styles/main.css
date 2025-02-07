@@ -15,5 +15,5 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--thumbBG);
+  --app-bg-color: var(--thumbBG);
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="m-auto text-primary-white-color">settings</div>
+  <div class="text-primary-white-color m-auto">settings</div>
 </template>
 
 <script lang="ts" setup>

@@ -1,5 +1,5 @@
 <template>
-  <div class="m-auto text-primary-white-color">
+  <div class="text-primary-white-color m-auto">
     <p>home</p>
   </div>
 </template>

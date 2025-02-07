@@ -1,23 +1,25 @@
 <template>
-  <Form v-slot="{ meta }" @submit="onSubmit" class="flex flex-col gap-2">
+  <Form v-slot="{ meta }" class="flex flex-col gap-2" @submit="onSubmit">
     <div
       v-for="{ as, name, label, ...attrs } in props.schema.fields"
       :key="name"
     >
-      <label class="block text-sm font-medium text-gray-700" :for="name">{{
-        label
-      }}</label>
+      <label
+        class="text-secondary-text-color block text-sm font-medium"
+        :for="name"
+        >{{ label }}</label
+      >
       <Field
-        class="autofill-bg placeHolder-gray-400 my-2 w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none focus:ring-2"
-        :as="as"
         :id="name"
+        class="autofill-bg placeHolder-gray-400 my-2 w-full rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+        :as="as"
         :name="name"
         v-bind="attrs"
         validate-on-input
       />
-      <ErrorMessage class="text-xs text-red-400" :name="name" />
+      <ErrorMessage class="text-xs text-error-color" :name="name" />
     </div>
-    <SubmitForm label="Connexion" :disabled="!meta.valid"></SubmitForm>
+    <SubmitForm label="Connexion" :disabled="!meta.valid"/>
   </Form>
 </template>
 

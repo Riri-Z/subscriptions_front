@@ -33,6 +33,9 @@ export const useUserStore = defineStore("user", {
             headers: options.headers,
           },
         );
+        if(error){
+                throw new Error("error fetching user information");
+        }
         if (data?.value?.result) {
           const user: UserStore | null = data?.value?.result
             ? data.value.result

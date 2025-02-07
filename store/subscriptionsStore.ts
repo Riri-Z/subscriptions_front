@@ -6,7 +6,7 @@ import type {
   PostSubscriptions,
   UserSubscription,
   SubscriptionsStore,
-  Subscription,
+  AvailableSuggestionSubscriptionWithIcon
 } from "~/types/store/subscriptionsStore";
 
 export const useSubscriptionsStore = defineStore("subscriptions", {
@@ -18,7 +18,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     subscriptionsCurrentMonth: null as UserSubscription[] | null,
     loading: false,
     selectedDate: dayjs(new Date()).format("YYYY-MM-DD"),
-    availableSubscriptionWithIcon: [],
+    availableSuggestionSubscriptionWithIcon: [],
   }),
   getters: {
     getSelectedDate: (state) => state.selectedDate,
@@ -128,18 +128,18 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         this.setSelectedSubscription(null);
       }
     },
-    async getAvailableSubscriptionWithIcon() {
+    async getAvailableSuggestionSubscriptionWithIcon() {
       try {
-        const result = await useAPI<ApiResponse<Subscription[] | null>>(
+        const result = await useAPI<ApiResponse<AvailableSuggestionSubscriptionWithIcon[] | null>>(
           "/subscriptions/with-icons",
           {
             method: "GET",
           },
         );
         if (result?.body) {
-          this.availableSubscriptionWithIcon = result.body;
+          this.availableSuggestionSubscriptionWithIcon = result.body;
         } else {
-          this.availableSubscriptionWithIcon = [];
+          this.availableSuggestionSubscriptionWithIcon = [];
         }
       } catch (error) {
         console.error(error);
@@ -169,7 +169,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     async getAllSubscriptions() {
       this.loading = true;
       try {
-        await useAPI<ApiResponse<{}>>("/user-subscriptions", {
+        await useAPI<ApiResponse<UserSubscription>>("/user-subscriptions", {
           method: "GET",
         });
       } catch (error) {

@@ -1,11 +1,9 @@
-import dayjs, { Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useDate } from "~/composables/useDate";
 import type { DateStore } from "~/types/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 const subscriptionStore = useSubscriptionsStore();
-
-// Total cell in the calendar
-const numberOfDays = 42;
 
 export const useDateStore = defineStore("date", {
   state: (): DateStore => ({
@@ -35,18 +33,20 @@ export const useDateStore = defineStore("date", {
   actions: {
     async setPreviousMonth() {
       this.currentDate = this.currentDate.subtract(1, "month");
-      await subscriptionStore.getSubscriptionsMonthly(
+      const res = await subscriptionStore.getSubscriptionsMonthly(
         this.currentDate.set("date", 1).format("YYYY-MM-DD"),
       );
       this.setDaysInMonth(this.currentDate);
+      return res;
     },
     async setNextMonth() {
       this.currentDate = this.currentDate.add(1, "month");
       subscriptionStore.setSelectedDate(this.currentDate);
-      await subscriptionStore.getSubscriptionsMonthly(
+      const res = await subscriptionStore.getSubscriptionsMonthly(
         this.currentDate.set("date", 1).format("YYYY-MM-DD"),
       );
       this.setDaysInMonth(this.currentDate);
+      return res;
     },
     setDaysInMonth(date: Dayjs) {
       this.daysInMonth = useDate().arrOfDays(date);

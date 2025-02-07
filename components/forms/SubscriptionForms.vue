@@ -26,7 +26,7 @@ const CATEGORIES_OPTIONS: CategoryOption[] = [
 const subscriptionStore = useSubscriptionsStore();
 
 onMounted(() => {
-  subscriptionStore.getAvailableSubscriptionWithIcon();
+  subscriptionStore.getAvailableSuggestionSubscriptionWithIcon();
 });
 
 const displaySuggestionStatus = ref(false);
@@ -143,18 +143,20 @@ function handleSelectSubscription(subscription: Subscription) {
       <input
         id="subscriptionName"
         v-model="subscriptionName"
-        @focus="handleFocusInputName(true)"
         autocomplete="one-time-code"
-        @keyup.escape="handleFocusInputName(false)"
-        @keyup.enter="handleFocusInputName(false)"
         list="subscriptions-lists"
         class="w-full rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
         name="subscriptionName"
         v-bind="subscriptionNameAttrs"
-      />
+        @focus="handleFocusInputName(true)"
+        @keyup.escape="handleFocusInputName(false)"
+        @keyup.enter="handleFocusInputName(false)"
+      >
       <SuggestionList
         v-if="displaySuggestionStatus"
-        :subscription="subscriptionStore.availableSubscriptionWithIcon"
+        :subscriptions="
+          subscriptionStore.availableSuggestionSubscriptionWithIcon
+        "
         @select-subscription="handleSelectSubscription"
       />
     </div>
@@ -166,12 +168,12 @@ function handleSelectSubscription(subscription: Subscription) {
     <input
       id="amount"
       v-model="amount"
-      @focus="handleFocusInputName(false)"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       type="number"
       name="amount"
       v-bind="amountAttrs"
-    />
+      @focus="handleFocusInputName(false)"
+    >
     <span class="text-xs text-red-400">{{ errors.amount }}</span>
 
     <!--  startDate-->
@@ -182,12 +184,12 @@ function handleSelectSubscription(subscription: Subscription) {
     <input
       id="startDate"
       v-model="startDate"
-      @focus="handleFocusInputName(false)"
       type="date"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="startDate"
       v-bind="startDateAttrs"
-    />
+      @focus="handleFocusInputName(false)"
+    >
     <span class="text-xs text-red-400">{{ errors.startDate }}</span>
     <!-- endDate -->
     <label class="text-primary-black-color font-bold" for="endDate"
@@ -196,12 +198,12 @@ function handleSelectSubscription(subscription: Subscription) {
     <input
       id="endDate"
       v-model="endDate"
-      @focus="handleFocusInputName(false)"
       type="date"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="endDate"
       v-bind="endDateAttrs"
-    />
+      @focus="handleFocusInputName(false)"
+    >
     <span class="text-xs text-red-400">{{ errors.endDate }}</span>
 
     <!--BillingCycle  -->
@@ -211,10 +213,10 @@ function handleSelectSubscription(subscription: Subscription) {
     <select
       id="billingCycle"
       v-model="billingCycle"
-      @focus="handleFocusInputName(false)"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="billingCycle"
       v-bind="billingCycleAttrs"
+      @focus="handleFocusInputName(false)"
     >
       <option value="WEEKLY">Hebdomadaire</option>
       <option value="MONTHLY">Mensuel</option>
@@ -227,27 +229,27 @@ function handleSelectSubscription(subscription: Subscription) {
     <select
       id="category"
       v-model="category"
-      @focus="handleFocusInputName(false)"
       class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
       name="billingCycle"
       v-bind="subscriptionCategoryAttrs"
+      @focus="handleFocusInputName(false)"
     >
-      <option v-for="category in CATEGORIES_OPTIONS" :value="category?.value">
-        {{ category.text }}
+      <option v-for="category_option in CATEGORIES_OPTIONS" :key="category_option?.value" :value="category_option?.value">
+        {{ category_option.text }}
       </option>
     </select>
 
     <section class="flex">
       <button
-        @click="onSubmit"
         type="button"
-        class="my-4 mr-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
+        class="my-4 mr-5 h-10 w-full rounded-md bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
+        @click="onSubmit"
       >
         Sauvegarder
       </button>
       <button
         type="button"
-        class="my-4 ml-5 h-10 w-full rounded-md bg-green-color text-white hover:bg-green-600 disabled:bg-slate-300 disabled:shadow"
+        class="my-4 ml-5 h-10 w-full rounded-md bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
         @click="handleCancelSubscription"
       >
         Annuler

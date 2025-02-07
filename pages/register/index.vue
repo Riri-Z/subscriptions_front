@@ -10,7 +10,7 @@
     <p class="text-center">
       Déjà inscrit ?
       <a
-        class="cursor-pointer text-purple-600 hover:underline"
+        class="cursor-pointer text-green-400 underline underline-offset-4"
         @click="redirectTologinPage"
         >Connectez-vous</a
       >

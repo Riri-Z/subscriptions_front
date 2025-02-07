@@ -1,12 +1,12 @@
 <template>
-  <!-- CALENDAR -->
+  <!-- CALENDAR template-->
   <div
     id="calendar"
-    class="mx-auto mt-4 flex flex-row text-primary-white-color md:m-auto lg:justify-center"
+    class="text-primary-white-color mx-auto mt-4 flex flex-row md:m-auto lg:justify-center"
   >
     <main
       v-if="!subscriptionStore.isModalOpen"
-      class="flex flex-col gap-4 lg:mt-0 lg:flex-row"
+      class="flex flex-col gap-2 lg:mt-0 lg:flex-row"
     >
       <Calendar />
       <CardsSubscriptionsDetails

@@ -1,6 +1,7 @@
 <template>
+  <!-- Calendar -->
   <div
-    class="flex h-[450px] w-[90vw] flex-col gap-4 rounded-xl bg-black bg-opacity-15 p-2 align-middle text-white md:h-fit md:w-[550px] md:p-4 lg:w-[38rem] xl:w-[50rem]"
+    class="flex h-fit max-h-[584px] w-[90vw] flex-col gap-4 rounded-xl bg-card-bg-color p-2 align-middle text-white md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem]"
   >
     <!-- Month navigation -->
     <header id="header" class="flex flex-row justify-between">
@@ -15,7 +16,7 @@
               src="icons/chevron-left.svg"
               width="32"
               alt="chevron left"
-              @:click="dateStore.setPreviousMonth()"
+              @:click="handlePrevMonth"
             />
 
             <NuxtImg
@@ -23,7 +24,7 @@
               src="icons/chevron-right.svg"
               width="32"
               alt="chevron right"
-              @click="dateStore.setNextMonth()"
+              @click="handleNextMonth"
             />
           </div>
           <section
@@ -32,7 +33,7 @@
             <p class="cursor-pointer" @click="handleClickMonth">
               {{ dateStore.getCurrentMonthString }}
             </p>
-            <p class="cursor-pointer" @click="handleClickYear">
+            <p class="cursor-default">
               {{ dateStore.getCurrentYear }}
             </p>
           </section>
@@ -46,30 +47,47 @@
         </p>
       </div>
     </header>
+    <span class="grid w-full grid-cols-7 gap-2">
+      <HeaderDays v-if="!displayMonth" />
+    </span>
 
-    <main
-      class="m-1 mt-0 flex h-[350px] flex-col justify-center md:h-[450px] lg:h-[500px] xl:mb-3 2xl:h-[600px]"
-    >
+    <main class="m-1 mt-0 flex h-fit flex-col justify-center xl:mb-3">
       <MonthList v-if="displayMonth" @select-month="handleSelectMonth" />
 
-      <section v-else class="grid w-full grid-cols-7 gap-2">
-        <HeaderDays />
-        <CalendarDay
-          v-for="day in dateStore.daysInMonth"
-          :key="day?.id"
-          :day="day && day.dayValue"
-          :selected-day="isSelectedDay(day.date)"
-          :source-date="dateStore.sourceDate"
-          :current-month="day?.currentMonth"
-          :current-date="day?.date"
-        />
+      <section v-else class="relative">
+        <!-- Days list -->
+        <span
+          v-if="isLoading"
+          class="absolute right-0 top-0 z-10 flex h-full w-full rounded-xl bg-black bg-opacity-90"
+        >
+          <NuxtImg
+            class="m-auto align-middle text-gray-300"
+            :style="{ height: `${dynamicHeight}px` }"
+            src="icons/fade-stagger-circles.svg"
+            width="24"
+            height="24"
+            alt="spinner"
+          />
+        </span>
+        <span ref="calendarDay" class="grid w-full grid-cols-7 gap-2">
+          <CalendarDay
+            v-for="day in dateStore.daysInMonth"
+            :key="day?.id"
+            :day="day && day.dayValue"
+            :selected-day="isSelectedDay(day.date)"
+            :source-date="dateStore.sourceDate"
+            :current-month="day?.currentMonth"
+            :current-date="day?.date"
+          />
+        </span>
       </section>
     </main>
   </div>
 </template>
 
 <script lang="ts" setup>
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import HeaderDays from "./headers/HeaderDays.vue";
@@ -78,22 +96,53 @@ const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
 
 const displayMonth: Ref<boolean> = ref(false);
-const loading: Ref<boolean> = ref(false);
+const isLoading: Ref<boolean> = ref(false);
+const calendarDay: Ref<HTMLElement | null> = ref(null);
+const dynamicHeight = ref<number>(0);
+
+onMounted(() => {
+  console.log(calendarDay.value);
+  dynamicHeight.value = calendarDay?.value?.offsetHeight || 100;
+});
 
 function isSelectedDay(date: Dayjs) {
   return date.format("YYYY-MM-DD") === subscriptionStore.selectedDate;
 }
 
-function handleClickYear() {
-  console.log("click on year");
-}
 function handleClickMonth() {
   displayMonth.value = !displayMonth.value;
 }
 
+async function handleNextMonth() {
+  isLoading.value = true;
+  try {
+    const res = await dateStore.setNextMonth();
+    if (!res) {
+      throw new Error("Error while selecting next month");
+    }
+  } catch (error) {
+    console.error("something wrong happened while selecting next month", error);
+  } finally {
+    isLoading.value = false;
+  }
+}
+async function handlePrevMonth() {
+  isLoading.value = true;
+  try {
+    const res = await dateStore.setPreviousMonth();
+    if (!res) {
+      throw new Error("Error while selecting prev month");
+    }
+  } catch (error) {
+    console.error("something wrong happened while selecting prev month", error);
+  } finally {
+    isLoading.value = false;
+  }
+}
+
 async function handleSelectMonth(key: number) {
   // Ignore user input if a new month is selected while one is already selected
-  loading.value = true;
+  isLoading.value = true;
   if (key < 12) {
     try {
       // Set date to start of month
@@ -118,7 +167,7 @@ async function handleSelectMonth(key: number) {
   } else {
     console.error("undefined month selected  :" + key);
   }
-  loading.value = false;
+  isLoading.value = false;
 }
 //Load subscription on mount component
 onMounted(async () => {

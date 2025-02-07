@@ -53,7 +53,14 @@ export interface SubscriptionsStore {
   subscriptionsCurrentMonth: null | UserSubscription[];
   loading: boolean;
   selectedDate: null | string;
-  availableSubscriptionWithIcon: any;
+  availableSuggestionSubscriptionWithIcon: AvailableSuggestionSubscriptionWithIcon|[];
+}
+
+export interface AvailableSuggestionSubscriptionWithIcon {
+  id: number;
+  name: string;
+  icon_name: string | null;
+  icon_url: string | null;
 }
 
 export enum StatusSubscription {

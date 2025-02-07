@@ -3,6 +3,14 @@ import type { Dayjs } from "dayjs";
 export interface DateStore {
   currentDate: Dayjs;
   sourceDate: Dayjs;
-  daysInMonth: any[] | null;
+  daysInMonth: DaysInMonth[] | null;
   loading: boolean;
 }
+
+export interface DaysInMonth {
+  id: number;
+  currentMonth: boolean
+  date: Dayjs;
+  dayValue: number;
+}
+
