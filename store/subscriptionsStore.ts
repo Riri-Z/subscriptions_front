@@ -6,7 +6,7 @@ import type {
   PostSubscriptions,
   UserSubscription,
   SubscriptionsStore,
-  Subscription,
+  AvailableSuggestionSubscriptionWithIcon
 } from "~/types/store/subscriptionsStore";
 
 export const useSubscriptionsStore = defineStore("subscriptions", {
@@ -128,9 +128,9 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         this.setSelectedSubscription(null);
       }
     },
-    async getavailableSuggestionSubscriptionWithIcon() {
+    async getAvailableSuggestionSubscriptionWithIcon() {
       try {
-        const result = await useAPI<ApiResponse<Subscription[] | null>>(
+        const result = await useAPI<ApiResponse<AvailableSuggestionSubscriptionWithIcon[] | null>>(
           "/subscriptions/with-icons",
           {
             method: "GET",
@@ -169,7 +169,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     async getAllSubscriptions() {
       this.loading = true;
       try {
-        await useAPI<ApiResponse<{}>>("/user-subscriptions", {
+        await useAPI<ApiResponse<UserSubscription>>("/user-subscriptions", {
           method: "GET",
         });
       } catch (error) {

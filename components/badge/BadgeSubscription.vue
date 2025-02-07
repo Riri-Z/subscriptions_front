@@ -4,13 +4,13 @@ import BadgeIcon from "./BadgeIcon.vue";
 const props = defineProps<{
   name: string;
   index: number;
-  icon_url: string | null;
+  iconUrl: string | null;
   translateValue: string;
   isComputed: boolean;
 }>();
 
 const randomColor = computed(() => {
-  if (props.icon_url) return "#ffffff";
+  if (props.iconUrl) return "#ffffff";
   else {
     return letterColorMap[props.name?.toLowerCase()[0]]
       ? letterColorMap[props.name?.toLowerCase()[0]]
@@ -36,11 +36,10 @@ const badgeValue = computed(() => {
     }"
   >
     <BadgeIcon
-      v-if="props.icon_url"
+      v-if="props.iconUrl"
       :name="props.name"
-      :icon_url="props.icon_url"
-    >
-    </BadgeIcon>
+      :icon-url="props.iconUrl"
+    />
     <p v-else>
       {{ badgeValue }}
     </p>

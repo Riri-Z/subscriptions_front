@@ -4,12 +4,12 @@
     class="flex h-12 cursor-pointer flex-col rounded-xl p-2 sm:h-14 lg:h-16 lg:gap-1"
     :class="{
       'bg-[#40916C]': currentMonth && !selectedDay,
-      'bg-dark-green-color': !currentMonth && !selectedDay,
-      'bg-[#A3B18A]': selectedDay,
+      'bg-deep-green-color': !currentMonth && !selectedDay,
+      'bg-[#79ae1e]': selectedDay,
     }"
     @click="handleClickDay(props.currentDate)"
   >
-    <p class="text-sm lg:text-base">{{ day }}</p>
+    <p class="text-sm font-bold lg:text-base">{{ day }}</p>
     <section
       v-if="subscriptionActive && subscriptionActive.length > 0"
       class="flex w-full flex-row self-center"
@@ -21,12 +21,11 @@
 
 <script lang="ts" setup>
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import { Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
 import BadgeContainer from "./badge/BadgeContainer.vue";
 
 const dateStore = useDateStore();
-const emit = defineEmits(["onNextMonth", "onPreviousMonth"]);
 const subscriptionStore = useSubscriptionsStore();
 
 const props = defineProps<{

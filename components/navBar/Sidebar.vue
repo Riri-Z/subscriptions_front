@@ -1,10 +1,10 @@
 <template>
   <div
     id="sidebar"
-    class="sticky h-[8%] w-fit flex-col bg-card-color shadow-md shadow-black md:relative md:flex md:h-full md:w-[18%] lg:w-[13%]"
+    class="sticky h-[8%] w-fit flex-col bg-card-bg-color shadow-md shadow-black md:relative md:flex md:h-full md:w-[18%] lg:w-[13%]"
   >
     <span
-      class="align-center text-primary-white-color hidden h-[125px] text-center md:flex md:border-b-2 md:border-dark-green-color"
+      class="align-center text-primary-white-color hidden h-[125px] text-center md:flex md:border-b-2 md:border-button-disabled-color"
     >
       <h1 class="m-auto text-xl">Subscriptions tracker</h1>
     </span>
@@ -15,10 +15,11 @@
     >
       <div
         v-for="icon in icons"
-        class="flex cursor-pointer gap-5 fill-slate-200 text-xs text-white transition-all duration-300 md:h-28 lg:text-base lg:hover:bg-hover-color"
+        :key="icon.id"
+        class="flex cursor-pointer gap-5 fill-slate-200 text-xs text-white transition-all duration-300 md:h-28 lg:text-base lg:hover:bg-hover-effect-color"
         @click="handleNavLink(icon.route)"
       >
-        <NavBarNavButton :icon="icon"></NavBarNavButton>
+        <NavBarNavButton :icon="icon" />
       </div>
     </div>
   </div>

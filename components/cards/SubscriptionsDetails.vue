@@ -8,7 +8,7 @@ import { deleteSubscriptionMessages } from "~/utils/constants/toast-status-messa
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
 defineProps({
-  selectedDate: { type: String },
+  selectedDate: { type: String, default: null },
   subscriptionsCurrentMonth: {
     type: Array as PropType<UserSubscription[]>,
     default: () => [],
@@ -71,9 +71,9 @@ const subscriptionByDay = computed(() => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="mb-2 flex max-h-[584px] w-full flex-col gap-4 rounded-xl bg-card-color p-4 align-middle text-base sm:mb-0 lg:h-full lg:w-[16rem]"
+    class="mb-2 flex max-h-[584px] w-full flex-col gap-4 rounded-xl bg-card-bg-color p-4 align-middle text-base sm:mb-0 lg:h-full lg:w-[16rem]"
   >
-    <h1 class="m-1 text-center">Abonnements actifs :</h1>
+    <h1 class="m-1 text-center font-bold">Abonnements actifs :</h1>
     <div
       v-if="subscriptionByDay && subscriptionByDay.length > 0"
       class="flex h-fit flex-col gap-2 overflow-y-auto"
@@ -81,11 +81,11 @@ const subscriptionByDay = computed(() => {
       <!-- LIST OF SUBSCRIPTION -->
       <div
         v-for="subscription in subscriptionByDay"
-        class="hover:bg-green-color mx-2 flex cursor-pointer flex-col rounded-md p-2 text-sm odd:bg-dark-green-color even:bg-lighter-green-color"
         :key="subscription.id"
+        class="hover:bg-green-color mx-2 flex cursor-pointer flex-col rounded-md p-2 text-sm odd:bg-deep-green-color even:bg-soft-green-color"
       >
         <!-- Each subscription details -->
-        <section class="flex flex-row justify-between">
+        <section class="flex cursor-default flex-row justify-between">
           <div>
             <p>Nom : {{ subscription?.subscription?.name }}</p>
             <p>Montant : {{ subscription?.amount }} €</p>
@@ -116,10 +116,10 @@ const subscriptionByDay = computed(() => {
     </div>
     <div class="m-2 mt-auto flex justify-center">
       <button
-        class="w-full rounded-md bg-dark-green-color p-2 text-sm text-white"
+        class="w-full rounded-md bg-soft-green-color p-2 text-sm text-white"
         @click="handleOpenModalAddSubscription"
       >
-        <p class="text-center">Ajouter un abonnement</p>
+        <p class="text-center font-bold">Ajouter un abonnement</p>
       </button>
     </div>
     <CardsConfirmDeleteAction

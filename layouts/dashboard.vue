@@ -2,7 +2,7 @@
   <div
     id="dashboard
   "
-    class="flex h-[100vh] flex-col-reverse bg-background-color text-main-text-color md:flex-row"
+    class="flex h-[100vh] flex-col-reverse bg-app-bg-color text-main-text-color md:flex-row"
   >
     <Sidebar />
     <div

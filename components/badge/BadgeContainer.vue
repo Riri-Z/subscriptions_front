@@ -4,10 +4,10 @@
       v-for="(subscription, index) in subscriptionArray"
       :key="subscription.id"
       :name="subscription.subscription.name"
-      :icon_url="subscription.subscription.icon_url"
+      :icon-url="subscription.subscription.icon_url"
       :index="index"
       :translate-value="getTranslateValue(index)"
-      :isComputed="subscription?.computed ?? false"
+      :is-computed="subscription?.computed ?? false"
     />
   </div>
 </template>
@@ -46,7 +46,7 @@ function computeLastElementOfArraySubscription(
  * Compute new array of subscription based on windowSize
  */
 const subscriptionArray = computed(() => {
-  let subscription = props.activeSubscription;
+  const subscription = props.activeSubscription;
   const MAX_ICONS = getMaxIconsBasedOnWidth(windowSize.value);
 
   if (subscription.length > MAX_ICONS) {

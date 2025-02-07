@@ -14,17 +14,17 @@ export default {
         "box-shadow-color": "0 0 0 2px rgba(160, 128, 255, 0.5)",
       },
       colors: {
-        "background-color": "#1B4332",
-        "card-color": "#2D6A4F",
-        "dark-green-color":"#052e16",
-        "lighter-green-color":"#40916C",
-        "hover-color":"#052e16",
-        "error-color":"#FF6B6B",
+        "card-bg-color": "#1B4332",
+        "app-bg-color": "#2D6A4F",
+        "deep-green-color": "#052e16",
+        "soft-green-color": "#40916C",
+        "hover-effect-color": "#052e16",
+        "error-color": "#FF6B6B",
         "button-disabled-color": "#B7E4C7",
         "main-text-color": "#ffffff",
         "dark-button-color": "#21182b",
       },
-      backgroundColor:{
+      backgroundColor: {
         "custom-green": "#2D6A4F",
       },
       backgroundImage: {
