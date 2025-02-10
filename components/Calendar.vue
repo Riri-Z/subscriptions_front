@@ -2,7 +2,7 @@
   <!-- Calendar -->
   <div
     ref="calendarContainer"
-    class="flex w-[98vw] flex-col gap-4 rounded-xl bg-card-bg-color p-2 align-middle text-white md:w-[550px] md:p-4 lg:w-[36rem] xl:w-[50rem]"
+    class="flex w-[98vw] flex-col gap-2 rounded-xl bg-card-bg-color p-2 align-middle text-white md:w-[550px] md:p-4 lg:h-[580px] lg:w-[36rem] xl:w-[50rem]"
     :style="{ opacity: subscriptionStore.isDeleteModalOpen ? 0.1 : 1 }"
   >
     <!-- Month navigation -->

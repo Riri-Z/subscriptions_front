@@ -1,12 +1,15 @@
 <template>
   <div
     id="sidebar"
-    class="sticky h-[8%] w-full flex-col bg-card-bg-color shadow-md shadow-black md:flex md:h-full md:w-[8rem] lg:w-[10rem]"
+    class="sticky h-[14%] w-full flex-col bg-card-bg-color shadow-md shadow-black md:flex md:h-full md:w-fit"
   >
     <span
       class="align-center text-primary-white-color hidden h-[125px] text-center md:flex md:border-b-2 md:border-button-disabled-color"
     >
-      <h1 class="m-auto p-2 text-xl">Subscriptions tracker</h1>
+      <h1 class="m-auto p-2 text-xl">
+        <p>Subscriptions</p>
+        <p>tracker</p>
+      </h1>
     </span>
 
     <!-- ICONS NAVLINK -->

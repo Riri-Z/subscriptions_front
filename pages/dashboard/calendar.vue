@@ -6,7 +6,7 @@
   >
     <main
       v-if="!subscriptionStore.isModalOpen"
-      class="flex flex-col gap-2 lg:mt-0 lg:flex-row"
+      class="flex max-h-[600px] flex-col gap-2 lg:mt-0 lg:flex-row"
     >
       <Calendar />
       <CardsSubscriptionsDetails
