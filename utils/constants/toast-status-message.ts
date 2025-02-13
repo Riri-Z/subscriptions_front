@@ -4,6 +4,11 @@ export const deleteSubscriptionMessages = {
     "Une erreur est survenue lors de la tentative de suppréssion de l'abonnement",
   invalidSubscription: "Abonnement invalide ou inexistant.",
 };
+export const addSubscriptionMessages = {
+  success: "Abonnement ajouté avec succès !",
+  error: "Une erreur est survenue lors de l'ajout de l'abonnement",
+  subscriptionIncomplet: "Désolé, une erreur est survenue avec cet abonnement",
+};
 export const postSubscriptionMessages = {
   success: "Abonnement mis à jour avec succès !",
   error: "Une erreur est survenue lors de la tentative de mis à jour",

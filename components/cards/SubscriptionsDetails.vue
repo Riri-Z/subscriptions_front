@@ -52,13 +52,18 @@ async function handleDeleteSubscription(subscription: UserSubscription) {
     subscriptionStore.closeDeleteModal();
   }
 }
-
+/**
+ *- Open the selected subscription
+ */
 function handleClickSubscriptionDetail(subscription: UserSubscription) {
   if (subscriptionStore.isDeleteModalOpen) return;
   subscriptionStore.setSelectedSubscription(subscription);
   subscriptionStore.openModal();
 }
 
+/**
+ *- Close the delete modal
+ */
 function handleCancelDeleteSubscription() {
   subscriptionStore.setSelectedSubscription(null);
   labelConfirmAction.value = null;
@@ -103,7 +108,7 @@ const subscriptionByDay = computed(() => {
           </div>
           <div class="bg-red flex items-center gap-2">
             <NuxtImg
-              class="m-auto"
+              class="m-auto cursor-pointer"
               alt="clipboard icon"
               src="/icons/edit.svg"
               width="24"
@@ -111,7 +116,7 @@ const subscriptionByDay = computed(() => {
               @click="handleClickSubscriptionDetail(subscription)"
             />
             <NuxtImg
-              class="m-auto"
+              class="m-auto cursor-pointer"
               alt="clipboard delete icon"
               src="/icons/remove.svg"
               width="24"

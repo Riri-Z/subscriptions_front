@@ -27,10 +27,12 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       if (!state.subscriptionsCurrentMonth) {
         return 0;
       }
-      return state.subscriptionsCurrentMonth.reduce(
-        (accumulator, subscription) => accumulator + subscription?.amount,
-        0,
-      );
+      return state.subscriptionsCurrentMonth
+        .reduce(
+          (accumulator, subscription) => accumulator + subscription?.amount,
+          0,
+        )
+        .toFixed(2);
     },
     getSubscriptionsByDay: (state) => (date: Dayjs) => {
       // Check if date is provide, and subscriptionsCurrentMonth is not null
@@ -92,7 +94,6 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     */
     async updateSubscription(formData: Partial<PostSubscriptions>) {
       if (!this.selectedSubscription?.id) {
-        console.error("no id provided");
         throw Error(
           "Id is missing in the following formData : " +
             JSON.stringify(formData),
@@ -115,6 +116,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         }
       } catch (error) {
         console.error(error);
+        throw new Error("failed updating subscription");
       } finally {
         this.loading = false;
         this.closeModal();
@@ -167,7 +169,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         return resultPostNewUserSubscription?.body;
       } catch (error) {
         console.error(error);
-        return false;
+        throw new Error("failed creating new subscription");
       } finally {
         this.loading = false;
       }

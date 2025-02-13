@@ -3,7 +3,10 @@ import SubscriptionForms from "~/components/forms/SubscriptionForms.vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import type { PostSubscriptions } from "~/types/store/subscriptionsStore";
 import { useDateStore } from "~/store/dateStore";
-import { postSubscriptionMessages } from "~/utils/constants/toast-status-message";
+import {
+  addSubscriptionMessages,
+  postSubscriptionMessages,
+} from "~/utils/constants/toast-status-message";
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
 
@@ -14,22 +17,44 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   }
   try {
     if (subscriptionStore.selectedSubscription) {
-      await subscriptionStore.updateSubscription(formData);
+      updateSubscription(formData);
     } else {
-      await subscriptionStore.postUserSubscriptions(formData);
+      addSubscription(formData);
     }
-    useNuxtApp().$toast.success(postSubscriptionMessages.success);
   } catch (error) {
     console.error(
       "Une erreur est survenue durant la tentative de mis à jour ",
       error,
     );
-    useNuxtApp().$toast.error(postSubscriptionMessages.error);
   } finally {
     await subscriptionStore.getSubscriptionsMonthly(
       dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),
     );
     subscriptionStore.closeModal();
+  }
+}
+/**
+* Update subscription
+*/
+async function updateSubscription(formData: Partial<PostSubscriptions>) {
+  try {
+    await subscriptionStore.updateSubscription(formData);
+    useNuxtApp().$toast.success(postSubscriptionMessages.success);
+  } catch (error) {
+    console.error("Error while updating subscription", error);
+    useNuxtApp().$toast.error(postSubscriptionMessages.error);
+  }
+}
+/**
+* Add a new subscription
+*/
+async function addSubscription(formData: Partial<PostSubscriptions>) {
+  try {
+    await subscriptionStore.postUserSubscriptions(formData);
+    useNuxtApp().$toast.success(addSubscriptionMessages.success);
+  } catch (error) {
+    console.error("Error while updating subscription", error);
+    useNuxtApp().$toast.error(addSubscriptionMessages.error);
   }
 }
 </script>

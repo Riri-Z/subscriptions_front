@@ -31,7 +31,7 @@
       <!-- SPEND AMOUNT -->
       <div id="totalSpend" class="mr-4">
         <p class="text-sm md:text-base">Total</p>
-        <p id="sum" class="text-end text-2xl">
+        <p id="sum" class="cursor-pointer text-end text-2xl">
           {{ subscriptionStore.getTotalExpensesByMonth }} €
         </p>
       </div>
