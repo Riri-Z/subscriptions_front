@@ -4,16 +4,3 @@
 :root {
   --thumbBG: #66bb6a;
 }
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-@media (max-width: 1250px) {
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-}
-
-::-webkit-scrollbar-thumb {
-  --app-bg-color: var(--thumbBG);
-}
