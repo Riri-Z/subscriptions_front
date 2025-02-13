@@ -1,5 +1,5 @@
 <template>
-  <Form v-slot="{ meta }" class="flex flex-col gap-2" @submit="onSubmit">
+  <Form v-slot="{ meta }" class="flex flex-col gap-1" @submit="onSubmit">
     <div
       v-for="{ as, name, label, ...attrs } in props.schema.fields"
       :key="name"
@@ -19,7 +19,7 @@
       />
       <ErrorMessage class="text-xs text-error-color" :name="name" />
     </div>
-    <SubmitForm label="Connexion" :disabled="!meta.valid"/>
+    <SubmitForm label="Connexion" :disabled="!meta.valid" />
   </Form>
 </template>
 

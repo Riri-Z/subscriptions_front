@@ -1,7 +1,7 @@
 <template>
   <!-- Card wich represent day of the month -->
   <button
-    class="flex h-12 cursor-pointer flex-col rounded-xl p-2 sm:h-14 lg:h-16 lg:gap-1"
+    class="flex h-14 cursor-pointer flex-col rounded-xl p-2 lg:h-16 lg:w-full lg:gap-1"
     :class="{
       'bg-[#40916C]': currentMonth && !selectedDay,
       'bg-deep-green-color': !currentMonth && !selectedDay,
@@ -23,7 +23,7 @@
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import type { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
-import BadgeContainer from "./badge/BadgeContainer.vue";
+import BadgeContainer from "~/components/badge/BadgeContainer.vue";
 
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();

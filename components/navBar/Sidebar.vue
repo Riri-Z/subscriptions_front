@@ -1,12 +1,15 @@
 <template>
   <div
     id="sidebar"
-    class="sticky h-[8%] w-fit flex-col bg-card-bg-color shadow-md shadow-black md:relative md:flex md:h-full md:w-[18%] lg:w-[13%]"
+    class="sticky h-[14%] w-full flex-col bg-card-bg-color shadow-md shadow-black md:flex md:h-full md:w-fit"
   >
     <span
       class="align-center text-primary-white-color hidden h-[125px] text-center md:flex md:border-b-2 md:border-button-disabled-color"
     >
-      <h1 class="m-auto text-xl">Subscriptions tracker</h1>
+      <h1 class="m-auto p-2 text-xl">
+        <p>Subscriptions</p>
+        <p>tracker</p>
+      </h1>
     </span>
 
     <!-- ICONS NAVLINK -->
@@ -16,7 +19,7 @@
       <div
         v-for="icon in icons"
         :key="icon.id"
-        class="flex cursor-pointer gap-5 fill-slate-200 text-xs text-white transition-all duration-300 md:h-28 lg:text-base lg:hover:bg-hover-effect-color"
+        class="flex cursor-pointer gap-9 fill-slate-200 text-xs text-white transition-all duration-300 md:h-20 lg:text-sm lg:hover:bg-hover-effect-color"
         @click="handleNavLink(icon.route)"
       >
         <NavBarNavButton :icon="icon" />

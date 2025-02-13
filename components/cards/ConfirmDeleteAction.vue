@@ -1,7 +1,6 @@
 <template>
   <div
-    class="absolute left-[50%] top-[50%] z-[50] h-fit w-fit translate-x-[-50%] translate-y-[-50%] rounded-md bg-deep-green-color text-white"
-    @keydown.escape="$emit('cancelAction')"
+    class="absolute left-[55%] top-[50%] z-[50] h-fit w-fit translate-x-[-50%] translate-y-[-50%] rounded-md bg-deep-green-color text-white"
   >
     <div class="m-4 flex flex-col gap-4 align-middle">
       <h1>

@@ -6,12 +6,13 @@ import type {
   PostSubscriptions,
   UserSubscription,
   SubscriptionsStore,
-  AvailableSuggestionSubscriptionWithIcon
+  AvailableSuggestionSubscriptionWithIcon,
 } from "~/types/store/subscriptionsStore";
 
 export const useSubscriptionsStore = defineStore("subscriptions", {
   state: (): SubscriptionsStore => ({
     isModalOpen: true,
+    isDeleteModalOpen: false,
     isOpenDetails: true,
     subscriptions: null as UserSubscription[] | null,
     selectedSubscription: null as UserSubscription | null,
@@ -26,10 +27,12 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       if (!state.subscriptionsCurrentMonth) {
         return 0;
       }
-      return state.subscriptionsCurrentMonth.reduce(
-        (accumulator, subscription) => accumulator + subscription?.amount,
-        0,
-      );
+      return state.subscriptionsCurrentMonth
+        .reduce(
+          (accumulator, subscription) => accumulator + subscription?.amount,
+          0,
+        )
+        .toFixed(2);
     },
     getSubscriptionsByDay: (state) => (date: Dayjs) => {
       // Check if date is provide, and subscriptionsCurrentMonth is not null
@@ -68,6 +71,12 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     closeDetails() {
       this.isOpenDetails = false;
     },
+    openDeleteModal() {
+      this.isDeleteModalOpen = true;
+    },
+    closeDeleteModal() {
+      this.isDeleteModalOpen = false;
+    },
     openModal() {
       this.isModalOpen = true;
     },
@@ -85,7 +94,6 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     */
     async updateSubscription(formData: Partial<PostSubscriptions>) {
       if (!this.selectedSubscription?.id) {
-        console.error("no id provided");
         throw Error(
           "Id is missing in the following formData : " +
             JSON.stringify(formData),
@@ -108,6 +116,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         }
       } catch (error) {
         console.error(error);
+        throw new Error("failed updating subscription");
       } finally {
         this.loading = false;
         this.closeModal();
@@ -130,12 +139,11 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
     async getAvailableSuggestionSubscriptionWithIcon() {
       try {
-        const result = await useAPI<ApiResponse<AvailableSuggestionSubscriptionWithIcon[] | null>>(
-          "/subscriptions/with-icons",
-          {
-            method: "GET",
-          },
-        );
+        const result = await useAPI<
+          ApiResponse<AvailableSuggestionSubscriptionWithIcon[] | null>
+        >("/subscriptions/with-icons", {
+          method: "GET",
+        });
         if (result?.body) {
           this.availableSuggestionSubscriptionWithIcon = result.body;
         } else {
@@ -161,7 +169,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         return resultPostNewUserSubscription?.body;
       } catch (error) {
         console.error(error);
-        return false;
+        throw new Error("failed creating new subscription");
       } finally {
         this.loading = false;
       }

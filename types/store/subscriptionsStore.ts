@@ -47,13 +47,14 @@ export enum SubscriptionCategory {
 
 export interface SubscriptionsStore {
   isModalOpen: boolean;
+  isDeleteModalOpen: boolean;
   isOpenDetails: boolean;
   subscriptions: null | UserSubscription[];
   selectedSubscription: null | UserSubscription;
   subscriptionsCurrentMonth: null | UserSubscription[];
   loading: boolean;
   selectedDate: null | string;
-  availableSuggestionSubscriptionWithIcon: AvailableSuggestionSubscriptionWithIcon|[];
+  availableSuggestionSubscriptionWithIcon: AvailableSuggestionSubscriptionWithIcon[];
 }
 
 export interface AvailableSuggestionSubscriptionWithIcon {

@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import {
   BillingCycle,
   SubscriptionCategory,
-  type Subscription,
+  type AvailableSuggestionSubscriptionWithIcon,
 } from "~/types/store/subscriptionsStore";
 import SuggestionList from "./SuggestionList.vue";
 interface CategoryOption {
@@ -114,8 +114,9 @@ function handleFocusInputName(value: boolean) {
   displaySuggestionStatus.value = value;
 }
 
-function handleSelectSubscription(subscription: Subscription) {
-  console.log("subscription.name", subscription.name);
+function handleSelectSubscription(
+  subscription: AvailableSuggestionSubscriptionWithIcon,
+) {
   // Update sbscription name
   subscriptionName.value = subscription.name;
   // toggle to false suggestion and therefore hide suggestion
@@ -124,14 +125,16 @@ function handleSelectSubscription(subscription: Subscription) {
 </script>
 
 <template>
-  <h1 class="text-primary-black-color m-4 py-1 text-center text-2xl md:py-2">
+  <h1
+    class="text-primary-black-color m-4 text-center text-base md:py-2 md:text-2xl"
+  >
     {{
       subscriptionStore.selectedSubscription
         ? "Editer l'abonnement"
         : "Ajouter un abonnement"
     }}
   </h1>
-  <form class="flex flex-col gap-3 p-2">
+  <form class="flex flex-col gap-3 md:p-2">
     <!-- subscription Name -->
     <label
       class="text-primary-black-color block text-sm font-bold"
@@ -151,10 +154,10 @@ function handleSelectSubscription(subscription: Subscription) {
         @focus="handleFocusInputName(true)"
         @keyup.escape="handleFocusInputName(false)"
         @keyup.enter="handleFocusInputName(false)"
-      >
+      />
       <SuggestionList
         v-if="displaySuggestionStatus"
-        :subscriptions="
+        :available-suggestion-subscription="
           subscriptionStore.availableSuggestionSubscriptionWithIcon
         "
         @select-subscription="handleSelectSubscription"
@@ -173,7 +176,7 @@ function handleSelectSubscription(subscription: Subscription) {
       name="amount"
       v-bind="amountAttrs"
       @focus="handleFocusInputName(false)"
-    >
+    />
     <span class="text-xs text-red-400">{{ errors.amount }}</span>
 
     <!--  startDate-->
@@ -189,7 +192,7 @@ function handleSelectSubscription(subscription: Subscription) {
       name="startDate"
       v-bind="startDateAttrs"
       @focus="handleFocusInputName(false)"
-    >
+    />
     <span class="text-xs text-red-400">{{ errors.startDate }}</span>
     <!-- endDate -->
     <label class="text-primary-black-color font-bold" for="endDate"
@@ -203,7 +206,7 @@ function handleSelectSubscription(subscription: Subscription) {
       name="endDate"
       v-bind="endDateAttrs"
       @focus="handleFocusInputName(false)"
-    >
+    />
     <span class="text-xs text-red-400">{{ errors.endDate }}</span>
 
     <!--BillingCycle  -->
@@ -234,7 +237,11 @@ function handleSelectSubscription(subscription: Subscription) {
       v-bind="subscriptionCategoryAttrs"
       @focus="handleFocusInputName(false)"
     >
-      <option v-for="category_option in CATEGORIES_OPTIONS" :key="category_option?.value" :value="category_option?.value">
+      <option
+        v-for="category_option in CATEGORIES_OPTIONS"
+        :key="category_option?.value"
+        :value="category_option?.value"
+      >
         {{ category_option.text }}
       </option>
     </select>
@@ -242,14 +249,14 @@ function handleSelectSubscription(subscription: Subscription) {
     <section class="flex">
       <button
         type="button"
-        class="my-4 mr-5 h-10 w-full rounded-md bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
+        class="my-4 mr-5 h-10 w-full rounded-lg bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
         @click="onSubmit"
       >
         Sauvegarder
       </button>
       <button
         type="button"
-        class="my-4 ml-5 h-10 w-full rounded-md bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
+        class="my-4 ml-5 h-10 w-full rounded-lg bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
         @click="handleCancelSubscription"
       >
         Annuler
