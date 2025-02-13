@@ -81,7 +81,7 @@ const subscriptionByDay = computed(() => {
 
 <template>
   <div
-    v-if="selectedDate && subscriptionsCurrentMonth"
+    v-if="selectedDate && subscriptionsCurrentMonth && !subscriptionStore.isDeleteModalOpen"
     class="mb-2 flex w-full flex-col gap-4 rounded-xl bg-card-bg-color p-4 align-middle text-base sm:mb-0 lg:h-[580px] lg:w-[16rem]"
     :style="{ opacity: subscriptionStore.isDeleteModalOpen ? 0.2 : 1 }"
   >
