@@ -2,7 +2,7 @@
   <!-- CALENDAR template-->
   <div
     id="calendar"
-    class="text-primary-white-color mx-auto mt-4 flex flex-row md:m-auto lg:justify-center"
+    class="text-primary-white-color mx-auto mt-4 flex flex-row lg:h-full lg:items-center lg:justify-center"
   >
     <main
       v-if="!subscriptionStore.isModalOpen"
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import Calendar from "~/components/Calendar.vue";
+import Calendar from "~/components/calendar/Calendar.vue";
 import dayjs from "dayjs";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 const subscriptionStore = useSubscriptionsStore();

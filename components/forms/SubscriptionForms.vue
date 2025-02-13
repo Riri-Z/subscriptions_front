@@ -117,7 +117,6 @@ function handleFocusInputName(value: boolean) {
 function handleSelectSubscription(
   subscription: AvailableSuggestionSubscriptionWithIcon,
 ) {
-  console.log("subscription.name", subscription.name);
   // Update sbscription name
   subscriptionName.value = subscription.name;
   // toggle to false suggestion and therefore hide suggestion

@@ -34,8 +34,8 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   }
 }
 /**
-* Update subscription
-*/
+ * Update subscription
+ */
 async function updateSubscription(formData: Partial<PostSubscriptions>) {
   try {
     await subscriptionStore.updateSubscription(formData);
@@ -46,8 +46,8 @@ async function updateSubscription(formData: Partial<PostSubscriptions>) {
   }
 }
 /**
-* Add a new subscription
-*/
+ * Add a new subscription
+ */
 async function addSubscription(formData: Partial<PostSubscriptions>) {
   try {
     await subscriptionStore.postUserSubscriptions(formData);

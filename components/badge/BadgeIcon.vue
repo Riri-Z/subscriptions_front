@@ -1,13 +1,11 @@
 <template>
-  <span class="m-auto p-1 text-center">
-    <img
-      v-if="props.iconUrl"
-      :src="props.iconUrl"
-      width="24"
-      height="24"
-      :alt="props.name"
-    />
-  </span>
+  <img
+    v-if="props.iconUrl"
+    width="10"
+    height="10"
+    :src="props.iconUrl"
+    :alt="props.name"
+  />
 </template>
 
 <script lang="ts" setup>

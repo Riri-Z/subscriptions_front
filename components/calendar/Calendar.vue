@@ -11,10 +11,10 @@
         id="month"
         class="flex flex-row justify-center gap-1 align-middle md:ml-2"
       >
-        <section class="flex justify-center gap-2 align-middle">
-          <div class="flex min-w-8">
-            <NavMonth nameIcon="chevron-left" @click="handlePrevMonth" />
-            <NavMonth nameIcon="chevron-right" @click="handleNextMonth" />
+        <section class="flex justify-center align-middle">
+          <div class="flex min-w-6">
+            <NavMonth name-icon="chevron-left" @click="handlePrevMonth" />
+            <NavMonth name-icon="chevron-right" @click="handleNextMonth" />
           </div>
           <section
             class="flex items-center justify-center gap-2 text-base md:text-lg lg:text-3xl"
@@ -47,11 +47,7 @@
         @select-month="handleSelectMonth"
       />
 
-      <section
-        v-else
-        class="relative"
-        :style="{ height: calendarHeight + 'px' }"
-      >
+      <section v-else class="relative">
         <!-- Days list -->
         <span
           v-if="isLoading"
@@ -87,7 +83,12 @@ import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import HeaderDays from "./headers/HeaderDays.vue";
+import HeaderDays from "~/components/headers/HeaderDays.vue";
+import NavMonth from "~/components/calendar/NavMonth.vue";
+import MonthList from "~/components/calendar/MonthList.vue";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+dayjs.extend(localizedFormat);
+dayjs().format("L");
 
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();

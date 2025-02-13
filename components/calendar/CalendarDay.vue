@@ -23,7 +23,7 @@
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import type { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
-import BadgeContainer from "./badge/BadgeContainer.vue";
+import BadgeContainer from "~/components/badge/BadgeContainer.vue";
 
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();

@@ -1,6 +1,12 @@
 <template>
   <button class="flex w-full items-center gap-2 md:p-4">
-    <NuxtImg :key="icon.id" :src="icon.path" width="16" height="16" />
+    <img
+      class="h-[25px] w-[25px] md:h-[16px] md:w-[16px]"
+      :key="icon.id"
+      :src="icon.path"
+      :alt="icon.name"
+    />
+
     <p class="hidden tracking-wider md:flex">
       {{
         icon.name.slice(0, 1).toUpperCase() +
