@@ -1,6 +1,7 @@
 <template>
   <img
     v-if="props.iconUrl"
+    class="max-h-[12px]"
     width="10"
     height="10"
     :src="props.iconUrl"
