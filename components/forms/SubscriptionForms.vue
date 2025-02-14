@@ -9,6 +9,7 @@ import {
   type AvailableSuggestionSubscriptionWithIcon,
 } from "~/types/store/subscriptionsStore";
 import SuggestionList from "./SuggestionList.vue";
+import { postSubscriptionMessages } from "~/utils/constants/toast-status-message";
 interface CategoryOption {
   value: SubscriptionCategory;
   text: string;
@@ -97,9 +98,19 @@ const [billingCycle, billingCycleAttrs] = defineField("billingCycle");
 const [category, subscriptionCategoryAttrs] = defineField("category");
 
 const emit = defineEmits(["postSubscription"]);
-
+defineProps<{ isSubmiting: boolean }>();
 const onSubmit = handleSubmit((values) => {
-  emit("postSubscription", values);
+  if (
+    values.endDate &&
+    values.startDate &&
+    dayjs(values.endDate).diff(dayjs(values.startDate)) < 0
+  ) {
+    useNuxtApp().$toast.error(
+      postSubscriptionMessages.startDateMustBeBeforeEndDate,
+    );
+    return;
+  }
+  return emit("postSubscription", values);
 });
 
 function handleCancelSubscription() {
@@ -249,6 +260,7 @@ function handleSelectSubscription(
     <section class="flex">
       <button
         type="button"
+        :disabled="isSubmiting"
         class="my-4 mr-5 h-10 w-full rounded-lg bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
         @click="onSubmit"
       >
@@ -256,6 +268,7 @@ function handleSelectSubscription(
       </button>
       <button
         type="button"
+        :disabled="isSubmiting"
         class="my-4 ml-5 h-10 w-full rounded-lg bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
         @click="handleCancelSubscription"
       >

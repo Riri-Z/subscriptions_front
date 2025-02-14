@@ -9,8 +9,10 @@ import {
 } from "~/utils/constants/toast-status-message";
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
+const isSubmiting = ref(false);
 
 async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
+  isSubmiting.value = true;
   // TODO : check guard if everything is present
   if (formData.endDate === "") {
     delete formData.endDate;
@@ -30,6 +32,7 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
     await subscriptionStore.getSubscriptionsMonthly(
       dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),
     );
+    isSubmiting.value = false;
     subscriptionStore.closeModal();
   }
 }
@@ -65,7 +68,10 @@ async function addSubscription(formData: Partial<PostSubscriptions>) {
       v-if="subscriptionStore.isModalOpen"
       class="text-wite my-2 flex w-[310px] flex-col justify-evenly gap-1 rounded-md bg-card-bg-color px-4 md:gap-2 lg:w-[400px] lg:p-4"
     >
-      <SubscriptionForms @post-subscription="handlePostSubscription" />
+      <SubscriptionForms
+        @post-subscription="handlePostSubscription"
+        :is-submiting="isSubmiting"
+      />
     </div>
   </Teleport>
 </template>
