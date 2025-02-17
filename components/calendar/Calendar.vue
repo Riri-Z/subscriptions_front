@@ -10,8 +10,9 @@
       v-on:prev-month="handlePrevMonth"
       v-on:next-month="handleNextMonth"
       v-on:click-month="handleClickMonth"
-      v-on:click-year="handleClickYear"
+      @click-year="handleClickYear"
       :display-month="displayMonth"
+      :display-year="displayYear"
     />
 
     <main
@@ -35,10 +36,16 @@
       <MonthList
         v-if="displayMonth"
         :style="{ height: `${calendarHeight}px` }"
-        @select-month="handleSelectMonth"
+        @select-month="handleMonthSelection"
+      />
+      <YearList
+        v-if="displayYear"
+        :style="{ height: `${calendarHeight}px` }"
+        :current-date="dateStore.getCurrentDate"
+        @select-year="handleYearSelection"
       />
       <!-- Days list -->
-      <section v-else>
+      <section v-if="!displayMonth && !displayYear">
         <span ref="calendarDay" class="grid w-full grid-cols-7 gap-2">
           <CalendarDay
             v-for="day in dateStore.daysInMonth"
@@ -57,15 +64,23 @@
 
 <script lang="ts" setup>
 import dayjs from "dayjs";
-import type { Dayjs } from "dayjs";
+import type { Dayjs, UnitType } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import MonthList from "~/components/calendar/MonthList.vue";
+import YearList from "~/components/calendar/YearList.vue";
 
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
 
+/**
+ * Toggle to display month select
+ */
 const displayMonth: Ref<boolean> = ref(false);
+/**
+ * Toggle to display year select
+ */
+const displayYear: Ref<boolean> = ref(false);
 const isLoading: Ref<boolean> = ref(false);
 const calendarDay: Ref<HTMLElement | null> = ref(null);
 const calendarContainer: Ref<HTMLElement | null> = ref(null);
@@ -88,9 +103,8 @@ function handleClickMonth() {
   displayMonth.value = !displayMonth.value;
 }
 function handleClickYear() {
-  console.log("year clicked");
-  /*   if (subscriptionStore.isDeleteModalOpen) return;
-  displayMonth.value = !displayMonth.value; */
+  if (subscriptionStore.isDeleteModalOpen) return;
+  displayYear.value = !displayYear.value;
 }
 
 async function handleNextMonth() {
@@ -123,39 +137,85 @@ async function handlePrevMonth() {
   }
 }
 
-async function handleSelectMonth(key: number) {
+/**
+ * Compute new date with the given unit  'month|year|date' and set the date to first
+ */
+function computeNewDate(currentDate: Dayjs, unit: UnitType, key: number) {
+  return currentDate.set(unit, key).set("date", 1);
+}
+/**
+ * Update subscription and date store to reload calendar with the given date
+ */
+async function updateStores(newDate: Dayjs) {
+  try {
+    // Update current date
+    dateStore.setCurrentDate(newDate);
+    // Update selected date
+    subscriptionStore.setSelectedDate(newDate);
+    // Fetch subscription of new date
+    await subscriptionStore.getSubscriptionsMonthly(
+      newDate.format("YYYY-MM-DD"),
+    );
+    // Compute array of days of the new date's month
+    dateStore.setDaysInMonth(newDate);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+/**
+ * Updates the application date to the first day of the selected year while maintaining the current month
+ * @param selectedYear - The selected year
+ * @returns Promise<void>
+ */
+async function handleYearSelection(selectedYear: number) {
+  if (subscriptionStore.isDeleteModalOpen) return;
+
+  if (selectedYear) {
+    try {
+      isLoading.value = true;
+      const newDate = computeNewDate(
+        dateStore.getCurrentDate,
+        "year",
+        selectedYear,
+      );
+
+      await updateStores(newDate);
+    } catch (error) {
+      console.error("something wrong happened while selecting new year", error);
+    } finally {
+      displayYear.value = false;
+      isLoading.value = false;
+    }
+  } else {
+    console.error("key is missing", selectedYear);
+  }
+}
+
+async function handleMonthSelection(key: number) {
   if (subscriptionStore.isDeleteModalOpen) return;
 
   // Ignore user input if a new month is selected while one is already selected
-  isLoading.value = true;
+
   if (key < 12) {
     try {
       isLoading.value = true;
       // Set date to start of month
-      const newDate = dateStore.getCurrentDate.set("month", key).set("date", 1);
-      // Update current date
-      dateStore.setCurrentDate(newDate);
-      // Update selected date
-      subscriptionStore.setSelectedDate(newDate);
-      // Fetch subscription of new date
-      await subscriptionStore.getSubscriptionsMonthly(
-        newDate.format("YYYY-MM-DD"),
-      );
-      // Compute array of days of the new date's month
-      dateStore.setDaysInMonth(newDate);
-      displayMonth.value = false;
+      const newDate = computeNewDate(dateStore.getCurrentDate, "month", key);
+
+      await updateStores(newDate);
     } catch (error) {
       console.error(
         "something wrong happened while selecting new month",
         error,
       );
     } finally {
+      displayMonth.value = false;
       isLoading.value = false;
     }
   } else {
     console.error("undefined month selected  :" + key);
   }
-  isLoading.value = false;
 }
 //Load subscription on mount component
 onMounted(async () => {

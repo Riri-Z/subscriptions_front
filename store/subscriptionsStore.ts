@@ -49,19 +49,24 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
   },
   actions: {
-    computeTotalExpensesForCurrentMonth(currentMonth: number, subscriptionsMonth: UserSubscription[] | null) {
+    computeTotalExpensesForCurrentMonth(
+      currentMonth: number,
+      subscriptionsMonth: UserSubscription[] | null,
+    ) {
       if (!subscriptionsMonth) {
         return 0;
       }
       return subscriptionsMonth
         .reduce(
           (accumulator, subscription) =>
-
-            accumulator + (subscription?.amount * subscription.nextsPayements.filter(date => {
-              // We keep only the nextPayments dates that are in the same month as the currentMonth
-              if (currentMonth) { return dayjs(date).month() === currentMonth }
-            }
-            ).length),
+            accumulator +
+            subscription?.amount *
+              subscription.nextsPayements.filter((date) => {
+                // We keep only the nextPayments dates that are in the same month as the currentMonth
+                if (currentMonth) {
+                  return dayjs(date).month() === currentMonth;
+                }
+              }).length,
 
           0,
         )
@@ -104,7 +109,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       if (!this.selectedSubscription?.id) {
         throw Error(
           "Id is missing in the following formData : " +
-          JSON.stringify(formData),
+            JSON.stringify(formData),
         );
       }
       try {
