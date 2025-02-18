@@ -7,9 +7,10 @@
   >
     <!-- Month navigation -->
     <CalendarHeader
-      v-on:prev-month="handlePrevMonth"
-      v-on:next-month="handleNextMonth"
+      v-on:prev-month="handlePrevOption"
+      v-on:next-month="handleNextOption"
       v-on:click-month="handleClickMonth"
+      :years-range="yearChoicesAvailableRange"
       @click-year="handleClickYear"
       :display-month="displayMonth"
       :display-year="displayYear"
@@ -40,6 +41,7 @@
       />
       <YearList
         v-if="displayYear"
+        ref="yearListComponent"
         :style="{ height: `${calendarHeight}px` }"
         :current-date="dateStore.getCurrentDate"
         @select-year="handleYearSelection"
@@ -69,9 +71,17 @@ import { useDateStore } from "~/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import MonthList from "~/components/calendar/MonthList.vue";
 import YearList from "~/components/calendar/YearList.vue";
-
+import type YearListComponentType from "~/components/calendar/YearList.vue";
+const yearListComponent = ref<InstanceType<
+  typeof YearListComponentType
+> | null>(null);
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
+
+enum ACTION {
+  ADD = 1,
+  MINUS = -1,
+}
 
 /**
  * Toggle to display month select
@@ -81,6 +91,7 @@ const displayMonth: Ref<boolean> = ref(false);
  * Toggle to display year select
  */
 const displayYear: Ref<boolean> = ref(false);
+// TODO :  lift up to store and disable details when user is on select month or year
 const isLoading: Ref<boolean> = ref(false);
 const calendarDay: Ref<HTMLElement | null> = ref(null);
 const calendarContainer: Ref<HTMLElement | null> = ref(null);
@@ -94,6 +105,17 @@ onMounted(() => {
   measureCalendar(calendarDay.value);
 });
 
+const yearChoicesAvailableRange = computed(() => {
+  if (yearListComponent.value) {
+    const availableYearsRange =
+      yearListComponent.value.StartAndEndYearsChoices() ?? false;
+    if (availableYearsRange)
+      return `
+      ${availableYearsRange[0]} - ${availableYearsRange[1]}
+   `;
+  }
+  return false;
+});
 function isSelectedDay(date: Dayjs) {
   return date.format("YYYY-MM-DD") === subscriptionStore.selectedDate;
 }
@@ -104,12 +126,39 @@ function handleClickMonth() {
 }
 function handleClickYear() {
   if (subscriptionStore.isDeleteModalOpen) return;
+  displayMonth.value = false;
   displayYear.value = !displayYear.value;
 }
 
-async function handleNextMonth() {
+//TODO : use an enum for action , add and minus for
+function handleSwitchYear(action: ACTION) {
+  const currentDate = dateStore.getCurrentDate;
+  let newDate =
+    action === ACTION.ADD
+      ? currentDate.add(ACTION.ADD, "year")
+      : currentDate.add(ACTION.MINUS, "year");
+
+  // Update current date
+  dateStore.setCurrentDate(newDate);
+  // Update selected date
+  subscriptionStore.setSelectedDate(newDate);
+}
+/*
+ * Triggered when right chevron is clicked
+ */
+async function handleNextOption() {
   if (subscriptionStore.isDeleteModalOpen) return;
 
+  if (displayMonth.value) {
+    return handleSwitchYear(ACTION.ADD);
+  }
+  if (displayYear.value && yearListComponent.value) {
+    yearListComponent.value.handleComputeNewYearsChoices("plus");
+  } else {
+    return handleNextMonth();
+  }
+}
+async function handleNextMonth() {
   isLoading.value = true;
   try {
     const res = await dateStore.setNextMonth();
@@ -120,6 +169,20 @@ async function handleNextMonth() {
     console.error("something wrong happened while selecting next month", error);
   } finally {
     isLoading.value = false;
+  }
+}
+/*
+ * Triggered when left chevron is clicked
+ */
+async function handlePrevOption() {
+  if (subscriptionStore.isDeleteModalOpen) return;
+  if (displayMonth.value) {
+    return handleSwitchYear(ACTION.MINUS);
+  }
+  if (displayYear.value && yearListComponent.value) {
+    yearListComponent.value.handleComputeNewYearsChoices("minus");
+  } else {
+    return handlePrevMonth();
   }
 }
 async function handlePrevMonth() {

@@ -22,17 +22,18 @@
               {{ dateStore.getCurrentMonthString }}
             </p>
             <p
-              v-if="!displayMonth"
+              v-if="!yearsRange"
               class="cursor-pointer"
               @click="emits('clickYear')"
             >
               {{ dateStore.getCurrentYear }}
             </p>
+            <p v-else>{{ yearsRange }}</p>
           </section>
         </section>
       </div>
       <!-- SPEND AMOUNT -->
-      <div id="totalSpend" class="mr-4">
+      <div v-if="!(displayMonth || displayYear)" id="totalSpend" class="mr-4">
         <p class="text-sm md:text-base">Total pour ce mois :</p>
         <!-- TODO : internalize the currency -->
         <p id="sum" class="cursor-pointer text-end text-2xl">
@@ -62,6 +63,7 @@ const dateStore = useDateStore();
 const props = defineProps<{
   displayMonth: boolean;
   displayYear: boolean;
+  yearsRange: string | false;
 }>();
 
 const emits = defineEmits([

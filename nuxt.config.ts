@@ -6,7 +6,7 @@ export default defineNuxtConfig({
       path: "~/components",
     },
   ],
-
+  devtools: { enabled: true },
   sourcemap: {
     server: true,
     client: true,
@@ -47,7 +47,7 @@ export default defineNuxtConfig({
         getSession: { path: "session", method: "get" },
       },
       token: {
-        signInResponseTokenPointer: "/token/accessToken",
+        signInResponseTokenPointer: "/accessToken",
         type: "Bearer",
         cookieName: "accessToken",
         headerName: "Authorization",
@@ -60,8 +60,8 @@ export default defineNuxtConfig({
         endpoint: { path: "/refresh", method: "post" },
         refreshOnlyToken: true,
         token: {
-          signInResponseRefreshTokenPointer: "/token/refreshToken",
-          refreshRequestTokenPointer: "/refreshToken",
+          signInResponseRefreshTokenPointer: "/refreshToken",
+          refreshRequestTokenPointer: "",
           cookieName: "refreshToken",
           sameSiteAttribute: "lax",
           secureCookieAttribute: false,

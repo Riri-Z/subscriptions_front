@@ -10,11 +10,16 @@
     >
       <Calendar />
       <CardsSubscriptionsDetails
-        v-if="subscriptionStore.getSelectedDate && subscriptionsCurrentMonth"
+        v-if="
+          subscriptionStore.getSelectedDate &&
+          subscriptionStore?.subscriptionsCurrentMonth
+        "
         :selected-date="
           dayjs(subscriptionStore.getSelectedDate).format('DD-MM-YYYY')
         "
-        :subscriptions-current-month="subscriptionsCurrentMonth"
+        :subscriptions-current-month="
+          subscriptionStore?.subscriptionsCurrentMonth
+        "
       />
     </main>
     <ModalSubscription />
@@ -25,10 +30,21 @@
 import Calendar from "~/components/calendar/Calendar.vue";
 import dayjs from "dayjs";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
+import { useDateStore } from "~/store/dateStore";
 const subscriptionStore = useSubscriptionsStore();
-const subscriptionsCurrentMonth = computed(
-  () => subscriptionStore?.subscriptionsCurrentMonth,
-);
+const dateStore = useDateStore();
+
+// Reset calendar
+onMounted(async () => {
+  const currentDate = dayjs(new Date());
+  console.log("currentDate", currentDate);
+  dateStore.setCurrentDate(currentDate);
+  subscriptionStore.setSelectedDate(currentDate);
+  await subscriptionStore.getSubscriptionsMonthly(
+    currentDate.format("YYYY-MM-DD"),
+  );
+  dateStore.setDaysInMonth(currentDate);
+});
 
 definePageMeta({
   layout: "dashboard",
