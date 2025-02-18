@@ -1,15 +1,14 @@
 <template>
   <div>
-    <header id="header" class="flex flex-row justify-between">
+    <header id="header" class="flex flex-row justify-between pb-2">
       <div
         id="month"
         class="flex flex-row justify-center gap-1 align-middle md:ml-2"
       >
-        <section class="flex justify-center align-middle">
-          <div class="flex min-w-6">
+        <section class="flex justify-center gap-2 align-middle">
+          <div class="flex min-w-6 items-center">
             <NavMonth name-icon="chevron-left" @click="emits('prevMonth')" />
-            <NavMonth name-icon="chevron-right" @click="emits('nextMonth')">
-            </NavMonth>
+            <NavMonth name-icon="chevron-right" @click="emits('nextMonth')" />
           </div>
           <section
             class="flex items-center justify-center gap-2 text-base md:text-lg lg:text-3xl"
@@ -36,7 +35,7 @@
       <div v-if="!(displayMonth || displayYear)" id="totalSpend" class="mr-4">
         <p class="text-sm md:text-base">Total pour ce mois :</p>
         <!-- TODO : internalize the currency -->
-        <p id="sum" class="cursor-pointer text-end text-2xl">
+        <p id="sum" class="cursor-pointer text-end text-lg lg:text-2xl">
           {{ computeTotalExpense }} €
         </p>
       </div>
@@ -64,6 +63,7 @@ const props = defineProps<{
   displayMonth: boolean;
   displayYear: boolean;
   yearsRange: string | false;
+  isLoading: boolean;
 }>();
 
 const emits = defineEmits([

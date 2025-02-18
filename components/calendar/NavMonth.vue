@@ -2,7 +2,7 @@
   <NuxtImg
     class="cursor-pointer hover:text-purple-300"
     :src="src"
-    width="24"
+    width="20"
     alt="chevron"
   />
 </template>

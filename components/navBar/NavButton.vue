@@ -1,17 +1,14 @@
 <template>
   <button class="flex w-full items-center gap-2 md:p-4">
     <img
-      class="h-[25px] w-[25px] md:h-[16px] md:w-[16px]"
       :key="icon.id"
+      class="h-[25px] w-[25px] md:h-[16px] md:w-[16px]"
       :src="icon.path"
       :alt="icon.name"
     />
 
     <p class="hidden tracking-wider md:flex">
-      {{
-        icon.name.slice(0, 1).toUpperCase() +
-        icon.name.slice(1, icon.name.length)
-      }}
+      {{ icon.name.slice(0, 1).toUpperCase() + icon.name.slice(1, icon.name.length) }}
     </p>
   </button>
 </template>

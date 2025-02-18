@@ -7,13 +7,14 @@
   >
     <!-- Month navigation -->
     <CalendarHeader
-      v-on:prev-month="handlePrevOption"
-      v-on:next-month="handleNextOption"
-      v-on:click-month="handleClickMonth"
       :years-range="yearChoicesAvailableRange"
-      @click-year="handleClickYear"
       :display-month="displayMonth"
       :display-year="displayYear"
+      :is-loading="isLoading"
+      @prev-month="handlePrevOption"
+      @next-month="handleNextOption"
+      @click-month="handleClickMonth"
+      @click-year="handleClickYear"
     />
 
     <main
@@ -72,16 +73,12 @@ import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import MonthList from "~/components/calendar/MonthList.vue";
 import YearList from "~/components/calendar/YearList.vue";
 import type YearListComponentType from "~/components/calendar/YearList.vue";
+import { YEAR_ACTION } from "~/types/yearAction/yearAction.ts";
 const yearListComponent = ref<InstanceType<
   typeof YearListComponentType
 > | null>(null);
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
-
-enum ACTION {
-  ADD = 1,
-  MINUS = -1,
-}
 
 /**
  * Toggle to display month select
@@ -111,7 +108,7 @@ const yearChoicesAvailableRange = computed(() => {
       yearListComponent.value.StartAndEndYearsChoices() ?? false;
     if (availableYearsRange)
       return `
-      ${availableYearsRange[0]} - ${availableYearsRange[1]}
+      ${availableYearsRange?.start} - ${availableYearsRange?.end}
    `;
   }
   return false;
@@ -130,19 +127,21 @@ function handleClickYear() {
   displayYear.value = !displayYear.value;
 }
 
-//TODO : use an enum for action , add and minus for
-function handleSwitchYear(action: ACTION) {
+enum ACTION_DATE {
+  ADD = 1,
+  MINUS = -1,
+}
+
+function handleSwitchYear(action: ACTION_DATE) {
   const currentDate = dateStore.getCurrentDate;
-  let newDate =
-    action === ACTION.ADD
-      ? currentDate.add(ACTION.ADD, "year")
-      : currentDate.add(ACTION.MINUS, "year");
+  const newDate = currentDate.add(action, "year");
 
   // Update current date
   dateStore.setCurrentDate(newDate);
   // Update selected date
   subscriptionStore.setSelectedDate(newDate);
 }
+
 /*
  * Triggered when right chevron is clicked
  */
@@ -150,15 +149,18 @@ async function handleNextOption() {
   if (subscriptionStore.isDeleteModalOpen) return;
 
   if (displayMonth.value) {
-    return handleSwitchYear(ACTION.ADD);
+    handleSwitchYear(ACTION_DATE.ADD);
   }
   if (displayYear.value && yearListComponent.value) {
-    yearListComponent.value.handleComputeNewYearsChoices("plus");
-  } else {
-    return handleNextMonth();
+    yearListComponent.value.handleComputeNewYearsChoices(YEAR_ACTION.NEXT);
+  }
+
+  if (!displayMonth.value && !displayYear.value) {
+    handleNextMonth();
   }
 }
 async function handleNextMonth() {
+  if (subscriptionStore.isDeleteModalOpen || isLoading.value) return;
   isLoading.value = true;
   try {
     const res = await dateStore.setNextMonth();
@@ -176,18 +178,23 @@ async function handleNextMonth() {
  */
 async function handlePrevOption() {
   if (subscriptionStore.isDeleteModalOpen) return;
+
+  // Handle logic when months list is displayed
   if (displayMonth.value) {
-    return handleSwitchYear(ACTION.MINUS);
+    return handleSwitchYear(ACTION_DATE.MINUS);
   }
+  // Handle logic when years list is displayed
   if (displayYear.value && yearListComponent.value) {
-    yearListComponent.value.handleComputeNewYearsChoices("minus");
+    yearListComponent.value.handleComputeNewYearsChoices(YEAR_ACTION.PREVIOUS);
   } else {
     return handlePrevMonth();
   }
 }
+
 async function handlePrevMonth() {
-  if (subscriptionStore.isDeleteModalOpen) return;
+  if (subscriptionStore.isDeleteModalOpen || isLoading.value) return;
   isLoading.value = true;
+
   try {
     const res = await dateStore.setPreviousMonth();
     if (!res) {
