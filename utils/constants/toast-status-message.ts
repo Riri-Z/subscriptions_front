@@ -25,6 +25,7 @@ export const loginMessages = {
 };
 export const registerMessages = {
   success: "Utilisateur enregistré, veuillez vous connecter",
+  conflict: "Cette adresse email ou ce nom d'utilisateur existe déjà",
   error:
     "Nom d'utilisateur ou email déjà utilisé. Veuillez essayer une autre valeur",
   unknownError:

@@ -24,10 +24,13 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
       addSubscription(formData);
     }
   } catch (error) {
-    console.error("Une erreur est survenue durant la tentative de mis à jour ", error);
+    console.error(
+      "Une erreur est survenue durant la tentative de mis à jour ",
+      error,
+    );
   } finally {
     await subscriptionStore.getSubscriptionsMonthly(
-      dateStore.currentDate.set("date", 1).format("YYYY-MM-DD")
+      dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),
     );
     isSubmiting.value = false;
     subscriptionStore.closeModal();
@@ -63,7 +66,7 @@ async function addSubscription(formData: Partial<PostSubscriptions>) {
   <Teleport v-if="subscriptionStore.isModalOpen" to="#calendar">
     <div
       v-if="subscriptionStore.isModalOpen"
-      class="text-wite my-2 flex w-[310px] flex-col justify-evenly gap-1 rounded-md bg-card-bg-color px-4 md:gap-2 lg:w-[400px] lg:p-4"
+      class="text-wite bg-card-bg-color my-2 flex w-[310px] flex-col justify-evenly gap-1 rounded-md px-4 md:gap-2 lg:w-[400px] lg:p-4"
     >
       <SubscriptionForms
         :is-submiting="isSubmiting"

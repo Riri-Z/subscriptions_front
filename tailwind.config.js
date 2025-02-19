@@ -13,6 +13,8 @@ export default {
       boxShadow: {
         "box-shadow-color": "0 0 0 2px rgba(160, 128, 255, 0.5)",
         "btn-box-shadow": "0px 4px 6px rgba(0, 0, 0, 0.2)",
+        custom:
+          "0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3)",
       },
       colors: {
         primary: "#27374D", // Couleur principale (fond sombre)
@@ -23,6 +25,7 @@ export default {
         "error-color": "#961f17",
         selected: "#40916C",
         odd: "#3B1C7A",
+        link: "#4ade80",
       },
       backgroundColor: {
         "custom-green": "#FFFFFF", // "#2D6A4F",

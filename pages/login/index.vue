@@ -68,7 +68,7 @@ async function handleLogin(values: Login) {
       <p class="mb-4 text-center text-light">
         Connectez-vous pour continuer ou
         <a
-          class="cursor-pointer text-accent underline underline-offset-4 hover:text-light"
+          class="cursor-pointer text-link underline underline-offset-4"
           @click="redirectToRegisterPage"
         >
           inscrivez-vous en cliquant ici

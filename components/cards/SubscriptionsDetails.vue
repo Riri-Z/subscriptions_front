@@ -20,7 +20,9 @@ const handleOpenModalAddSubscription = () => {
 
 const subscriptionByDay = computed(() => {
   return subscriptionStore.selectedDate
-    ? subscriptionStore.getSubscriptionsByDay(dayjs(subscriptionStore.selectedDate))
+    ? subscriptionStore.getSubscriptionsByDay(
+        dayjs(subscriptionStore.selectedDate),
+      )
     : null;
 });
 </script>
@@ -28,7 +30,7 @@ const subscriptionByDay = computed(() => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="mb-2 flex w-full flex-col gap-4 rounded-xl bg-secondary p-4 align-middle text-base sm:mb-0 lg:h-[580px] lg:w-[16rem]"
+    class="mb-2 flex w-full flex-col gap-4 rounded-xl bg-secondary p-4 align-middle text-base shadow-custom sm:mb-0 lg:h-[580px] lg:w-[16rem]"
     :style="{ opacity: subscriptionStore.isDeleteModalOpen ? 0.2 : 1 }"
   >
     <h1 class="m-1 text-center font-bold">Abonnements actifs :</h1>
@@ -42,9 +44,9 @@ const subscriptionByDay = computed(() => {
     <div v-else>
       <p class="m-1">Pas de prélevements prévue ce jour</p>
     </div>
-    <div class="m-2 mt-auto flex justify-center">
+    <div class="mt-auto flex justify-center">
       <button
-        class="w-full rounded-lg bg-primary p-2 text-sm text-light"
+        class="btn w-full rounded-lg bg-primary p-2 text-sm text-light"
         @click="handleOpenModalAddSubscription"
       >
         <p class="text-center font-bold">Ajouter un abonnement</p>

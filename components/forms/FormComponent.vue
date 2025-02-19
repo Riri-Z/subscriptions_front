@@ -1,7 +1,12 @@
 <template>
   <Form v-slot="{ meta }" class="flex flex-col gap-1" @submit="onSubmit">
-    <div v-for="{ as, name, label, ...attrs } in props.schema.fields" :key="name">
-      <label class="text-light block text-sm font-medium" :for="name">{{ label }}</label>
+    <div
+      v-for="{ as, name, label, ...attrs } in props.schema.fields"
+      :key="name"
+    >
+      <label class="block text-sm font-medium text-light" :for="name">{{
+        label
+      }}</label>
       <Field
         :id="name"
         class="autofill-bg placeHolder-gray-400 my-2 w-full rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"

@@ -2,7 +2,7 @@
   <!-- CALENDAR template-->
   <div
     id="calendar"
-    class="text-light mx-auto mt-4 flex flex-row lg:h-full lg:items-center lg:justify-center"
+    class="mx-auto mt-4 flex flex-row text-light lg:h-full lg:items-center lg:justify-center"
   >
     <main
       v-if="!subscriptionStore.isModalOpen"
@@ -14,8 +14,12 @@
           subscriptionStore.getSelectedDate &&
           subscriptionStore?.subscriptionsCurrentMonth
         "
-        :selected-date="dayjs(subscriptionStore.getSelectedDate).format('DD-MM-YYYY')"
-        :subscriptions-current-month="subscriptionStore?.subscriptionsCurrentMonth"
+        :selected-date="
+          dayjs(subscriptionStore.getSelectedDate).format('DD-MM-YYYY')
+        "
+        :subscriptions-current-month="
+          subscriptionStore?.subscriptionsCurrentMonth
+        "
       />
     </main>
     <ModalSubscription />
@@ -35,7 +39,9 @@ onMounted(async () => {
   const currentDate = dayjs(new Date());
   dateStore.setCurrentDate(currentDate);
   subscriptionStore.setSelectedDate(currentDate);
-  await subscriptionStore.getSubscriptionsMonthly(currentDate.format("YYYY-MM-DD"));
+  await subscriptionStore.getSubscriptionsMonthly(
+    currentDate.format("YYYY-MM-DD"),
+  );
   dateStore.setDaysInMonth(currentDate);
 });
 

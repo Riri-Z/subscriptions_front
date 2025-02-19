@@ -35,7 +35,11 @@ const badgeValue = computed(() => {
       backgroundColor: randomColor,
     }"
   >
-    <BadgeIcon v-if="props.iconUrl" :name="props.name" :icon-url="props.iconUrl" />
+    <BadgeIcon
+      v-if="props.iconUrl"
+      :name="props.name"
+      :icon-url="props.iconUrl"
+    />
     <p v-else>
       {{ badgeValue }}
     </p>

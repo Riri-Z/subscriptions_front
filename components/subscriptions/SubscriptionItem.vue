@@ -1,7 +1,9 @@
 <template>
-  <section class="flex cursor-default flex-row justify-between p-2 rounded-md">
+  <section class="flex cursor-default flex-row justify-between rounded-md p-2">
     <div>
-      <p class="overflow-hidden overflow-ellipsis whitespace-nowrap lg:max-w-32">
+      <p
+        class="overflow-hidden overflow-ellipsis whitespace-nowrap lg:max-w-32"
+      >
         Nom : {{ name }}
       </p>
       <p>Montant : {{ amount }} €</p>
@@ -82,7 +84,7 @@ async function handleDeleteSubscription(subscription: UserSubscription) {
   } finally {
     subscriptionStore.setLoading(false); // Arrêt du chargement
     await subscriptionStore.getSubscriptionsMonthly(
-      dateStore.currentDate.set("date", 1).format("YYYY-MM-DD")
+      dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),
     );
     subscriptionStore.closeDeleteModal();
   }

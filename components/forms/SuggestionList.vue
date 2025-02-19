@@ -12,7 +12,7 @@ const emit = defineEmits<{
 
 <template>
   <div
-    class="absolute z-10 flex h-fit w-full flex-col gap-1 rounded-b-md bg-deep-green-color"
+    class="bg-deep-green-color absolute z-10 flex h-fit w-full flex-col gap-1 rounded-b-md"
   >
     <span
       v-for="subscription in availableSuggestionSubscription"

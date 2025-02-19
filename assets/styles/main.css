@@ -4,3 +4,12 @@
 :root {
   --thumbBG: #66bb6a;
 }
+
+@layer components {
+  .btn {
+    @apply transition-all duration-300 ease-out;
+    &:hover {
+      @apply bg-slate-800/90 scale-105 shadow-lg shadow-black/20;
+    }
+  }
+}

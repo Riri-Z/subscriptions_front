@@ -1,7 +1,7 @@
 <template>
   <!--  -->
   <div
-    class="bg-light absolute left-1/2 top-1/2 z-[50] h-fit w-fit translate-x-[-50%] translate-y-[-50%] rounded-md text-black"
+    class="absolute left-1/2 top-1/2 z-[50] h-fit w-fit translate-x-[-50%] translate-y-[-50%] rounded-md bg-light text-black"
   >
     <div class="m-4 flex flex-col gap-4 align-middle">
       <h1>
@@ -10,15 +10,15 @@
           {{ props.label }}
         </p>
       </h1>
-      <div class="flex flex-row justify-center">
+      <div class="flex flex-row justify-around">
         <button
-          class="mr-5 h-10 w-[8rem] rounded-lg bg-primary text-light disabled:bg-slate-300"
+          class="btn h-10 w-[8rem] rounded-lg bg-primary text-light disabled:bg-slate-300"
           @click="emit('deleteSubscription', props.subscription)"
         >
           <p>Continuer</p>
         </button>
         <button
-          class="mr-5 h-10 w-[8rem] rounded-lg bg-primary text-light"
+          class="btn h-10 w-[8rem] rounded-lg bg-primary text-light"
           @click="emit('cancelAction')"
         >
           <p>Annuler</p>

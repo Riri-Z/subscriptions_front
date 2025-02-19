@@ -2,7 +2,7 @@
   <!-- Calendar -->
   <div
     ref="calendarContainer"
-    class="flex w-[95vw] flex-col gap-2 rounded-xl bg-secondary p-2 align-middle text-light sm:w-[90vw] md:w-[550px] md:p-4 lg:h-[580px] lg:w-[36rem] xl:w-[50rem]"
+    class="flex w-[95vw] flex-col gap-2 rounded-xl bg-secondary p-2 align-middle text-light shadow-custom sm:w-[90vw] md:w-[550px] md:p-4 lg:h-[580px] lg:w-[36rem] xl:w-[50rem]"
     :style="{ opacity: subscriptionStore.isDeleteModalOpen ? 0.1 : 1 }"
   >
     <!-- Month navigation -->
@@ -17,7 +17,10 @@
       @click-year="handleClickYear"
     />
 
-    <main class="relative flex flex-col justify-center" :style="{ height: mainHeight }">
+    <main
+      class="relative flex flex-col justify-center"
+      :style="{ height: mainHeight }"
+    >
       <!-- Loader -->
       <span
         v-if="isLoading"
@@ -71,7 +74,9 @@ import MonthList from "~/components/calendar/MonthList.vue";
 import YearList from "~/components/calendar/YearList.vue";
 import type YearListComponentType from "~/components/calendar/YearList.vue";
 import { YEAR_ACTION } from "~/types/yearAction/yearAction";
-const yearListComponent = ref<InstanceType<typeof YearListComponentType> | null>(null);
+const yearListComponent = ref<InstanceType<
+  typeof YearListComponentType
+> | null>(null);
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
 
@@ -89,7 +94,8 @@ const calendarDay: Ref<HTMLElement | null> = ref(null);
 const calendarContainer: Ref<HTMLElement | null> = ref(null);
 const mainHeight = computed(() => `${calendarHeight}px`);
 
-const { measureContainer, measureCalendar, calendarHeight } = useUseCalendarDimensions();
+const { measureContainer, measureCalendar, calendarHeight } =
+  useUseCalendarDimensions();
 
 onMounted(() => {
   measureContainer(calendarContainer.value);
@@ -217,7 +223,9 @@ async function updateStores(newDate: Dayjs) {
     // Update selected date
     subscriptionStore.setSelectedDate(newDate);
     // Fetch subscription of new date
-    await subscriptionStore.getSubscriptionsMonthly(newDate.format("YYYY-MM-DD"));
+    await subscriptionStore.getSubscriptionsMonthly(
+      newDate.format("YYYY-MM-DD"),
+    );
     // Compute array of days of the new date's month
     dateStore.setDaysInMonth(newDate);
   } catch (error) {
@@ -236,7 +244,11 @@ async function handleYearSelection(selectedYear: number) {
   if (selectedYear) {
     try {
       isLoading.value = true;
-      const newDate = computeNewDate(dateStore.getCurrentDate, "year", selectedYear);
+      const newDate = computeNewDate(
+        dateStore.getCurrentDate,
+        "year",
+        selectedYear,
+      );
 
       await updateStores(newDate);
     } catch (error) {
@@ -263,7 +275,10 @@ async function handleMonthSelection(key: number) {
 
       await updateStores(newDate);
     } catch (error) {
-      console.error("something wrong happened while selecting new month", error);
+      console.error(
+        "something wrong happened while selecting new month",
+        error,
+      );
     } finally {
       displayMonth.value = false;
       isLoading.value = false;
@@ -275,7 +290,7 @@ async function handleMonthSelection(key: number) {
 //Load subscription on mount component
 onMounted(async () => {
   await subscriptionStore.getSubscriptionsMonthly(
-    dayjs(dateStore.currentDate).format("YYYY-MM-DD")
+    dayjs(dateStore.currentDate).format("YYYY-MM-DD"),
   );
 });
 </script>
