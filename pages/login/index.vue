@@ -64,11 +64,11 @@ async function handleLogin(values: Login) {
 <template>
   <NuxtLayout :name="layout">
     <div>
-      <h1 class="mb-3 text-center text-4xl">Bienvenue</h1>
-      <p class="mb-4 text-center">
+      <h1 class="mb-3 text-center text-4xl text-light">Bienvenue</h1>
+      <p class="mb-4 text-center text-light">
         Connectez-vous pour continuer ou
         <a
-          class="cursor-pointer text-green-400 underline underline-offset-4"
+          class="cursor-pointer text-accent underline underline-offset-4 hover:text-light"
           @click="redirectToRegisterPage"
         >
           inscrivez-vous en cliquant ici

@@ -12,20 +12,20 @@ export default {
     extend: {
       boxShadow: {
         "box-shadow-color": "0 0 0 2px rgba(160, 128, 255, 0.5)",
+        "btn-box-shadow": "0px 4px 6px rgba(0, 0, 0, 0.2)",
       },
       colors: {
-        "card-bg-color": "#1B4332",
-        "app-bg-color": "#2D6A4F",
-        "deep-green-color": "#052e16",
-        "soft-green-color": "#40916C",
-        "hover-effect-color": "#052e16",
-        "error-color": "#FF6B6B",
-        "button-disabled-color": "#B7E4C7",
-        "main-text-color": "#ffffff",
-        "dark-button-color": "#21182b",
+        primary: "#27374D", // Couleur principale (fond sombre)
+        secondary: "#526D82", // Couleur secondaire (menu, cartes)
+        accent: "#9DB2BF", // Accentuation (boutons, hover, liens)
+        light: "#DDE6ED", // Couleur claire (texte, contrastes)
+        disabeled: "#82929B", // disabled button
+        "error-color": "#961f17",
+        selected: "#40916C",
+        odd: "#3B1C7A",
       },
       backgroundColor: {
-        "custom-green": "#2D6A4F",
+        "custom-green": "#FFFFFF", // "#2D6A4F",
       },
       backgroundImage: {
         "custom-gradient":

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+/* TODO : Display this component as modal and keeep calendar behind. e.G : delete modal */
 import { useForm } from "vee-validate";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import * as yup from "yup";
@@ -136,9 +137,7 @@ function handleSelectSubscription(
 </script>
 
 <template>
-  <h1
-    class="text-primary-black-color m-4 text-center text-base md:py-2 md:text-2xl"
-  >
+  <h1 class="text-primary-black-color m-4 text-center text-base md:py-2 md:text-2xl">
     {{
       subscriptionStore.selectedSubscription
         ? "Editer l'abonnement"
@@ -147,13 +146,11 @@ function handleSelectSubscription(
   </h1>
   <form class="flex flex-col gap-3 md:p-2">
     <!-- subscription Name -->
-    <label
-      class="text-primary-black-color block text-sm font-bold"
-      for="subscriptionName"
+    <label class="text-primary-black-color block text-sm font-bold" for="subscriptionName"
       >Nom<span class="text-red-500"> *</span></label
     >
     <div class="relative">
-      <!-- Autocomple is disable to prevent double suggestion, "one-time-code" instead of false works in chrome -->
+      <!-- Autocomple is disable to prevent double suggestion,using "one-time-code" as value for autocomplete instead of false works in chrome to disable it-->
       <input
         id="subscriptionName"
         v-model="subscriptionName"
@@ -206,9 +203,7 @@ function handleSelectSubscription(
     />
     <span class="text-xs text-red-400">{{ errors.startDate }}</span>
     <!-- endDate -->
-    <label class="text-primary-black-color font-bold" for="endDate"
-      >Date de fin
-    </label>
+    <label class="text-primary-black-color font-bold" for="endDate">Date de fin </label>
     <input
       id="endDate"
       v-model="endDate"
@@ -261,7 +256,7 @@ function handleSelectSubscription(
       <button
         type="button"
         :disabled="isSubmiting"
-        class="my-4 mr-5 h-10 w-full rounded-lg bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
+        class="bg-soft-green-color text-light my-4 mr-5 h-10 w-full rounded-lg disabled:bg-slate-300 disabled:shadow"
         @click="onSubmit"
       >
         Sauvegarder
@@ -269,7 +264,7 @@ function handleSelectSubscription(
       <button
         type="button"
         :disabled="isSubmiting"
-        class="my-4 ml-5 h-10 w-full rounded-lg bg-soft-green-color text-white disabled:bg-slate-300 disabled:shadow"
+        class="bg-soft-green-color text-light my-4 ml-5 h-10 w-full rounded-lg disabled:bg-slate-300 disabled:shadow"
         @click="handleCancelSubscription"
       >
         Annuler

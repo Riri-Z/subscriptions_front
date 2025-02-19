@@ -1,5 +1,5 @@
 <template>
-  <button class="flex w-full items-center gap-2 md:p-4">
+  <button class="flex w-full items-center text-black gap-2 md:p-4">
     <img
       :key="icon.id"
       class="h-[25px] w-[25px] md:h-[16px] md:w-[16px]"
@@ -7,7 +7,7 @@
       :alt="icon.name"
     />
 
-    <p class="hidden tracking-wider md:flex">
+    <p class="hidden tracking-wider text-light md:flex">
       {{ icon.name.slice(0, 1).toUpperCase() + icon.name.slice(1, icon.name.length) }}
     </p>
   </button>

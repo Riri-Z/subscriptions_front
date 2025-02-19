@@ -3,13 +3,13 @@
   <button
     class="flex h-14 cursor-pointer flex-col rounded-xl p-2 lg:h-16 lg:w-full lg:gap-1"
     :class="{
-      'bg-[#40916C]': currentMonth && !selectedDay,
-      'bg-deep-green-color': !currentMonth && !selectedDay,
-      'bg-[#79ae1e]': selectedDay,
+      'bg-primary': currentMonth && !selectedDay,
+      'bg-accent': !currentMonth && !selectedDay,
+      'bg-selected': selectedDay,
     }"
     @click="handleClickDay(props.currentDate)"
   >
-    <p class="text-sm font-bold lg:text-base">{{ day }}</p>
+    <p class="text-sm font-bold text-light lg:text-base">{{ day }}</p>
     <section
       v-if="subscriptionActive && subscriptionActive.length > 0"
       class="flex w-full flex-row self-center"

@@ -2,12 +2,10 @@
   <div
     id="dashboard
   "
-    class="flex h-[100vh] flex-col-reverse gap-8 bg-app-bg-color text-main-text-color md:flex-row md:gap-0"
+    class="flex h-[100vh] flex-col-reverse gap-8 bg-primary text-light md:flex-row md:gap-0"
   >
     <Sidebar />
-    <div
-      class="flex h-full w-full flex-col overflow-auto md:flex-1 md:p-4 lg:h-[100vh]"
-    >
+    <div class="flex h-full w-full flex-col overflow-auto md:flex-1 md:p-4 lg:h-[100vh]">
       <slot />
     </div>
   </div>
