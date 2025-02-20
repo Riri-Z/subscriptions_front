@@ -28,18 +28,14 @@ const badgeValue = computed(() => {
 
 <template>
   <span
-    class="absolute flex h-4 w-4 transform flex-row justify-center rounded-full align-middle text-xs lg:h-5 lg:w-5"
+    class="flex h-4 w-4 lg:h-5 lg:w-5 transform flex-row justify-center rounded-full align-middle text-xs"
     :style="{
       zIndex: props.index,
-      transform: props.translateValue,
+      marginLeft: translateValue,
       backgroundColor: randomColor,
     }"
   >
-    <BadgeIcon
-      v-if="props.iconUrl"
-      :name="props.name"
-      :icon-url="props.iconUrl"
-    />
+    <BadgeIcon v-if="props.iconUrl" :name="props.name" :icon-url="props.iconUrl" />
     <p v-else>
       {{ badgeValue }}
     </p>

@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidebar"
-    class="sticky h-[14%] w-full flex-col border-white bg-secondary shadow-custom md:flex md:h-full md:w-fit"
+    class="sticky h-[14%] w-full flex-col border-white bg-secondary shadow-custom md:flex md:h-full md:w-fit lg:w-[10rem]"
   >
     <span
       class="align-center text-primary-white-color md:border-button-disabled-color hidden h-[125px] text-center md:flex md:border-b-2"

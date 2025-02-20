@@ -17,14 +17,15 @@ export default {
           "0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3)",
       },
       colors: {
-        primary: "#27374D", // Couleur principale (fond sombre)
-        secondary: "#526D82", // Couleur secondaire (menu, cartes)
+        primary:  "#526D82", // Couleur principale (fond sombre)
+        secondary:"#27374D", // Couleur secondaire (menu, cartes)
         accent: "#9DB2BF", // Accentuation (boutons, hover, liens)
-        light: "#DDE6ED", // Couleur claire (texte, contrastes)
+        "calendar-outside-month":"#415A7B",
+        light: "#FFFFFF", // Couleur claire (texte, contrastes)
         disabeled: "#82929B", // disabled button
-        "error-color": "#961f17",
+        "error-color": "#ff6252",
         selected: "#40916C",
-        odd: "#3B1C7A",
+        turquoise : "#2A9D8F",
         link: "#4ade80",
       },
       backgroundColor: {
@@ -38,13 +39,10 @@ export default {
     screens: {
       sm: "640px",
       // => @media (min-width: 640px) { ... }
-
       md: "768px",
       // => @media (min-width: 768px) { ... }
-
       lg: "1024px",
       // => @media (min-width: 1024px) { ... }
-
       xl: "1280px",
       // => @media (min-width: 1280px) { ... }
       laptop: "1440px",

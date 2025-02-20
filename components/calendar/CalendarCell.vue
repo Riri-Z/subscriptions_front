@@ -1,15 +1,23 @@
 <template>
   <!-- Card wich represent day of the month -->
   <button
-    class="flex h-14 cursor-pointer flex-col rounded-xl p-2 transition-transform duration-300 ease-in-out hover:scale-105 lg:h-16 lg:w-full lg:gap-1"
+    class="flex h-14 cursor-pointer flex-col rounded-xl p-2 transition-transform duration-300 ease-in-out hover:scale-105 lg:h-16 md:h-18 lg:w-full lg:gap-1"
     :class="{
-      'bg-primary': currentMonth && !selectedDay,
-      'bg-accent': !currentMonth && !selectedDay,
-      'bg-selected': selectedDay,
+      'bg-accent': currentMonth && !selectedDay,
+      'bg-calendar-outside-month opacity-70': !currentMonth && !selectedDay,
+      'bg-turquoise': selectedDay,
     }"
     @click="handleClickDay(props.currentDate)"
   >
-    <p class="text-sm font-bold text-light lg:text-base">{{ day }}</p>
+    <p
+      class="text-sm font-bold lg:text-base"
+      :class="{
+        'text-black': currentMonth,
+        'text-light': !currentMonth,
+      }"
+    >
+      {{ day }}
+    </p>
     <section
       v-if="subscriptionActive && subscriptionActive.length > 0"
       class="flex w-full flex-row self-center"
