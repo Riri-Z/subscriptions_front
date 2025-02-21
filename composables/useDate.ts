@@ -1,9 +1,13 @@
 import dayjs, { type Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import dayOfYear from "dayjs/plugin/dayOfYear";
+import type { Day } from "~/types/day";
 /* TODO : move this to store , allow store to handle it. ONE SOURCE OF TRUTH */
 dayjs.extend(utc);
 dayjs.extend(dayOfYear);
+
+
+
 
 export const useDate = () => {
   const getDayInMonth = (date: string) => {
@@ -20,12 +24,6 @@ export const useDate = () => {
     "Samedi",
   ]);
 
-  type Day = {
-    id: number;
-    dayValue: number | null;
-    currentMonth: boolean;
-    date: Dayjs;
-  };
   // This method initialize the days of the month
   /**
    * Initialize the day of the month
@@ -54,7 +52,7 @@ export const useDate = () => {
               previousMonth.month(),
               numberOfDaysInPreviousMonth + dayValue,
             ),
-          ),
+          ).toISOString(),
         };
       }
       // Compute date day for current month
@@ -65,7 +63,7 @@ export const useDate = () => {
           currentMonth: true,
           date: dayjs(
             new Date(currentDate.year(), currentDate.month(), dayValue),
-          ),
+          ).toISOString(),
         };
       } else {
         // Compute date day for next month
@@ -76,7 +74,7 @@ export const useDate = () => {
           currentMonth: false,
           date: dayjs(
             new Date(currentDate.year(), currentDate.month(), dayValue),
-          ),
+          ).toISOString(),
         };
         nextDayValueMonth = nextDayValueMonth + 1;
         return result;
@@ -109,5 +107,6 @@ export const useDate = () => {
     MONTH_NAME,
     currentMonthString,
     arrOfDays,
+
   };
 };

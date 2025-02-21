@@ -67,11 +67,13 @@ const icons = ref<Icon[]>([
  */
 async function handleSignOut() {
   try {
-    return await signOut({ callbackUrl: "/login" });
+    await signOut();
+    window.location.href = "/login";
   } catch (error) {
     console.error(error);
-    navigateTo("./login");
+    window.location.href = "/login";
   }
+   (window.location.href = "/login");
 }
 
 async function handleNavLink(route: string) {

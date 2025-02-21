@@ -51,7 +51,7 @@ async function handleSaveRegister(values: RegisterValues) {
       }, 2000);
     }
   } catch (error: unknown) {
-    console.log("error", error);
+    console.error("error", error);
     if (typeof error === "object" && error !== null && "statusCode" in error) {
       const statusCode = (error as { statusCode: number }).statusCode;
       if (statusCode === 409) {

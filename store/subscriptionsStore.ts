@@ -1,6 +1,7 @@
+import { defineStore } from "pinia";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
-import { defineStore } from "pinia";
+import { useAPI } from "~/composables/useAPI";
 import type {
   ApiResponse,
   PostSubscriptions,
@@ -18,7 +19,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     selectedSubscription: null as UserSubscription | null,
     subscriptionsCurrentMonth: null as UserSubscription[] | null,
     loading: false,
-    selectedDate: dayjs(new Date()).format("YYYY-MM-DD"),
+    selectedDate: new Date().toISOString(),
     availableSuggestionSubscriptionWithIcon: [],
   }),
   getters: {
@@ -97,8 +98,8 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
       this.selectedSubscription = null;
       this.isModalOpen = false;
     },
-    setSelectedDate(date: Dayjs) {
-      this.selectedDate = date.format("YYYY-MM-DD");
+    setSelectedDate(date: string) {
+      this.selectedDate = date;
     },
     /*
     j'envoie les données, dedans il y  a un id ? si non je crée un abonnement, si oui je met à jour l'abonnement
@@ -201,7 +202,9 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
     async getSubscriptionsMonthly(date: Date | string) {
       this.loading = true;
-      const url = "/user-subscriptions/" + date;
+      const formattedDate = dayjs(date).format("YYYY-MM-DD");
+      const url = "/user-subscriptions/" + formattedDate;
+
       try {
         const subscriptionsCurrentMonth = await useAPI<UserSubscription[]>(
           url,
@@ -210,7 +213,13 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
           },
         );
         if (subscriptionsCurrentMonth) {
-          this.subscriptionsCurrentMonth = subscriptionsCurrentMonth;
+          // Ensure dates are properly serialized
+          this.subscriptionsCurrentMonth = subscriptionsCurrentMonth.map(sub => ({
+            ...sub,
+            nextsPayements: sub.nextsPayements.map(date =>
+              typeof date === 'string' ? date : dayjs(date).toISOString()
+            )
+          }));
           return true;
         }
         return false;

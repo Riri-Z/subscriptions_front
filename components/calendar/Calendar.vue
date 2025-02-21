@@ -63,7 +63,6 @@
 </template>
 
 <script lang="ts" setup>
-import dayjs from "dayjs";
 import type { Dayjs, UnitType } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
@@ -72,6 +71,7 @@ import YearList from "~/components/calendar/YearList.vue";
 import type YearListComponentType from "~/components/calendar/YearList.vue";
 import { YEAR_ACTION } from "~/types/yearAction/yearAction";
 import CalendarCell from "./CalendarCell.vue";
+import dayjs from "dayjs";
 const yearListComponent = ref<InstanceType<typeof YearListComponentType> | null>(null);
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
@@ -110,8 +110,8 @@ const yearChoicesAvailableRange = computed(() => {
   }
   return false;
 });
-function isSelectedDay(date: Dayjs) {
-  return date.format("YYYY-MM-DD") === subscriptionStore.selectedDate;
+function isSelectedDay(date: string) {
+  return date === subscriptionStore.selectedDate;
 }
 
 function handleClickMonth() {
@@ -131,7 +131,7 @@ enum ACTION_DATE {
 
 function handleSwitchYear(action: ACTION_DATE) {
   const currentDate = dateStore.getCurrentDate;
-  const newDate = currentDate.add(action, "year");
+  const newDate = currentDate.add(action, "year").toISOString();
 
   // Update current date
   dateStore.setCurrentDate(newDate);
@@ -208,19 +208,19 @@ async function handlePrevMonth() {
  * Compute new date with the given unit  'month|year|date' and set the date to first
  */
 function computeNewDate(currentDate: Dayjs, unit: UnitType, key: number) {
-  return currentDate.set(unit, key).set("date", 1);
+  return currentDate.set(unit, key).set("date", 1).toISOString();
 }
 /**
  * Update subscription and date store to reload calendar with the given date
  */
-async function updateStores(newDate: Dayjs) {
+async function updateStores(newDate: string) {
   try {
     // Update current date
     dateStore.setCurrentDate(newDate);
     // Update selected date
     subscriptionStore.setSelectedDate(newDate);
     // Fetch subscription of new date
-    await subscriptionStore.getSubscriptionsMonthly(newDate.format("YYYY-MM-DD"));
+    await subscriptionStore.getSubscriptionsMonthly(newDate);
     // Compute array of days of the new date's month
     dateStore.setDaysInMonth(newDate);
   } catch (error) {
@@ -275,10 +275,14 @@ async function handleMonthSelection(key: number) {
     console.error("undefined month selected  :" + key);
   }
 }
-//Load subscription on mount component
+// Reset calendar
 onMounted(async () => {
-  await subscriptionStore.getSubscriptionsMonthly(
-    dayjs(dateStore.currentDate).format("YYYY-MM-DD")
-  );
+  const currentDate = dayjs(new Date()).toISOString();
+  dateStore.setCurrentDate(currentDate);
+  console.log("currentDate", currentDate);
+  subscriptionStore.setSelectedDate(currentDate);
+  await subscriptionStore.getSubscriptionsMonthly(currentDate);
+  dateStore.setDaysInMonth(currentDate);
 });
 </script>
+*

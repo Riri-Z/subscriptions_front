@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     client: true,
   },
   css: ["~/assets/styles/main.css"],
+
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -26,18 +27,19 @@ export default defineNuxtConfig({
   modules: [
     "@pinia/nuxt",
     "@nuxtjs/tailwindcss",
-    "@nuxtjs/i18n",
     "@nuxt/eslint",
     "@nuxt/image",
     "@sidebase/nuxt-auth",
     "nuxt-auth-utils",
     "@nuxtjs/device", // TODO : check if we still need it
   ],
+
   auth: {
     isEnabled: true,
     //guard protecting auth routes
-    globalAppMiddleware: true,
+    globalAppMiddleware: false,
     baseURL: process.env.NUXT_PUBLIC_API_BASE + "/auth/",
+
     provider: {
       type: "local",
       endpoints: {
@@ -52,17 +54,20 @@ export default defineNuxtConfig({
         cookieName: "accessToken",
         headerName: "Authorization",
         sameSiteAttribute: "lax",
+        maxAgeInSeconds: 15,
         secureCookieAttribute: false,
         httpOnlyCookieAttribute: false,
       },
       refresh: {
-        isEnabled: false,
-        endpoint: { path: "/refresh", method: "post" },
-        refreshOnlyToken: true,
+        isEnabled: true,
+        endpoint: { path: "refresh", method: "post" },
+        refreshOnlyToken: false,
+
         token: {
           signInResponseRefreshTokenPointer: "/refreshToken",
-          refreshRequestTokenPointer: "",
+          refreshRequestTokenPointer: "/refreshToken",
           cookieName: "refreshToken",
+          maxAgeInSeconds: 10555,
           sameSiteAttribute: "lax",
           secureCookieAttribute: false,
           httpOnlyCookieAttribute: false,

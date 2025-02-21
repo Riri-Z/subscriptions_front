@@ -5,7 +5,7 @@
     class="mx-auto mt-4 flex flex-row text-light lg:mt-0 lg:h-full lg:items-center lg:justify-center"
   >
     <main
-      v-if="!subscriptionStore.isModalOpen"
+      v-if="statusValue === 'authenticated' && !subscriptionStore.isModalOpen"
       class="flex flex-col gap-2 lg:mt-0 lg:flex-row"
     >
       <Calendar />
@@ -26,18 +26,10 @@
 import Calendar from "~/components/calendar/Calendar.vue";
 import dayjs from "dayjs";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import { useDateStore } from "~/store/dateStore";
-const subscriptionStore = useSubscriptionsStore();
-const dateStore = useDateStore();
+const { status } = useAuth();
 
-// Reset calendar
-onMounted(async () => {
-  const currentDate = dayjs(new Date());
-  dateStore.setCurrentDate(currentDate);
-  subscriptionStore.setSelectedDate(currentDate);
-  await subscriptionStore.getSubscriptionsMonthly(currentDate.format("YYYY-MM-DD"));
-  dateStore.setDaysInMonth(currentDate);
-});
+const statusValue = computed(() => status.value);
+const subscriptionStore = useSubscriptionsStore();
 
 definePageMeta({
   layout: "dashboard",

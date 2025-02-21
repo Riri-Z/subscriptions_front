@@ -29,29 +29,29 @@
 
 <script lang="ts" setup>
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import type { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
 import BadgeContainer from "~/components/badge/BadgeContainer.vue";
+import dayjs from "dayjs";
 
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
 
 const props = defineProps<{
   day: null | number;
-  sourceDate: Dayjs | null;
+  sourceDate: string | null;
   currentMonth: boolean;
-  currentDate: Dayjs;
+  currentDate: string;
   selectedDay: boolean;
 }>();
 
 const subscriptionActive = computed(() => {
   return subscriptionStore.selectedDate
-    ? subscriptionStore.getSubscriptionsByDay(props.currentDate)
+    ? subscriptionStore.getSubscriptionsByDay(dayjs(props.currentDate))
     : null;
 });
 
 // Select day
-async function handleClickDay(day: Dayjs) {
+async function handleClickDay(day: string) {
   // Do nothing if a subscription is selected
   if (subscriptionStore.selectedSubscription) return;
   try {

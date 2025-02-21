@@ -7,6 +7,7 @@ import {
   addSubscriptionMessages,
   postSubscriptionMessages,
 } from "~/utils/constants/toast-status-message";
+import dayjs from "dayjs";
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();
 const isSubmiting = ref(false);
@@ -24,13 +25,10 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
       addSubscription(formData);
     }
   } catch (error) {
-    console.error(
-      "Une erreur est survenue durant la tentative de mis à jour ",
-      error,
-    );
+    console.error("Une erreur est survenue durant la tentative de mis à jour ", error);
   } finally {
     await subscriptionStore.getSubscriptionsMonthly(
-      dateStore.currentDate.set("date", 1).format("YYYY-MM-DD"),
+      dayjs(dateStore.currentDate).set("date", 1).format("YYYY-MM-DD")
     );
     isSubmiting.value = false;
     subscriptionStore.closeModal();

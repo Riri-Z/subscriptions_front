@@ -1,3 +1,5 @@
+import { defineStore } from "pinia";
+import { useAPI } from "~/composables/useAPI";
 import type { RegisterResponse } from "~/interfaces/auth.interface";
 import type { ApiResponse } from "~/types/store/subscriptionsStore";
 
