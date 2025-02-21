@@ -44,7 +44,6 @@ async function handleSaveRegister(values: RegisterValues) {
       password,
       email,
     );
-    console.log("statusCode", statusCode);
     if (statusCode === 201) {
       useNuxtApp().$toast.success(registerMessages.success);
       setTimeout(() => {

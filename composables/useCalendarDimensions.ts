@@ -5,7 +5,6 @@ export const useCalendarDimensions = () => {
 
   const setContainerHeight = (height: number) => {
     containerHeight.value = height;
-    console.log("height", height)
   };
 
   const setCalendarHeight = (height: number) => {

@@ -93,9 +93,7 @@ const mainHeight = computed(() => `${calendarHeight}px`);
 const { measureContainer, measureCalendar, calendarHeight } = useCalendarDimensions();
 
 onMounted(() => {
-  console.log("calendarContainer.value", calendarContainer.value);
   nextTick(() => {
-    console.log("calendarContainer.value2", calendarContainer.value);
     measureContainer(calendarContainer.value);
     measureCalendar(calendarCell.value);
   });
