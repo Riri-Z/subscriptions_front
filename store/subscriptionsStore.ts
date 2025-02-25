@@ -2,18 +2,21 @@ import { defineStore } from "pinia";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import { useAPI } from "~/composables/useAPI";
-import type {
-  ApiResponse,
-  PostSubscriptions,
-  UserSubscription,
-  SubscriptionsStore,
-  AvailableSuggestionSubscriptionWithIcon,
+import {
+  type ApiResponse,
+  type PostSubscriptions,
+  type UserSubscription,
+  type SubscriptionsStore,
+  type AvailableSuggestionSubscriptionWithIcon,
+  ModalStatus,
+  type ModalDetails,
 } from "~/types/store/subscriptionsStore";
 
 export const useSubscriptionsStore = defineStore("subscriptions", {
   state: (): SubscriptionsStore => ({
-    isModalOpen: true,
-    isDeleteModalOpen: false,
+    isModalOpen: false,
+    modalDetails: {} as ModalDetails,
+    modalAction: ModalStatus.NULL, // 'ADD', 'EDIT', 'DELETE'
     isOpenDetails: true,
     subscriptions: null as UserSubscription[] | null,
     selectedSubscription: null as UserSubscription | null,
@@ -23,7 +26,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     availableSuggestionSubscriptionWithIcon: [],
   }),
   getters: {
-    getSelectedDate: (state) => state.selectedDate,
+    getSelectedDate: (state) => dayjs(state.selectedDate).format("YYYY-MM-DD"),
 
     getSubscriptionsByDay: (state) => (date: Dayjs) => {
       // Check if date is provide, and subscriptionsCurrentMonth is not null
@@ -50,6 +53,15 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     },
   },
   actions: {
+    setModalDetails(
+      action: ModalStatus,
+      subscription: UserSubscription | null,
+    ) {
+      this.modalDetails = {
+        action: action,
+        subscriptionDetails: subscription,
+      };
+    },
     computeTotalExpensesForCurrentMonth(
       currentMonth: number,
       subscriptionsMonth: UserSubscription[] | null,
@@ -85,12 +97,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     closeDetails() {
       this.isOpenDetails = false;
     },
-    openDeleteModal() {
-      this.isDeleteModalOpen = true;
-    },
-    closeDeleteModal() {
-      this.isDeleteModalOpen = false;
-    },
+
     openModal() {
       this.isModalOpen = true;
     },
@@ -101,11 +108,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
     setSelectedDate(date: string) {
       this.selectedDate = date;
     },
-    /*
-    j'envoie les données, dedans il y  a un id ? si non je crée un abonnement, si oui je met à jour l'abonnement
 
-
-    */
     async updateSubscription(formData: Partial<PostSubscriptions>) {
       if (!this.selectedSubscription?.id) {
         throw Error(
@@ -179,7 +182,6 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         if (resultPostNewUserSubscription?.statusCode !== 201) {
           throw new Error("failed creating new subscription");
         }
-        // close toast up , with succeed message
         return resultPostNewUserSubscription?.body;
       } catch (error) {
         console.error(error);
@@ -214,12 +216,14 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         );
         if (subscriptionsCurrentMonth) {
           // Ensure dates are properly serialized
-          this.subscriptionsCurrentMonth = subscriptionsCurrentMonth.map(sub => ({
-            ...sub,
-            nextsPayements: sub.nextsPayements.map(date =>
-              typeof date === 'string' ? date : dayjs(date).toISOString()
-            )
-          }));
+          this.subscriptionsCurrentMonth = subscriptionsCurrentMonth.map(
+            (sub) => ({
+              ...sub,
+              nextsPayements: sub.nextsPayements.map((date) =>
+                typeof date === "string" ? date : dayjs(date).toISOString(),
+              ),
+            }),
+          );
           return true;
         }
         return false;

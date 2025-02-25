@@ -65,7 +65,7 @@ async function handleLogin(values: Login) {
   <NuxtLayout :name="layout">
     <div>
       <h1 class="mb-3 text-center text-4xl text-light">Bienvenue</h1>
-      <p class="mb-4 text-center text-light">
+      <p class="mb-4 text-center text-xs text-light md:text-xl">
         Connectez-vous pour continuer ou
         <a
           class="cursor-pointer text-link underline underline-offset-4"

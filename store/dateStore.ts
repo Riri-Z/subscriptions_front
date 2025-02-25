@@ -50,7 +50,7 @@ export const useDateStore = defineStore("date", {
 
       const newDate = dayjs(this.currentDate).add(1, "month");
       this.currentDate = newDate.toISOString();
-
+      this.saveCurrentDateInLocalStorage(this.currentDate);
       subscriptionStore.setSelectedDate(newDate.toISOString());
       const res = await subscriptionStore.getSubscriptionsMonthly(
         newDate.set("date", 1).format("YYYY-MM-DD"),
@@ -61,11 +61,12 @@ export const useDateStore = defineStore("date", {
     setDaysInMonth(date: string) {
       this.daysInMonth = useDate().arrOfDays(dayjs(date));
     },
-    setCurrentDate(date: string) {
-      this.currentDate = date;
+    saveCurrentDateInLocalStorage(date: string) {
+      localStorage.setItem("currentDate", date);
     },
-    setSourceDate(date: string) {
-      this.sourceDate = date;
+    setCurrentDate(date: string) {
+      this.saveCurrentDateInLocalStorage(date);
+      this.currentDate = date;
     },
   },
 });

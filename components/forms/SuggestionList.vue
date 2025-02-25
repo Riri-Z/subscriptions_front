@@ -12,13 +12,13 @@ const emit = defineEmits<{
 
 <template>
   <div
-    class="bg-deep-green-color absolute z-10 flex h-fit w-full flex-col gap-1 rounded-b-md"
+    class="absolute z-10 flex h-fit w-full flex-col gap-1 rounded-b-md bg-white text-black"
   >
     <span
       v-for="subscription in availableSuggestionSubscription"
       :key="subscription.id"
       class="flex min-h-10 cursor-pointer items-center gap-2 hover:bg-slate-400"
-      @click="emit('selectSubscription', subscription)"
+      @mousedown="emit('selectSubscription', subscription)"
     >
       <img
         v-if="subscription.icon_url"

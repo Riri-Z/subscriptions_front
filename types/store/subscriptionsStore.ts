@@ -45,9 +45,22 @@ export enum SubscriptionCategory {
   OTHER = "OTHER",
 }
 
+export enum ModalStatus {
+  ADD,
+  DELETE,
+  EDIT,
+  NULL,
+}
+
+export type ModalDetails = {
+  action: ModalStatus;
+  subscriptionDetails: UserSubscription | null;
+};
+
 export interface SubscriptionsStore {
   isModalOpen: boolean;
-  isDeleteModalOpen: boolean;
+  modalDetails: ModalDetails;
+  modalAction: ModalStatus;
   isOpenDetails: boolean;
   subscriptions: null | UserSubscription[];
   selectedSubscription: null | UserSubscription;

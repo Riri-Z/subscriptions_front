@@ -17,7 +17,7 @@ export default {
           "0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3)",
       },
       colors: {
-        primary:  "#526D82", // Couleur principale (fond sombre)
+        primary:  "#526D82", // Couleur principale (fond gris claire)
         secondary:"#27374D", // Couleur secondaire (menu, cartes)
         accent: "#9DB2BF", // Accentuation (boutons, hover, liens)
         "calendar-outside-month":"#415A7B",

@@ -1,11 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
-  components: [
-    {
-      path: "~/components",
-    },
-  ],
+  components: true,
   devtools: { enabled: true },
   sourcemap: {
     server: true,
@@ -30,8 +26,6 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@nuxt/image",
     "@sidebase/nuxt-auth",
-    "nuxt-auth-utils",
-    "@nuxtjs/device", // TODO : check if we still need it
   ],
 
   auth: {
@@ -54,8 +48,8 @@ export default defineNuxtConfig({
         cookieName: "accessToken",
         headerName: "Authorization",
         sameSiteAttribute: "lax",
-        maxAgeInSeconds: 15,
-        secureCookieAttribute: false,
+        maxAgeInSeconds: 86400, //24h
+        secureCookieAttribute: true,
         httpOnlyCookieAttribute: false,
       },
       refresh: {
@@ -67,10 +61,10 @@ export default defineNuxtConfig({
           signInResponseRefreshTokenPointer: "/refreshToken",
           refreshRequestTokenPointer: "/refreshToken",
           cookieName: "refreshToken",
-          maxAgeInSeconds: 10555,
+          maxAgeInSeconds: 604800, //7d
           sameSiteAttribute: "lax",
-          secureCookieAttribute: false,
-          httpOnlyCookieAttribute: false,
+          secureCookieAttribute: true,
+          httpOnlyCookieAttribute: true,
         },
       },
       pages: {

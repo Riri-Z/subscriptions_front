@@ -1,8 +1,8 @@
-import type { FetchOptions } from 'ofetch';
+import type { FetchOptions } from "ofetch";
 
 export function useAPI<T>(
   url: string,
-  options?: FetchOptions
+  options?: FetchOptions,
 ): Promise<T> | null {
   const { $api } = useNuxtApp();
   const { token } = useAuth();

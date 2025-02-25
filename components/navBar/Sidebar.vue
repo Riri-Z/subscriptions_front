@@ -38,7 +38,6 @@ interface Icon {
   route: string;
   path: string;
 }
-const emit = defineEmits(["toggleSidebar"]);
 
 const icons = ref<Icon[]>([
   {
@@ -67,20 +66,15 @@ const icons = ref<Icon[]>([
  */
 async function handleSignOut() {
   try {
-    await signOut();
-    window.location.href = "/login";
+    localStorage.clear();
+    await signOut({ callbackUrl: "/login" });
   } catch (error) {
     console.error(error);
     window.location.href = "/login";
   }
-   (window.location.href = "/login");
 }
 
 async function handleNavLink(route: string) {
-  /* si width <900 on ferme */
-  if (window.innerWidth < 768) {
-    emit("toggleSidebar");
-  }
   if (route === "logout") {
     return await handleSignOut();
   }

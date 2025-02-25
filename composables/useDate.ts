@@ -6,9 +6,6 @@ import type { Day } from "~/types/day";
 dayjs.extend(utc);
 dayjs.extend(dayOfYear);
 
-
-
-
 export const useDate = () => {
   const getDayInMonth = (date: string) => {
     return dayjs(date).date();
@@ -107,6 +104,5 @@ export const useDate = () => {
     MONTH_NAME,
     currentMonthString,
     arrOfDays,
-
   };
 };

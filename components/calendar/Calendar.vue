@@ -3,7 +3,7 @@
   <div
     ref="calendarContainer"
     class="flex w-[95vw] flex-col gap-2 rounded-xl bg-secondary p-2 align-middle text-light shadow-custom sm:w-[90vw] md:w-[550px] md:p-4 lg:h-fit lg:w-[36rem] xl:w-[50rem]"
-    :style="{ opacity: subscriptionStore.isDeleteModalOpen ? 0.1 : 1 }"
+    :style="{ opacity: subscriptionStore.isModalOpen ? 0.1 : 1 }"
   >
     <!-- Month navigation -->
     <CalendarHeader
@@ -17,7 +17,10 @@
       @click-year="handleClickYear"
     />
 
-    <main class="relative flex flex-col justify-center" :style="{ height: mainHeight }">
+    <main
+      class="relative flex flex-col justify-center"
+      :style="{ height: mainHeight }"
+    >
       <!-- Loader -->
       <span
         v-if="isLoading"
@@ -72,7 +75,9 @@ import type YearListComponentType from "~/components/calendar/YearList.vue";
 import { YEAR_ACTION } from "~/types/yearAction/yearAction";
 import CalendarCell from "./CalendarCell.vue";
 import dayjs from "dayjs";
-const yearListComponent = ref<InstanceType<typeof YearListComponentType> | null>(null);
+const yearListComponent = ref<InstanceType<
+  typeof YearListComponentType
+> | null>(null);
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
 
@@ -90,7 +95,8 @@ const calendarCell: Ref<HTMLElement | null> = ref(null);
 const calendarContainer: Ref<HTMLElement | null> = ref(null);
 const mainHeight = computed(() => `${calendarHeight}px`);
 
-const { measureContainer, measureCalendar, calendarHeight } = useCalendarDimensions();
+const { measureContainer, measureCalendar, calendarHeight } =
+  useCalendarDimensions();
 
 onMounted(() => {
   nextTick(() => {
@@ -115,11 +121,9 @@ function isSelectedDay(date: string) {
 }
 
 function handleClickMonth() {
-  if (subscriptionStore.isDeleteModalOpen) return;
   displayMonth.value = !displayMonth.value;
 }
 function handleClickYear() {
-  if (subscriptionStore.isDeleteModalOpen) return;
   displayMonth.value = false;
   displayYear.value = !displayYear.value;
 }
@@ -143,8 +147,6 @@ function handleSwitchYear(action: ACTION_DATE) {
  * Triggered when right chevron is clicked
  */
 async function handleNextOption() {
-  if (subscriptionStore.isDeleteModalOpen) return;
-
   if (displayMonth.value) {
     handleSwitchYear(ACTION_DATE.ADD);
   }
@@ -157,7 +159,7 @@ async function handleNextOption() {
   }
 }
 async function handleNextMonth() {
-  if (subscriptionStore.isDeleteModalOpen || isLoading.value) return;
+  if (subscriptionStore.isModalOpen || isLoading.value) return;
   isLoading.value = true;
   try {
     const res = await dateStore.setNextMonth();
@@ -174,8 +176,6 @@ async function handleNextMonth() {
  * Triggered when left chevron is clicked
  */
 async function handlePrevOption() {
-  if (subscriptionStore.isDeleteModalOpen) return;
-
   // Handle logic when months list is displayed
   if (displayMonth.value) {
     return handleSwitchYear(ACTION_DATE.MINUS);
@@ -189,7 +189,7 @@ async function handlePrevOption() {
 }
 
 async function handlePrevMonth() {
-  if (subscriptionStore.isDeleteModalOpen || isLoading.value) return;
+  if (subscriptionStore.isModalOpen || isLoading.value) return;
   isLoading.value = true;
 
   try {
@@ -234,12 +234,14 @@ async function updateStores(newDate: string) {
  * @returns Promise<void>
  */
 async function handleYearSelection(selectedYear: number) {
-  if (subscriptionStore.isDeleteModalOpen) return;
-
   if (selectedYear) {
     try {
       isLoading.value = true;
-      const newDate = computeNewDate(dateStore.getCurrentDate, "year", selectedYear);
+      const newDate = computeNewDate(
+        dateStore.getCurrentDate,
+        "year",
+        selectedYear,
+      );
 
       await updateStores(newDate);
     } catch (error) {
@@ -254,8 +256,6 @@ async function handleYearSelection(selectedYear: number) {
 }
 
 async function handleMonthSelection(key: number) {
-  if (subscriptionStore.isDeleteModalOpen) return;
-
   // Ignore user input if a new month is selected while one is already selected
 
   if (key < 12) {
@@ -266,7 +266,10 @@ async function handleMonthSelection(key: number) {
 
       await updateStores(newDate);
     } catch (error) {
-      console.error("something wrong happened while selecting new month", error);
+      console.error(
+        "something wrong happened while selecting new month",
+        error,
+      );
     } finally {
       displayMonth.value = false;
       isLoading.value = false;
@@ -277,12 +280,12 @@ async function handleMonthSelection(key: number) {
 }
 // Reset calendar
 onMounted(async () => {
-  const currentDate = dayjs(new Date()).toISOString();
-  dateStore.setCurrentDate(currentDate);
-  console.log("currentDate", currentDate);
-  subscriptionStore.setSelectedDate(currentDate);
-  await subscriptionStore.getSubscriptionsMonthly(currentDate);
-  dateStore.setDaysInMonth(currentDate);
+  const userCurrentDate = localStorage.getItem("currentDate");
+  const currentDate = new Date();
+  const dateRef = dayjs(userCurrentDate ?? currentDate).toISOString();
+  dateStore.setCurrentDate(dateRef);
+  subscriptionStore.setSelectedDate(dateRef);
+  await subscriptionStore.getSubscriptionsMonthly(dateRef);
+  dateStore.setDaysInMonth(dateRef);
 });
 </script>
-*

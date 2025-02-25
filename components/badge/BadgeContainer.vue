@@ -24,7 +24,7 @@ const windowSize = ref(window.innerWidth);
 function computeLastElementOfArraySubscription(
   nbr_max_icons: number,
   nbrSubscription: number,
-  activeSubscription: UserSubscription[]
+  activeSubscription: UserSubscription[],
 ) {
   const visibleSubscriptions = activeSubscription.slice(0, nbr_max_icons - 1);
 
@@ -53,7 +53,7 @@ const subscriptionArray = computed(() => {
     return computeLastElementOfArraySubscription(
       MAX_ICONS,
       subscription.length,
-      subscription
+      subscription,
     );
   } else {
     return subscription;

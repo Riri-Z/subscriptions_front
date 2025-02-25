@@ -47,9 +47,11 @@ function computeListYears(currentYear: number) {
 function handleComputeNewYearsChoices(action: YEAR_ACTION) {
   if (!computeAvailableYear?.value) return;
 
-  let newYear = computeAvailableYear.value[INDEX_CURRENT_YEAR] + INDEX_CURRENT_YEAR;
+  let newYear =
+    computeAvailableYear.value[INDEX_CURRENT_YEAR] + INDEX_CURRENT_YEAR;
   if (action === YEAR_ACTION.PREVIOUS) {
-    newYear = computeAvailableYear.value[INDEX_CURRENT_YEAR] - INDEX_CURRENT_YEAR;
+    newYear =
+      computeAvailableYear.value[INDEX_CURRENT_YEAR] - INDEX_CURRENT_YEAR;
   }
 
   return computeListYears(newYear);

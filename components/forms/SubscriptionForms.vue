@@ -33,6 +33,9 @@ onMounted(() => {
 
 const displaySuggestionStatus = ref(false);
 
+function handleDisplaySuggestion(value: boolean) {
+  displaySuggestionStatus.value = value;
+}
 const validationSchema = yup.object({
   subscriptionName: yup.string().required("Un nom est requis"),
   amount: yup
@@ -44,7 +47,7 @@ const validationSchema = yup.object({
     .required("Un montant est requis"),
   startDate: yup
     .string()
-    .default(subscriptionStore.selectedDate)
+    .default(subscriptionStore.getSelectedDate)
     .required("Une date de début est requise"),
 
   endDate: yup.string(),
@@ -77,7 +80,7 @@ const defaultSubscriptionFormValue = computed(() => {
     return {
       amount: 0,
       subscriptionName: "",
-      startDate: subscriptionStore.selectedDate || "",
+      startDate: subscriptionStore.getSelectedDate || "",
       endDate: "",
       billingCycle: BillingCycle.MONTHLY,
       category: SubscriptionCategory.OTHER,
@@ -119,27 +122,18 @@ function handleCancelSubscription() {
   subscriptionStore.closeModal();
 }
 
-/**
- * Allow to toggle displaySuggestionStatus
- */
-function handleFocusInputName(value: boolean) {
-  displaySuggestionStatus.value = value;
-}
-
 function handleSelectSubscription(
   subscription: AvailableSuggestionSubscriptionWithIcon,
 ) {
   // Update sbscription name
   subscriptionName.value = subscription.name;
   // toggle to false suggestion and therefore hide suggestion
-  handleFocusInputName(false);
+  handleDisplaySuggestion(false);
 }
 </script>
 
 <template>
-  <h1
-    class="text-primary-black-color m-4 text-center text-base md:py-2 md:text-2xl"
-  >
+  <h1 class="text-primary-black-color m-4 text-center text-base md:text-2xl">
     {{
       subscriptionStore.selectedSubscription
         ? "Editer l'abonnement"
@@ -148,133 +142,137 @@ function handleSelectSubscription(
   </h1>
   <form class="flex flex-col gap-3 md:p-2">
     <!-- subscription Name -->
-    <label
-      class="text-primary-black-color block text-sm font-bold"
-      for="subscriptionName"
-      >Nom<span class="text-red-500"> *</span></label
-    >
-    <div class="relative">
-      <!-- Autocomple is disable to prevent double suggestion,using "one-time-code" as value for autocomplete instead of false works in chrome to disable it-->
-      <input
-        id="subscriptionName"
-        v-model="subscriptionName"
-        autocomplete="one-time-code"
-        list="subscriptions-lists"
-        class="w-full rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
-        name="subscriptionName"
-        v-bind="subscriptionNameAttrs"
-        @focus="handleFocusInputName(true)"
-        @keyup.escape="handleFocusInputName(false)"
-        @keyup.enter="handleFocusInputName(false)"
-      />
-      <SuggestionList
-        v-if="displaySuggestionStatus"
-        :available-suggestion-subscription="
-          subscriptionStore.availableSuggestionSubscriptionWithIcon
-        "
-        @select-subscription="handleSelectSubscription"
-      />
+    <div class="form-group">
+      <label class="text-primary-black-color block w-fit text-sm" for="subscriptionName"
+        >Nom<span class="text-red-500"> *</span></label
+      >
+      <div class="relative">
+        <input
+          id="subscriptionName"
+          v-model="subscriptionName"
+          list="subscriptions-lists"
+          class="w-full rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+          name="subscriptionName"
+          v-bind="subscriptionNameAttrs"
+          @focus="handleDisplaySuggestion(true)"
+          @focusout="handleDisplaySuggestion(false)"
+        />
+        <SuggestionList
+          v-if="displaySuggestionStatus"
+          :available-suggestion-subscription="
+            subscriptionStore.availableSuggestionSubscriptionWithIcon
+          "
+          @select-subscription="handleSelectSubscription"
+        />
+      </div>
     </div>
 
     <!-- amount  -->
-    <label class="text-primary-black-color font-bold" for="amount"
-      >Montant<span class="text-red-500"> *</span></label
-    >
-    <input
-      id="amount"
-      v-model="amount"
-      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
-      type="number"
-      name="amount"
-      v-bind="amountAttrs"
-      @focus="handleFocusInputName(false)"
-    />
-    <span class="text-xs text-red-400">{{ errors.amount }}</span>
+    <div class="form-group">
+      <label class="text-primary-black-color" for="amount"
+        >Montant<span class="text-red-500"> *</span></label
+      >
+      <input
+        id="amount"
+        v-model="amount"
+        class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+        type="number"
+        name="amount"
+        v-bind="amountAttrs"
+      />
+      <span class="text-xs text-red-400">{{ errors.amount }}</span>
+    </div>
 
     <!--  startDate-->
-
-    <label class="text-primary-black-color font-bold" for="startDate"
-      >Date de début<span class="text-red-500"> *</span></label
-    >
-    <input
-      id="startDate"
-      v-model="startDate"
-      type="date"
-      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
-      name="startDate"
-      v-bind="startDateAttrs"
-      @focus="handleFocusInputName(false)"
-    />
-    <span class="text-xs text-red-400">{{ errors.startDate }}</span>
-    <!-- endDate -->
-    <label class="text-primary-black-color font-bold" for="endDate"
-      >Date de fin
-    </label>
-    <input
-      id="endDate"
-      v-model="endDate"
-      type="date"
-      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
-      name="endDate"
-      v-bind="endDateAttrs"
-      @focus="handleFocusInputName(false)"
-    />
-    <span class="text-xs text-red-400">{{ errors.endDate }}</span>
-
-    <!--BillingCycle  -->
-    <label class="text-primary-black-color font-bold" for="billingCycle"
-      >Cycle de paiement<span class="text-red-500"> *</span></label
-    >
-    <select
-      id="billingCycle"
-      v-model="billingCycle"
-      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
-      name="billingCycle"
-      v-bind="billingCycleAttrs"
-      @focus="handleFocusInputName(false)"
-    >
-      <option value="WEEKLY">Hebdomadaire</option>
-      <option value="MONTHLY">Mensuel</option>
-      <option value="YEARLY">Annuel</option>
-    </select>
-    <!-- Category  -->
-    <label class="text-primary-black-color font-bold" for="category"
-      >Catégorie<span class="text-red-500"> *</span></label
-    >
-    <select
-      id="category"
-      v-model="category"
-      class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
-      name="billingCycle"
-      v-bind="subscriptionCategoryAttrs"
-      @focus="handleFocusInputName(false)"
-    >
-      <option
-        v-for="category_option in CATEGORIES_OPTIONS"
-        :key="category_option?.value"
-        :value="category_option?.value"
+    <div class="form-group">
+      <label class="text-primary-black-color" for="startDate"
+        >Date de début<span class="text-red-500"> *</span></label
       >
-        {{ category_option.text }}
-      </option>
-    </select>
-
+      <input
+        id="startDate"
+        v-model="startDate"
+        type="date"
+        class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+        name="startDate"
+        v-bind="startDateAttrs"
+      />
+      <span class="text-xs text-red-400">{{ errors.startDate }}</span>
+    </div>
+    <!-- endDate -->
+    <div class="form-group">
+      <label class="text-primary-black-color" for="endDate">Date de fin </label>
+      <input
+        id="endDate"
+        v-model="endDate"
+        type="date"
+        class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+        name="endDate"
+        v-bind="endDateAttrs"
+      />
+      <span class="text-xs text-red-400">{{ errors.endDate }}</span>
+    </div>
+    <!--BillingCycle  -->
+    <div class="form-group">
+      <label class="text-primary-black-color" for="billingCycle"
+        >Cycle de paiement<span class="text-red-500"> *</span></label
+      >
+      <select
+        id="billingCycle"
+        v-model="billingCycle"
+        class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+        name="billingCycle"
+        v-bind="billingCycleAttrs"
+      >
+        <option value="WEEKLY">Hebdomadaire</option>
+        <option value="MONTHLY">Mensuel</option>
+        <option value="YEARLY">Annuel</option>
+      </select>
+    </div>
+    <!-- Category  -->
+    <div class="form-group">
+      <label class="text-primary-black-color" for="category"
+        >Catégorie<span class="text-red-500"> *</span></label
+      >
+      <select
+        id="category"
+        v-model="category"
+        class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+        name="billingCycle"
+        v-bind="subscriptionCategoryAttrs"
+      >
+        <option
+          v-for="category_option in CATEGORIES_OPTIONS"
+          :key="category_option?.value"
+          :value="category_option?.value"
+        >
+          {{ category_option.text }}
+        </option>
+      </select>
+    </div>
+    <!-- Actions -->
     <section class="flex">
       <button
         type="button"
         :disabled="isSubmiting"
-        class="bg-soft-green-color my-4 mr-5 h-10 w-full rounded-lg text-light disabled:bg-slate-300 disabled:shadow"
+        class="btn-secondary my-4 mr-5 h-10 w-full rounded-lg text-light"
         @click="onSubmit"
       >
-        Sauvegarder
+        <p class="text-sm">Sauvegarder</p>
       </button>
       <button
         type="button"
         :disabled="isSubmiting"
-        class="bg-soft-green-color my-4 ml-5 h-10 w-full rounded-lg text-light disabled:bg-slate-300 disabled:shadow"
+        class="btn-secondary my-4 ml-5 h-10 w-full rounded-lg text-light"
         @click="handleCancelSubscription"
       >
-        Annuler
+        <p class="text-sm">Annuler</p>
       </button>
     </section>
   </form>
 </template>
+
+<style lang="postcss" scoped>
+.form-group {
+  @apply flex flex-col;
+}
+</style>

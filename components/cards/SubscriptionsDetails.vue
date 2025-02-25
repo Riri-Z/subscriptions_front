@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-import type { UserSubscription } from "~/types/store/subscriptionsStore";
+import {
+  ModalStatus,
+  type UserSubscription,
+} from "~/types/store/subscriptionsStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import dayjs from "dayjs";
 import SubscriptionList from "../subscriptions/SubscriptionList.vue";
@@ -24,12 +27,15 @@ defineProps({
 });
 
 const handleOpenModalAddSubscription = () => {
+  subscriptionStore.setModalDetails(ModalStatus.ADD, null);
   subscriptionStore.openModal();
 };
 
 const subscriptionByDay = computed(() => {
   return subscriptionStore.selectedDate
-    ? subscriptionStore.getSubscriptionsByDay(dayjs(subscriptionStore.selectedDate))
+    ? subscriptionStore.getSubscriptionsByDay(
+        dayjs(subscriptionStore.selectedDate),
+      )
     : null;
 });
 </script>
@@ -40,7 +46,7 @@ const subscriptionByDay = computed(() => {
     class="mb-2 flex w-full flex-col gap-4 rounded-xl bg-secondary p-4 align-middle text-base shadow-custom sm:mb-0 lg:w-[16rem]"
     :style="{
       height: computedHeight,
-      opacity: subscriptionStore.isDeleteModalOpen ? 0.2 : 1,
+      opacity: subscriptionStore.isModalOpen ? 0.2 : 1,
     }"
   >
     <h1 class="m-1 text-center font-bold">Abonnements actifs :</h1>
@@ -56,7 +62,7 @@ const subscriptionByDay = computed(() => {
     </div>
     <div class="mt-auto flex justify-center">
       <button
-        class="btn w-full rounded-lg bg-primary p-2 text-sm text-light"
+        class="btn-secondary w-full rounded-lg p-2 text-sm text-light"
         @click="handleOpenModalAddSubscription"
       >
         <p class="text-center font-bold">Ajouter un abonnement</p>
