@@ -1,6 +1,9 @@
 <template>
   <div>
-    <header id="header" class="flex flex-row justify-between pb-2">
+    <header
+      id="header"
+      class="mb-4 flex h-12 flex-row justify-between text-light"
+    >
       <div
         id="month"
         class="flex flex-row justify-center gap-1 align-middle md:ml-2"
@@ -35,7 +38,7 @@
       <div v-if="!(displayMonth || displayYear)" id="totalSpend" class="mr-4">
         <p class="text-sm md:text-base">Total pour ce mois :</p>
         <!-- TODO : internalize the currency -->
-        <p id="sum" class="cursor-pointer text-end text-lg lg:text-2xl">
+        <p id="sum" class="cursor-pointer text-end font-semibold md:text-3xl">
           {{ computeTotalExpense }} €
         </p>
       </div>

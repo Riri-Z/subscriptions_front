@@ -1,3 +1,5 @@
+import { defineStore } from "pinia";
+import { useAPI } from "~/composables/useAPI";
 import type { RegisterResponse } from "~/interfaces/auth.interface";
 import type { ApiResponse } from "~/types/store/subscriptionsStore";
 
@@ -8,26 +10,27 @@ export const useAuthStore = defineStore("auth", {
 
   getters: {},
   actions: {
-    async registerUser(
-      name: string,
-      username: string,
-      password: string,
-      email: string,
-    ) {
-      //TODO: Need to remove this,  it's should not be mandotory
+    async registerUser(username: string, password: string, email: string) {
+      //TODO: Need to remove this,  it's should not be mandatory
       const roles = ["USER"];
-
-      const res: ApiResponse<RegisterResponse> | null = await useAPI("/users", {
-        method: "POST",
-        body: {
-          name,
-          username,
-          password,
-          email,
-          roles,
-        },
-      });
-      return res?.statusCode;
+      try {
+        const res: ApiResponse<RegisterResponse> | null = await useAPI(
+          "/users",
+          {
+            method: "post",
+            body: {
+              username,
+              password,
+              email,
+              roles,
+            },
+          },
+        );
+        return res?.statusCode;
+      } catch (error) {
+        console.error("error while sign up :", error);
+        throw error;
+      }
     },
   },
 });

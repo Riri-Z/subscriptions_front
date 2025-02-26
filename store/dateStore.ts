@@ -1,61 +1,72 @@
-import type { Dayjs } from "dayjs";
+import type { Day } from "~/types/day";
+import { defineStore } from "pinia";
 import dayjs from "dayjs";
 import { useDate } from "~/composables/useDate";
 import type { DateStore } from "~/types/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-const subscriptionStore = useSubscriptionsStore();
-
 export const useDateStore = defineStore("date", {
   state: (): DateStore => ({
-    currentDate: dayjs(new Date()),
+    // Stocker les dates en ISO string
+    currentDate: dayjs(new Date()).toISOString(),
     sourceDate: dayjs(new Date())
       .set("date", 1)
       .set("hour", 0)
       .set("minute", 0)
       .set("second", 0)
-      .set("millisecond", 0),
-    daysInMonth: null, // 6 weeks * 7 days
+      .set("millisecond", 0)
+      .toISOString(),
+    daysInMonth: [] as Day[],
     loading: false,
   }),
   getters: {
-    getStartOfMonth: (state) => state.currentDate.startOf("month"),
-    getCurrentMonth: (state) => state.currentDate.get("month"),
+    // Convertir en dayjs pour les manipulations
+    getStartOfMonth: (state) => dayjs(state.currentDate).startOf("month"),
+    getCurrentMonth: (state) => dayjs(state.currentDate).get("month"),
     getCurrentMonthString: (state) =>
-      useDate().currentMonthString(state.currentDate.get("month")),
+      useDate().currentMonthString(dayjs(state.currentDate).get("month")),
     getCurrentMonthYearStringified: (state) =>
-      state.currentDate.format("MMMM, YYYY"),
-    getStartDayOfMonth: (state) => state.currentDate.set("date", 1),
-    getCurrentYear: (state) => state.currentDate.get("year"),
-    getNumberOfDays: (state) => state.currentDate.date(),
-    getDayInMonth: (state) => state.currentDate.get("date"),
-    getCurrentDate: (state) => state.currentDate,
+      dayjs(state.currentDate).format("MMMM, YYYY"),
+    getStartDayOfMonth: (state) => dayjs(state.currentDate).set("date", 1),
+    getCurrentYear: (state) => dayjs(state.currentDate).get("year"),
+    getNumberOfDays: (state) => dayjs(state.currentDate).date(),
+    getDayInMonth: (state) => dayjs(state.currentDate).get("date"),
+    getCurrentDate: (state) => dayjs(state.currentDate),
   },
   actions: {
     async setPreviousMonth() {
-      this.currentDate = this.currentDate.subtract(1, "month");
+      const subscriptionStore = useSubscriptionsStore();
+
+      const newDate = dayjs(this.currentDate).subtract(1, "month");
+      this.currentDate = newDate.toISOString();
+
       const res = await subscriptionStore.getSubscriptionsMonthly(
-        this.currentDate.set("date", 1).format("YYYY-MM-DD"),
+        newDate.set("date", 1).format("YYYY-MM-DD"),
       );
-      this.setDaysInMonth(this.currentDate);
+      this.setDaysInMonth(newDate.toISOString());
       return res;
     },
     async setNextMonth() {
-      this.currentDate = this.currentDate.add(1, "month");
-      subscriptionStore.setSelectedDate(this.currentDate);
+      const subscriptionStore = useSubscriptionsStore();
+
+      const newDate = dayjs(this.currentDate).add(1, "month");
+      this.currentDate = newDate.toISOString();
+      this.saveCurrentDateInLocalStorage(this.currentDate);
+      subscriptionStore.setSelectedDate(newDate.toISOString());
       const res = await subscriptionStore.getSubscriptionsMonthly(
-        this.currentDate.set("date", 1).format("YYYY-MM-DD"),
+        newDate.set("date", 1).format("YYYY-MM-DD"),
       );
-      this.setDaysInMonth(this.currentDate);
+      this.setDaysInMonth(newDate.toISOString());
       return res;
     },
-    setDaysInMonth(date: Dayjs) {
-      this.daysInMonth = useDate().arrOfDays(date);
+    setDaysInMonth(date: string) {
+      this.daysInMonth = useDate().arrOfDays(dayjs(date));
     },
-    setCurrentDate(date: Dayjs) {
+    saveCurrentDateInLocalStorage(date: string) {
+      localStorage.setItem("currentDate", date);
+    },
+    setCurrentDate(date: string) {
+      this.saveCurrentDateInLocalStorage(date);
       this.currentDate = date;
-    },
-    setSourceDate(date: Dayjs) {
-      this.sourceDate = date;
     },
   },
 });

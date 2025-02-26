@@ -1,8 +1,7 @@
-export const useUseCalendarDimensions = () => {
-  const containerHeight = ref<number>(0);
-  const calendarHeight = ref<number>(0);
-  const headerHeight = ref<number>(0);
-
+const containerHeight = ref<number>(0);
+const calendarHeight = ref<number>(0);
+const headerHeight = ref<number>(0);
+export const useCalendarDimensions = () => {
   const setContainerHeight = (height: number) => {
     containerHeight.value = height;
   };

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { YEAR_ACTION } from "~/types/yearAction/yearAction.ts";
+import { YEAR_ACTION } from "~/types/yearAction/yearAction";
 import type { Dayjs } from "dayjs";
 
 const INDEX_CURRENT_YEAR = 6;
@@ -45,17 +45,23 @@ function computeListYears(currentYear: number) {
 }
 
 function handleComputeNewYearsChoices(action: YEAR_ACTION) {
-  let newYear = computeAvailableYear.value.at(INDEX_CURRENT_YEAR) + INDEX_CURRENT_YEAR;
-  console.log();
+  if (!computeAvailableYear?.value) return;
+
+  let newYear =
+    computeAvailableYear.value[INDEX_CURRENT_YEAR] + INDEX_CURRENT_YEAR;
   if (action === YEAR_ACTION.PREVIOUS) {
-    newYear = computeAvailableYear.value.at(INDEX_CURRENT_YEAR) - INDEX_CURRENT_YEAR;
+    newYear =
+      computeAvailableYear.value[INDEX_CURRENT_YEAR] - INDEX_CURRENT_YEAR;
   }
 
   return computeListYears(newYear);
 }
 
 function StartAndEndYearsChoices() {
-  if (computeAvailableYear?.value?.[0] && computeAvailableYear?.value?.slice(-1)) {
+  if (
+    computeAvailableYear?.value?.[0] &&
+    computeAvailableYear?.value?.slice(-1)
+  ) {
     return {
       start: computeAvailableYear.value[0],
       end: computeAvailableYear.value.slice(-1),

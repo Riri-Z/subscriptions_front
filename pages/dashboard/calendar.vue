@@ -2,11 +2,17 @@
   <!-- CALENDAR template-->
   <div
     id="calendar"
-    class="text-primary-white-color mx-auto mt-4 flex flex-row lg:h-full lg:items-center lg:justify-center"
+    class="mx-auto mt-4 flex flex-row text-light lg:mt-0 lg:h-full lg:items-center lg:justify-center"
   >
+    <!-- Overlay  -->
+    <div
+      v-if="subscriptionStore.isModalOpen"
+      class="fixed inset-0 z-40 bg-black bg-opacity-50"
+      @click="subscriptionStore.closeModal()"
+    />
     <main
-      v-if="!subscriptionStore.isModalOpen"
-      class="flex max-h-[600px] flex-col gap-2 lg:mt-0 lg:flex-row"
+      v-if="statusValue === 'authenticated'"
+      class="flex flex-col gap-2 lg:mt-0 lg:flex-row"
     >
       <Calendar />
       <CardsSubscriptionsDetails
@@ -22,29 +28,30 @@
         "
       />
     </main>
-    <ModalSubscription />
+    <ModalCustomModal v-if="subscriptionStore.isModalOpen">
+      <ModalConfirmDeleteAction
+        v-if="subscriptionStore.modalDetails.action === ModalStatus.DELETE"
+        :label="
+          subscriptionStore?.modalDetails?.subscriptionDetails?.subscription
+            ?.name
+        "
+        :subscription="subscriptionStore?.modalDetails?.subscriptionDetails"
+      />
+      <ModalSubscription v-else />
+    </ModalCustomModal>
   </div>
 </template>
 
 <script lang="ts" setup>
 import Calendar from "~/components/calendar/Calendar.vue";
+import ModalSubscription from "~/components/modal/ModalSubscription.vue";
 import dayjs from "dayjs";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import { useDateStore } from "~/store/dateStore";
-const subscriptionStore = useSubscriptionsStore();
-const dateStore = useDateStore();
+import { ModalStatus } from "~/types/store/subscriptionsStore";
+const { status } = useAuth();
 
-// Reset calendar
-onMounted(async () => {
-  const currentDate = dayjs(new Date());
-  console.log("currentDate", currentDate);
-  dateStore.setCurrentDate(currentDate);
-  subscriptionStore.setSelectedDate(currentDate);
-  await subscriptionStore.getSubscriptionsMonthly(
-    currentDate.format("YYYY-MM-DD"),
-  );
-  dateStore.setDaysInMonth(currentDate);
-});
+const statusValue = computed(() => status.value);
+const subscriptionStore = useSubscriptionsStore();
 
 definePageMeta({
   layout: "dashboard",

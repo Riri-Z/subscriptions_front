@@ -37,15 +37,13 @@ async function redirectTologinPage() {
 }
 
 async function handleSaveRegister(values: RegisterValues) {
-  const { name, username, password, email } = values;
+  const { username, password, email } = values;
   try {
     const statusCode: number | undefined = await authStore.registerUser(
-      name,
       username,
       password,
       email,
     );
-
     if (statusCode === 201) {
       useNuxtApp().$toast.success(registerMessages.success);
       setTimeout(() => {
@@ -53,10 +51,11 @@ async function handleSaveRegister(values: RegisterValues) {
       }, 2000);
     }
   } catch (error: unknown) {
+    console.error("error", error);
     if (typeof error === "object" && error !== null && "statusCode" in error) {
       const statusCode = (error as { statusCode: number }).statusCode;
       if (statusCode === 409) {
-        return useNuxtApp().$toast.error(registerMessages.error);
+        return useNuxtApp().$toast.error(registerMessages.conflict);
       }
     } else {
       useNuxtApp().$toast.error(registerMessages.unknownError);
@@ -66,13 +65,6 @@ async function handleSaveRegister(values: RegisterValues) {
 
 const formSchema = {
   fields: [
-    {
-      name: "name",
-      label: "Nom",
-      as: "input",
-      placeholder: "Nom",
-      rules: registerSchema.fields.name,
-    },
     {
       name: "username",
       label: "Nom d'utilisateur",

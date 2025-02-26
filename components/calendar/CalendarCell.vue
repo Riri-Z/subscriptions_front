@@ -1,15 +1,23 @@
 <template>
   <!-- Card wich represent day of the month -->
   <button
-    class="flex h-14 cursor-pointer flex-col rounded-xl p-2 lg:h-16 lg:w-full lg:gap-1"
+    class="md:h-18 flex h-14 cursor-pointer flex-col rounded-xl p-2 transition-transform duration-300 ease-in-out hover:scale-105 lg:h-16 lg:w-full lg:gap-1"
     :class="{
-      'bg-[#40916C]': currentMonth && !selectedDay,
-      'bg-deep-green-color': !currentMonth && !selectedDay,
-      'bg-[#79ae1e]': selectedDay,
+      'bg-accent': currentMonth && !selectedDay,
+      'bg-calendar-outside-month opacity-70': !currentMonth && !selectedDay,
+      'bg-turquoise': selectedDay,
     }"
     @click="handleClickDay(props.currentDate)"
   >
-    <p class="text-sm font-bold lg:text-base">{{ day }}</p>
+    <p
+      class="text-sm font-bold lg:text-base"
+      :class="{
+        'text-black': currentMonth,
+        'text-light': !currentMonth,
+      }"
+    >
+      {{ day }}
+    </p>
     <section
       v-if="subscriptionActive && subscriptionActive.length > 0"
       class="flex w-full flex-row self-center"
@@ -21,31 +29,31 @@
 
 <script lang="ts" setup>
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import type { Dayjs } from "dayjs";
 import { useDateStore } from "~/store/dateStore";
 import BadgeContainer from "~/components/badge/BadgeContainer.vue";
+import dayjs from "dayjs";
 
 const dateStore = useDateStore();
 const subscriptionStore = useSubscriptionsStore();
 
 const props = defineProps<{
   day: null | number;
-  sourceDate: Dayjs | null;
+  sourceDate: string | null;
   currentMonth: boolean;
-  currentDate: Dayjs;
+  currentDate: string;
   selectedDay: boolean;
 }>();
 
 const subscriptionActive = computed(() => {
   return subscriptionStore.selectedDate
-    ? subscriptionStore.getSubscriptionsByDay(props.currentDate)
+    ? subscriptionStore.getSubscriptionsByDay(dayjs(props.currentDate))
     : null;
 });
 
 // Select day
-async function handleClickDay(day: Dayjs) {
+async function handleClickDay(day: string) {
   // Do nothing if a subscription is selected
-  if (subscriptionStore.selectedSubscription) return;
+
   try {
     if (props.currentDate) {
       subscriptionStore.setSelectedDate(day);

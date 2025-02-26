@@ -1,17 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
-  components: [
-    {
-      path: "~/components",
-    },
-  ],
+  components: true,
   devtools: { enabled: true },
   sourcemap: {
     server: true,
     client: true,
   },
   css: ["~/assets/styles/main.css"],
+
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -26,18 +23,17 @@ export default defineNuxtConfig({
   modules: [
     "@pinia/nuxt",
     "@nuxtjs/tailwindcss",
-    "@nuxtjs/i18n",
     "@nuxt/eslint",
     "@nuxt/image",
     "@sidebase/nuxt-auth",
-    "nuxt-auth-utils",
-    "@nuxtjs/device", // TODO : check if we still need it
   ],
+
   auth: {
     isEnabled: true,
     //guard protecting auth routes
-    globalAppMiddleware: true,
+    globalAppMiddleware: false,
     baseURL: process.env.NUXT_PUBLIC_API_BASE + "/auth/",
+
     provider: {
       type: "local",
       endpoints: {
@@ -52,20 +48,23 @@ export default defineNuxtConfig({
         cookieName: "accessToken",
         headerName: "Authorization",
         sameSiteAttribute: "lax",
-        secureCookieAttribute: false,
+        maxAgeInSeconds: 86400, //24h
+        secureCookieAttribute: true,
         httpOnlyCookieAttribute: false,
       },
       refresh: {
-        isEnabled: false,
-        endpoint: { path: "/refresh", method: "post" },
-        refreshOnlyToken: true,
+        isEnabled: true,
+        endpoint: { path: "refresh", method: "post" },
+        refreshOnlyToken: false,
+
         token: {
           signInResponseRefreshTokenPointer: "/refreshToken",
-          refreshRequestTokenPointer: "",
+          refreshRequestTokenPointer: "/refreshToken",
           cookieName: "refreshToken",
+          maxAgeInSeconds: 604800, //7d
           sameSiteAttribute: "lax",
-          secureCookieAttribute: false,
-          httpOnlyCookieAttribute: false,
+          secureCookieAttribute: true,
+          httpOnlyCookieAttribute: true,
         },
       },
       pages: {

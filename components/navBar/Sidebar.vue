@@ -1,10 +1,10 @@
 <template>
   <div
     id="sidebar"
-    class="sticky h-[14%] w-full flex-col bg-card-bg-color shadow-md shadow-black md:flex md:h-full md:w-fit"
+    class="sticky h-[14%] w-full flex-col border-white bg-secondary shadow-custom md:flex md:h-full md:w-fit lg:w-[10rem]"
   >
     <span
-      class="align-center text-primary-white-color hidden h-[125px] text-center md:flex md:border-b-2 md:border-button-disabled-color"
+      class="align-center text-primary-white-color md:border-button-disabled-color hidden h-[125px] text-center md:flex md:border-b-2"
     >
       <h1 class="m-auto p-2 text-xl">
         <p>Subscriptions</p>
@@ -14,15 +14,18 @@
 
     <!-- ICONS NAVLINK -->
     <div
-      class="flex h-full w-full flex-row justify-around md:flex-col md:justify-normal"
+      class="sticky flex h-full w-full flex-row justify-around md:flex-col md:justify-normal"
     >
       <div
         v-for="icon in icons"
         :key="icon.id"
-        class="flex cursor-pointer gap-9 fill-slate-200 text-xs text-white transition-all duration-300 md:h-20 lg:text-sm lg:hover:bg-hover-effect-color"
+        class="flex cursor-pointer gap-9 fill-slate-200 text-xs text-light transition-all duration-300 md:h-20 lg:text-sm"
         @click="handleNavLink(icon.route)"
       >
-        <NavBarNavButton :icon="icon" />
+        <NavBarNavButton
+          :icon="icon"
+          :is-current-route="icon.fullPath === route.fullPath"
+        />
       </div>
     </div>
   </div>
@@ -32,32 +35,29 @@
 import { ref } from "vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 const { signOut } = useAuth();
+const route = useRoute();
+
 interface Icon {
   id: number;
   name: string;
   route: string;
+  fullPath: string;
   path: string;
 }
-const emit = defineEmits(["toggleSidebar"]);
 
 const icons = ref<Icon[]>([
-  {
-    id: 1,
-    name: "acceuil",
-    route: "home",
-    path: "/icons/home.svg",
-  },
-
   {
     id: 2,
     name: "Calendrier",
     route: "calendar",
+    fullPath: "/dashboard/calendar",
     path: "/icons/calendar.svg",
   },
   {
     id: 3,
     name: "Déconnexion",
     route: "logout",
+    fullPath: "logout",
     path: "/icons/logout.svg",
   },
 ]);
@@ -67,18 +67,15 @@ const icons = ref<Icon[]>([
  */
 async function handleSignOut() {
   try {
-    return await signOut({ callbackUrl: "/login" });
+    localStorage.clear();
+    await signOut({ callbackUrl: "/login" });
   } catch (error) {
     console.error(error);
-    navigateTo("./login");
+    window.location.href = "/login";
   }
 }
 
 async function handleNavLink(route: string) {
-  /* si width <900 on ferme */
-  if (window.innerWidth < 768) {
-    emit("toggleSidebar");
-  }
   if (route === "logout") {
     return await handleSignOut();
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full bg-red-500">
+  <div class="flex w-full justify-center">
     <BadgeSubscription
       v-for="(subscription, index) in subscriptionArray"
       :key="subscription.id"
@@ -60,9 +60,9 @@ const subscriptionArray = computed(() => {
   }
 });
 
-// Compute translate value based on window size
+// Compute translate value based on index subscription
 const getTranslateValue = (index: number) => {
-  return `translateX(${getTranslationFactor(windowSize.value) * index}px)`;
+  return index * -2 + "px";
 };
 
 /*
@@ -73,13 +73,5 @@ function getMaxIconsBasedOnWidth(width: number): number {
   if (width > 480) return 3;
   return 2;
 }
-
-const getTranslationFactor = (size: number) => {
-  if (size > 1024) return 15;
-  if (size > 1000) return 15;
-  if (size > 768) return 10;
-  if (size > 480) return 10;
-  return 13;
-};
 </script>
 57

@@ -4,3 +4,39 @@
 :root {
   --thumbBG: #66bb6a;
 }
+
+@keyframes custom-bounce {
+  0%,
+  100% {
+    transform: translateY(-15%);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer components {
+  .btn {
+    @apply self-center bg-slate-800/90 transition-all duration-300 ease-out;
+    &:hover {
+      @apply scale-105 shadow-lg shadow-black/20;
+    }
+    &:disabled {
+      @apply bg-primary;
+    }
+  }
+  .btn-secondary {
+    @apply self-center bg-[#14171c] transition-all duration-300 ease-out;
+    &:hover {
+      @apply scale-105 shadow-lg shadow-black/20;
+    }
+    &:disabled {
+      @apply bg-primary;
+    }
+  }
+  .modal {
+    @apply fixed left-1/2 top-1/2 z-[50] m-0 h-fit w-fit min-w-[250px] max-w-[350px] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-slate-800/90 p-0 text-white backdrop-blur-md;
+  }
+}

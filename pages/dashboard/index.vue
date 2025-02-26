@@ -8,4 +8,5 @@
 definePageMeta({
   layout: "dashboard",
 });
+/* TODO : Add contents */
 </script>

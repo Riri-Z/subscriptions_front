@@ -1,6 +1,6 @@
 <template>
   <button
-    class="my-5 h-10 w-full rounded-lg bg-soft-green-color text-white disabled:bg-gray-400"
+    class="btn my-5 h-10 w-full rounded-lg font-semibold text-light shadow-btn-box-shadow transition disabled:cursor-not-allowed"
     type="submit"
     :disabled="disabled"
   >

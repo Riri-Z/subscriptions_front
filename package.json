@@ -11,19 +11,16 @@
     "postinstall": "nuxt prepare",
     "format": "prettier --write \"**/*.{vue,ts}\"",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "format-lint:fix": " prettier --write \"**/*.{vue,ts}\" && eslint . --fix"
   },
   "dependencies": {
     "@nuxt/eslint": "^0.6.1",
     "@nuxt/image": "^1.8.0",
     "@nuxt/types": "^2.18.1",
-    "@nuxtjs/device": "3.2.4",
-    "@nuxtjs/i18n": "^8.5.3",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.4",
     "dayjs": "^1.11.13",
     "nuxt": "^3.13.0",
-    "nuxt-auth-utils": "^0.3.8",
     "pinia": "^2.2.2",
     "prettier-plugin-organize-attributes": "^1.0.0",
     "vee-validate": "^4.14.6",

@@ -19,12 +19,13 @@ export const postSubscriptionMessages = {
 export const loginMessages = {
   errorUndefined:
     "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
-  wrongCredentials: 'Nom d"utilisateur ou mot de passe incorrect.',
+  wrongCredentials: "Nom d'utilisateur ou mot de passe incorrect.",
   unknownError: "Une erreur inconnue s'est produite.",
   missingInput: "Nom d'utilisateur et mot de passe obligatoire",
 };
 export const registerMessages = {
   success: "Utilisateur enregistré, veuillez vous connecter",
+  conflict: "Cette adresse email ou ce nom d'utilisateur existe déjà",
   error:
     "Nom d'utilisateur ou email déjà utilisé. Veuillez essayer une autre valeur",
   unknownError:

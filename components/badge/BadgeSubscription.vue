@@ -28,10 +28,10 @@ const badgeValue = computed(() => {
 
 <template>
   <span
-    class="absolute flex h-4 w-4 transform flex-row justify-center rounded-full align-middle text-xs lg:h-5 lg:w-5"
+    class="flex h-4 w-4 transform flex-row justify-center rounded-full align-middle text-xs lg:h-5 lg:w-5"
     :style="{
       zIndex: props.index,
-      transform: props.translateValue,
+      marginLeft: translateValue,
       backgroundColor: randomColor,
     }"
   >
@@ -40,7 +40,7 @@ const badgeValue = computed(() => {
       :name="props.name"
       :icon-url="props.iconUrl"
     />
-    <p v-else>
+    <p v-else class="self-center">
       {{ badgeValue }}
     </p>
   </span>
