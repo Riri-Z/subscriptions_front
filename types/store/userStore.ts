@@ -1,8 +1,11 @@
-export interface ApiResponse {
-  status: string;
-  result: UserStore;
+export interface ApiResponse<T> {
+  statusCode: string;
+  body: T;
 }
-
+export interface ApiResponseResetEmail {
+  statusCode: number;
+  body:{ message: string };
+}
 export interface UserStore {
   id: number;
   name: string;

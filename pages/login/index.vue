@@ -60,6 +60,10 @@ async function handleLogin(values: Login) {
     useNuxtApp().$toast.error(loginMessages.unknownError);
   }
 }
+
+function handleResetPassword(){
+  navigateTo('/reset-password')
+}
 </script>
 <template>
   <NuxtLayout :name="layout">
@@ -75,11 +79,16 @@ async function handleLogin(values: Login) {
         </a>
       </p>
       <FormComponent :schema="formSchema" @submit-form="handleLogin" />
+
+      <a
+        class="block align-middle text-center cursor-pointer text-green-400 underline underline-offset-4"
+        @click="handleResetPassword"
+      >
+        Mot de passe oublié ?
+      </a>
     </div>
   </NuxtLayout>
 </template>
-
-/>
 
 <style lang="scss" scoped>
 /* overrie the default autofill style */
