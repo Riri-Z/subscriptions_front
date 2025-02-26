@@ -35,6 +35,9 @@ export default {
         "custom-gradient":
           "linear-gradient(to right, #551F91 0%, #3B1C7A 100%)",
       },
+      animation:{
+        'custom-bounce':'custom-bounce 1s infinite'
+      }
     },
     screens: {
       sm: "640px",

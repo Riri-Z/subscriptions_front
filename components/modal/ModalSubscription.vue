@@ -74,7 +74,7 @@ async function addSubscription(formData: Partial<PostSubscriptions>) {
 </script>
 <template>
   <div
-    class="text-wite bg-card-bg-color my-2 flex w-[310px] flex-col justify-evenly gap-1 rounded-md px-4 lg:w-[400px] lg:p-4"
+    class="text-wite bg-card-bg-color flex w-[310px] flex-col justify-evenly gap-1 rounded-md px-4 lg:w-[400px] lg:p-4"
   >
     <SubscriptionForms
       :is-submiting="isSubmiting"

@@ -43,9 +43,9 @@ const subscriptionByDay = computed(() => {
 <template>
   <div
     v-if="selectedDate && subscriptionsCurrentMonth"
-    class="mb-2 flex w-full flex-col gap-4 rounded-xl bg-secondary p-4 align-middle text-base shadow-custom sm:mb-0 lg:w-[16rem]"
+    class="mb-2 flex h-fit w-full flex-col gap-4 rounded-xl bg-secondary p-4 align-middle text-base shadow-custom sm:mb-0 lg:w-[16rem]"
     :style="{
-      height: computedHeight,
+      maxHeight: computedHeight,
       opacity: subscriptionStore.isModalOpen ? 0.2 : 1,
     }"
   >

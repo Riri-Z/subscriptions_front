@@ -8,17 +8,19 @@
       </p>
       <p>Montant : {{ amount }} €</p>
     </div>
-    <div class="bg-red flex items-center gap-2">
+    <div class="flex items-center gap-2">
+      <span>
+        <NuxtImg
+          class="m-auto cursor-pointer hover:animate-custom-bounce"
+          alt="clipboard icon"
+          src="/icons/edit.svg"
+          width="24"
+          height="24"
+          @click="handleOpenModal(ModalStatus.EDIT, subscription)"
+        />
+      </span>
       <NuxtImg
-        class="hover:animate-wiggle m-auto cursor-pointer"
-        alt="clipboard icon"
-        src="/icons/edit.svg"
-        width="24"
-        height="24"
-        @click="handleOpenModal(ModalStatus.EDIT, subscription)"
-      />
-      <NuxtImg
-        class="m-auto cursor-pointer"
+        class="m-auto cursor-pointer hover:animate-custom-bounce"
         alt="clipboard delete icon"
         src="/icons/remove.svg"
         width="24"

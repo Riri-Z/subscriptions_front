@@ -1,7 +1,7 @@
 <template>
   <dialog
     :open="subscriptionStore.openModal"
-    class="modal text-xl flex justify-center align-middle"
+    class="modal flex justify-center align-middle text-xl"
   >
     <slot />
   </dialog>

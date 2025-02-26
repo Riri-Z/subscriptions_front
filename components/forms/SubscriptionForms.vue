@@ -140,10 +140,10 @@ function handleSelectSubscription(
         : "Ajouter un abonnement"
     }}
   </h1>
-  <form class="flex flex-col gap-3 md:p-2">
+  <form class="flex flex-col gap-3 text-sm md:p-2">
     <!-- subscription Name -->
     <div class="form-group">
-      <label class="text-primary-black-color block w-fit text-sm" for="subscriptionName"
+      <label class="text-primary-black-color w-fit" for="subscriptionName"
         >Nom<span class="text-red-500"> *</span></label
       >
       <div class="relative">
@@ -169,7 +169,7 @@ function handleSelectSubscription(
 
     <!-- amount  -->
     <div class="form-group">
-      <label class="text-primary-black-color" for="amount"
+      <label class="" for="amount"
         >Montant<span class="text-red-500"> *</span></label
       >
       <input
@@ -236,7 +236,7 @@ function handleSelectSubscription(
       <select
         id="category"
         v-model="category"
-        class="rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
+        class="relative max-w-full rounded-md border px-3 py-2 text-black shadow-sm focus:outline-none focus:ring-2"
         name="billingCycle"
         v-bind="subscriptionCategoryAttrs"
       >

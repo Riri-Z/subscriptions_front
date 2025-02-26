@@ -2,7 +2,7 @@
   <div
     v-for="subscription in subscriptionByDay"
     :key="subscription.id"
-    class="hover:bg-green-color flex cursor-pointer flex-col rounded-md text-sm odd:bg-primary even:bg-turquoise"
+    class="hover:bg-green-color flex cursor-pointer flex-col rounded-md text-sm odd:bg-primary even:bg-gray-600"
   >
     <!-- Each subscription details -->
     <SubscriptionItem

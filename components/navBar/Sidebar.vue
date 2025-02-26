@@ -19,10 +19,13 @@
       <div
         v-for="icon in icons"
         :key="icon.id"
-        class="flex cursor-pointer gap-9 fill-slate-200 text-xs text-light transition-all duration-300 md:h-20 md:hover:bg-primary lg:text-sm"
+        class="flex cursor-pointer gap-9 fill-slate-200 text-xs text-light transition-all duration-300 md:h-20 lg:text-sm"
         @click="handleNavLink(icon.route)"
       >
-        <NavBarNavButton :icon="icon" />
+        <NavBarNavButton
+          :icon="icon"
+          :is-current-route="icon.fullPath === route.fullPath"
+        />
       </div>
     </div>
   </div>
@@ -32,31 +35,29 @@
 import { ref } from "vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 const { signOut } = useAuth();
+const route = useRoute();
+
 interface Icon {
   id: number;
   name: string;
   route: string;
+  fullPath: string;
   path: string;
 }
 
 const icons = ref<Icon[]>([
   {
-    id: 1,
-    name: "acceuil",
-    route: "home",
-    path: "/icons/home.svg",
-  },
-
-  {
     id: 2,
     name: "Calendrier",
     route: "calendar",
+    fullPath: "/dashboard/calendar",
     path: "/icons/calendar.svg",
   },
   {
     id: 3,
     name: "Déconnexion",
     route: "logout",
+    fullPath: "logout",
     path: "/icons/logout.svg",
   },
 ]);

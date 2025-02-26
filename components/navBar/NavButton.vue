@@ -1,6 +1,7 @@
 <template>
   <button
     class="flex w-full items-center gap-2 text-black transition-transform duration-300 ease-in-out md:p-4 md:hover:scale-110"
+    :class="{ 'md:bg-primary': isCurrentRoute }"
   >
     <img
       :key="icon.id"
@@ -21,5 +22,6 @@
 <script lang="ts" setup>
 defineProps<{
   icon: { name: string; path: string; route: string; id: number };
+  isCurrentRoute: boolean;
 }>();
 </script>

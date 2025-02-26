@@ -11,7 +11,7 @@ export const useAuthStore = defineStore("auth", {
   getters: {},
   actions: {
     async registerUser(username: string, password: string, email: string) {
-      //TODO: Need to remove this,  it's should not be mandotory
+      //TODO: Need to remove this,  it's should not be mandatory
       const roles = ["USER"];
       try {
         const res: ApiResponse<RegisterResponse> | null = await useAPI(
