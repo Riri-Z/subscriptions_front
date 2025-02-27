@@ -8,7 +8,7 @@ export function useAPI<T>(
   const { token } = useAuth();
   const route = useRoute();
 
-  if (!token?.value && route.path ==="/dashboard" ) {
+  if (!token?.value && route.path === "/dashboard") {
     throw new Error("Unauthorized");
   }
 

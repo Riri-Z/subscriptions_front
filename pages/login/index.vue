@@ -61,8 +61,8 @@ async function handleLogin(values: Login) {
   }
 }
 
-function handleResetPassword(){
-  navigateTo('/reset-password')
+function handleResetPassword() {
+  navigateTo("/request-reset-password");
 }
 </script>
 <template>
@@ -81,7 +81,7 @@ function handleResetPassword(){
       <FormComponent :schema="formSchema" @submit-form="handleLogin" />
 
       <a
-        class="block align-middle text-center cursor-pointer text-green-400 underline underline-offset-4"
+        class="block cursor-pointer text-center align-middle text-green-400 underline underline-offset-4"
         @click="handleResetPassword"
       >
         Mot de passe oublié ?

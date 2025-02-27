@@ -4,7 +4,7 @@ export interface ApiResponse<T> {
 }
 export interface ApiResponseResetEmail {
   statusCode: number;
-  body:{ message: string };
+  body: { message: string };
 }
 export interface UserStore {
   id: number;

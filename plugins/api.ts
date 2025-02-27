@@ -1,7 +1,8 @@
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
   const { refresh } = useAuth();
-
+  const route = useRoute();
+  console.log(route.name);
   return {
     provide: {
       api: $fetch.create({
@@ -12,7 +13,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         },
         async onResponseError({ response }) {
           // Si on reçoit une 401, on tente de refresh
-          if (response.status === 401) {
+          if (response.status === 401 && route.name !== "reset-password") {
             try {
               await refresh();
               // Après le refresh réussi, on peut réessayer la requête originale

@@ -12,7 +12,7 @@
       />
       <ErrorMessage class="text-xs text-error-color" :name="name" />
     </div>
-    <SubmitForm :label="label" :disabled="!meta.valid" />
+    <SubmitForm :label="label" :disabled="!meta.valid || disabled" />
   </Form>
 </template>
 
@@ -25,9 +25,14 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  label:{
-    default:'Connexion'
-  }
+  label: {
+    type: String,
+    default: "Connexion",
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(["submitForm"]);
