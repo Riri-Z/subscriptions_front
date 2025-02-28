@@ -2,7 +2,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
   const { refresh } = useAuth();
   const route = useRoute();
-  console.log(route.name);
+
   return {
     provide: {
       api: $fetch.create({

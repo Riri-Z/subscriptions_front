@@ -16,20 +16,27 @@
           <section
             class="flex items-center justify-center gap-2 text-base md:text-lg lg:text-3xl"
           >
-            <p
-              v-if="!displayYear"
-              class="cursor-pointer"
-              @click="emits('clickMonth')"
+            <CardsTooltip
+              :position="'bottom'"
+              :content="tooltipMessages.calendar.header.month"
             >
-              {{ dateStore.getCurrentMonthString }}
-            </p>
-            <p
+              <p
+                v-if="!displayYear"
+                class="cursor-pointer"
+                @click="emits('clickMonth')"
+              >
+                {{ dateStore.getCurrentMonthString }}
+              </p>
+            </CardsTooltip>
+            <CardsTooltip
               v-if="!yearsRange"
-              class="cursor-pointer"
-              @click="emits('clickYear')"
+              :position="'bottom'"
+              :content="tooltipMessages.calendar.header.year"
             >
-              {{ dateStore.getCurrentYear }}
-            </p>
+              <p class="cursor-pointer" @click="emits('clickYear')">
+                {{ dateStore.getCurrentYear }}
+              </p>
+            </CardsTooltip>
             <p v-else>{{ yearsRange }}</p>
           </section>
         </section>
@@ -37,10 +44,17 @@
       <!-- SPEND AMOUNT -->
       <div v-if="!(displayMonth || displayYear)" id="totalSpend" class="mr-4">
         <p class="text-sm md:text-base">Total pour ce mois :</p>
-        <!-- TODO : internalize the currency -->
-        <p id="sum" class="cursor-pointer text-end font-semibold md:text-3xl">
-          {{ computeTotalExpense }} €
-        </p>
+        <CardsTooltip
+          :position="'bottom'"
+          :content="tooltipMessages.calendar.header.total"
+        >
+          <p
+            id="sum"
+            class="ml-auto cursor-pointer text-end font-semibold md:text-3xl"
+          >
+            {{ computeTotalExpense }} €
+          </p>
+        </CardsTooltip>
       </div>
     </header>
     <span
@@ -58,6 +72,7 @@ import { useDateStore } from "~/store/dateStore";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import NavMonth from "./NavMonth.vue";
 import HeaderDays from "../headers/HeaderDays.vue";
+import { tooltipMessages } from "~/utils/constants/tooltip-messages";
 
 const subscriptionStore = useSubscriptionsStore();
 const dateStore = useDateStore();

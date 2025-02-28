@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import BadgeIcon from "./BadgeIcon.vue";
+import { tooltipMessages } from "~/utils/constants/tooltip-messages";
 
 const props = defineProps<{
   name: string;
+  amount: number | false;
   index: number;
   iconUrl: string | null;
   translateValue: string;
@@ -24,24 +26,28 @@ const badgeValue = computed(() => {
   }
   return props.name?.[0].toUpperCase();
 });
+const computeTooltipContent = computed(() => {
+  if (!props.isComputed) {
+    return tooltipMessages.calendar.badge.badgeWithIcons(
+      props.name,
+      props.amount,
+    );
+  }
+  return tooltipMessages.calendar.badge.computedBadge;
+});
 </script>
 
 <template>
-  <span
-    class="flex h-4 w-4 transform flex-row justify-center rounded-full align-middle text-xs lg:h-5 lg:w-5"
-    :style="{
-      zIndex: props.index,
-      marginLeft: translateValue,
-      backgroundColor: randomColor,
-    }"
-  >
-    <BadgeIcon
-      v-if="props.iconUrl"
-      :name="props.name"
-      :icon-url="props.iconUrl"
-    />
-    <p v-else class="self-center">
-      {{ badgeValue }}
-    </p>
-  </span>
+  <CardsTooltip :position="'top'" :content="computeTooltipContent">
+    <span
+      class="z-0 flex h-4 w-4 transform flex-row justify-center rounded-full align-middle text-xs transition-transform duration-300 ease-in-out hover:scale-150 lg:h-5 lg:w-5"
+      :style="{
+        zIndex: props.index,
+        marginLeft: translateValue,
+        backgroundColor: randomColor,
+      }"
+    >
+      <BadgeIcon :name="badgeValue ?? props.name" :icon-url="props.iconUrl" />
+    </span>
+  </CardsTooltip>
 </template>

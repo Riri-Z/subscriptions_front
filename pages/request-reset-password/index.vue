@@ -12,9 +12,9 @@
         alt="spinner"
       />
     </div>
-    <h1 class="text-center text-primary">
-      Veuillez saisir votre adresse e-mail pour recevoir un lien de réinitialisation de
-      mot de passe.
+    <h1 class="text-center font-bold text-primary">
+      Veuillez saisir votre adresse e-mail pour recevoir un lien de
+      réinitialisation de mot de passe.
     </h1>
     <FormsFormComponent
       label="Envoyer"
@@ -33,9 +33,7 @@
 
 <script lang="ts" setup>
 import { requestNewPasswordSchema, type RegisterValues } from "~/schema/reset";
-import type {
-  ApiResponseResetEmail,
-} from "~/types/store/userStore";
+import type { ApiResponseResetEmail } from "~/types/store/userStore";
 
 definePageMeta({
   layout: "login",

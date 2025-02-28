@@ -24,7 +24,7 @@
       <!-- Loader -->
       <span
         v-if="isLoading"
-        class="absolute right-0 top-0 z-10 flex h-full w-full rounded-xl bg-black bg-opacity-90"
+        class="absolute right-0 top-0 z-10 flex w-full rounded-xl bg-black bg-opacity-90"
       >
         <NuxtImg
           class="m-auto align-middle text-gray-300"

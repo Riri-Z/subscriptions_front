@@ -1,10 +1,10 @@
 <template>
   <!-- Card wich represent day of the month -->
   <button
-    class="md:h-18 flex h-14 cursor-pointer flex-col rounded-xl p-2 transition-transform duration-300 ease-in-out hover:scale-105 lg:h-16 lg:w-full lg:gap-1"
+    class="md:h-18 flex h-14 cursor-pointer flex-col rounded-xl p-2 transition-transform duration-150 ease-in-out hover:scale-105 lg:h-16 lg:w-full lg:gap-1"
     :class="{
       'bg-accent': currentMonth && !selectedDay,
-      'bg-calendar-outside-month opacity-70': !currentMonth && !selectedDay,
+      'bg-calendar-outside-month': !currentMonth && !selectedDay,
       'bg-turquoise': selectedDay,
     }"
     @click="handleClickDay(props.currentDate)"
