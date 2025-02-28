@@ -52,7 +52,7 @@ const subscriptionByDay = computed(() => {
     <h1 class="m-1 text-center font-bold">Abonnements actifs :</h1>
     <div
       v-if="subscriptionByDay && subscriptionByDay.length > 0"
-      class="flex h-fit flex-col gap-2 overflow-y-auto"
+      class="flex h-fit flex-col gap-2"
     >
       <!-- LIST OF SUBSCRIPTION -->
       <SubscriptionList :subscription-by-day="subscriptionByDay" />

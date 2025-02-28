@@ -17,7 +17,7 @@
       />
       <ErrorMessage class="text-xs text-error-color" :name="name" />
     </div>
-    <SubmitForm label="Connexion" :disabled="!meta.valid" />
+    <SubmitForm :label="label" :disabled="!meta.valid || disabled" />
   </Form>
 </template>
 
@@ -29,6 +29,14 @@ const props = defineProps({
   schema: {
     type: Object,
     required: true,
+  },
+  label: {
+    type: String,
+    default: "Connexion",
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
 

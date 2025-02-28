@@ -22,7 +22,7 @@ export default {
         accent: "#9DB2BF", // Accentuation (boutons, hover, liens)
         "calendar-outside-month":"#415A7B",
         light: "#FFFFFF", // Couleur claire (texte, contrastes)
-        disabeled: "#82929B", // disabled button
+        disabled: "#82929B", // disabled button
         "error-color": "#ff6252",
         selected: "#40916C",
         turquoise : "#2A9D8F",

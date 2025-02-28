@@ -4,9 +4,7 @@
     <p class="mb-1 text-center text-xs font-semibold sm:mb-3 sm:text-sm">
       Remplissez le formulaire pour vous inscrire
     </p>
-
     <FormComponent :schema="formSchema" @submit-form="handleSaveRegister" />
-
     <p class="text-center">
       Déjà inscrit ?
       <a
