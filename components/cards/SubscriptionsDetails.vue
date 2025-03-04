@@ -52,7 +52,7 @@ const subscriptionByDay = computed(() => {
     <h1 class="m-1 text-center font-bold">Abonnements actifs :</h1>
     <div
       v-if="subscriptionByDay && subscriptionByDay.length > 0"
-      class="flex h-fit flex-col gap-2"
+      class="bg-red z-50 flex h-fit flex-col gap-2 overflow-x-hidden"
     >
       <!-- LIST OF SUBSCRIPTION -->
       <SubscriptionList :subscription-by-day="subscriptionByDay" />
@@ -60,7 +60,8 @@ const subscriptionByDay = computed(() => {
     <div v-else>
       <p class="m-1">Pas de prélevements prévue ce jour</p>
     </div>
-    <div class="mt-auto flex justify-center">
+    <!-- Add subscription button -->
+    <div class="sticky mt-auto flex justify-center">
       <button
         class="btn-secondary w-full rounded-lg p-2 text-sm text-light"
         @click="handleOpenModalAddSubscription"
@@ -70,3 +71,5 @@ const subscriptionByDay = computed(() => {
     </div>
   </div>
 </template>
+
+<script lang="css" scoped></script>

@@ -15,7 +15,7 @@ export const letterColorMap: { [key: string]: string } = {
   n: "#000080", // Bleu marine
   o: "#808080", // Gris
   p: "#800000", // Bordeaux
-  q: "#7FFF00", // Vert chartreuse
+  q: "#FF8448", // Vert chartreuse
   r: "#FF4500", // Rouge-orange
   s: "#DA70D6", // Orchidée
   t: "#008080", // Sarcelle

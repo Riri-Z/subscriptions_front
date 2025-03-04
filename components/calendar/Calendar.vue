@@ -10,7 +10,7 @@
       :years-range="yearChoicesAvailableRange"
       :display-month="displayMonth"
       :display-year="displayYear"
-      :is-loading="isLoading"
+      :is-loading="subscriptionStore.loading"
       @prev-month="handlePrevOption"
       @next-month="handleNextOption"
       @click-month="handleClickMonth"
@@ -23,7 +23,7 @@
     >
       <!-- Loader -->
       <span
-        v-if="isLoading"
+        v-if="subscriptionStore.loading"
         class="absolute right-0 top-0 z-10 flex w-full rounded-xl bg-black bg-opacity-90"
       >
         <NuxtImg
@@ -90,7 +90,7 @@ const displayMonth: Ref<boolean> = ref(false);
  */
 const displayYear: Ref<boolean> = ref(false);
 // TODO :  lift up to store and disable details when user is on select month or year
-const isLoading: Ref<boolean> = ref(false);
+const isLoading = subscriptionStore.loading;
 const calendarCell: Ref<HTMLElement | null> = ref(null);
 const calendarContainer: Ref<HTMLElement | null> = ref(null);
 const mainHeight = computed(() => `${calendarHeight}px`);
@@ -134,6 +134,7 @@ enum ACTION_DATE {
 }
 
 function handleSwitchYear(action: ACTION_DATE) {
+  subscriptionStore.setLoading(true);
   const currentDate = dateStore.getCurrentDate;
   const newDate = currentDate.add(action, "year").toISOString();
 
@@ -141,6 +142,7 @@ function handleSwitchYear(action: ACTION_DATE) {
   dateStore.setCurrentDate(newDate);
   // Update selected date
   subscriptionStore.setSelectedDate(newDate);
+  subscriptionStore.setLoading(false);
 }
 
 /*
@@ -159,8 +161,8 @@ async function handleNextOption() {
   }
 }
 async function handleNextMonth() {
-  if (subscriptionStore.isModalOpen || isLoading.value) return;
-  isLoading.value = true;
+  if (subscriptionStore.isModalOpen || isLoading) return;
+  subscriptionStore.setLoading(true);
   try {
     const res = await dateStore.setNextMonth();
     if (!res) {
@@ -169,7 +171,7 @@ async function handleNextMonth() {
   } catch (error) {
     console.error("something wrong happened while selecting next month", error);
   } finally {
-    isLoading.value = false;
+    subscriptionStore.setLoading(false);
   }
 }
 /*
@@ -189,8 +191,8 @@ async function handlePrevOption() {
 }
 
 async function handlePrevMonth() {
-  if (subscriptionStore.isModalOpen || isLoading.value) return;
-  isLoading.value = true;
+  if (subscriptionStore.isModalOpen || isLoading) return;
+  subscriptionStore.setLoading(true);
 
   try {
     const res = await dateStore.setPreviousMonth();
@@ -200,7 +202,7 @@ async function handlePrevMonth() {
   } catch (error) {
     console.error("something wrong happened while selecting prev month", error);
   } finally {
-    isLoading.value = false;
+    subscriptionStore.setLoading(false);
   }
 }
 
@@ -236,7 +238,7 @@ async function updateStores(newDate: string) {
 async function handleYearSelection(selectedYear: number) {
   if (selectedYear) {
     try {
-      isLoading.value = true;
+      subscriptionStore.setLoading(true);
       const newDate = computeNewDate(
         dateStore.getCurrentDate,
         "year",
@@ -248,7 +250,7 @@ async function handleYearSelection(selectedYear: number) {
       console.error("something wrong happened while selecting new year", error);
     } finally {
       displayYear.value = false;
-      isLoading.value = false;
+      subscriptionStore.setLoading(false);
     }
   } else {
     console.error("key is missing", selectedYear);
@@ -260,7 +262,7 @@ async function handleMonthSelection(key: number) {
 
   if (key < 12) {
     try {
-      isLoading.value = true;
+      subscriptionStore.setLoading(true); //     isLoading.value = true;
       // Set date to start of month
       const newDate = computeNewDate(dateStore.getCurrentDate, "month", key);
 
@@ -272,7 +274,7 @@ async function handleMonthSelection(key: number) {
       );
     } finally {
       displayMonth.value = false;
-      isLoading.value = false;
+      subscriptionStore.setLoading(false);
     }
   } else {
     console.error("undefined month selected  :" + key);
@@ -280,6 +282,7 @@ async function handleMonthSelection(key: number) {
 }
 // Reset calendar
 onMounted(async () => {
+  subscriptionStore.setLoading(true);
   const userCurrentDate = localStorage.getItem("currentDate");
   const currentDate = new Date();
   const dateRef = dayjs(userCurrentDate ?? currentDate).toISOString();
@@ -287,5 +290,6 @@ onMounted(async () => {
   subscriptionStore.setSelectedDate(dateRef);
   await subscriptionStore.getSubscriptionsMonthly(dateRef);
   dateStore.setDaysInMonth(dateRef);
+  subscriptionStore.setLoading(false);
 });
 </script>

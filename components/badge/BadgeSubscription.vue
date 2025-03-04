@@ -4,9 +4,9 @@ import { tooltipMessages } from "~/utils/constants/tooltip-messages";
 
 const props = defineProps<{
   name: string;
-  amount: number | false;
+  amount: number;
   index: number;
-  iconUrl: string | null;
+  iconUrl: string;
   translateValue: string;
   isComputed: boolean;
 }>();
@@ -14,9 +14,7 @@ const props = defineProps<{
 const randomColor = computed(() => {
   if (props.iconUrl) return "#ffffff";
   else {
-    return letterColorMap[props.name?.toLowerCase()[0]]
-      ? letterColorMap[props.name?.toLowerCase()[0]]
-      : "#96a240";
+    return letterColorMap[props.name?.toLowerCase()[0]] ?? "#96a240";
   }
 });
 
@@ -38,7 +36,7 @@ const computeTooltipContent = computed(() => {
 </script>
 
 <template>
-  <CardsTooltip :position="'top'" :content="computeTooltipContent">
+  <CardsTooltip :position="'top'" offset="14" :content="computeTooltipContent">
     <span
       class="z-0 flex h-4 w-4 transform flex-row justify-center rounded-full align-middle text-xs transition-transform duration-300 ease-in-out hover:scale-150 lg:h-5 lg:w-5"
       :style="{
