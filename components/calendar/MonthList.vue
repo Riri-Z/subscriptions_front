@@ -6,7 +6,7 @@
       class="flex w-24 cursor-pointer items-center justify-center self-center justify-self-center rounded-full text-center text-base hover:scale-105 hover:rounded-full lg:text-xl laptop:text-2xl laptop:hover:scale-125"
       @click="emit('selectMonth', month.key)"
     >
-      <p>
+      <p class="text-xs sm:text-sm md:text-base">
         {{ capitalized(month.value) }}
       </p>
     </button>
