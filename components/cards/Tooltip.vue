@@ -5,9 +5,10 @@
     @mouseleave="isHovered = false"
   >
     <slot></slot>
+
     <span
       v-if="isHovered"
-      class="tooltip absolute z-[9999]"
+      class="tooltip absolute text-[8px]"
       :style="tooltipPositionStyle"
     >
       {{ props.content }}
@@ -17,7 +18,6 @@
 
 <script lang="ts" setup>
 export type Position = "top" | "left " | "bottom" | "right";
-
 const props = defineProps({
   position: { type: String, default: "bottom" },
   offset: { type: String, default: "8" },
@@ -44,7 +44,7 @@ const tooltipPositionStyle = computed(() => {
       return {
         right: `calc(100% + ${props.offset}px)`,
         top: "0",
-        transform: "translateY(-50%)",
+        transform: "translateY(-25%)",
       };
     case "bottom":
     default:
@@ -70,12 +70,13 @@ const tooltipPositionStyle = computed(() => {
   min-width: 150px;
   line-height: 1rem;
   padding: 8px;
-  font-size: 16px;
-
+  font-size: 12px;
+  font-weight: 600;
   background-color: white;
   border-radius: 10px;
   pointer-events: none;
   opacity: 1;
   transition: opacity 0.8s;
+  z-index: 9999;
 }
 </style>

@@ -7,8 +7,8 @@ export const tooltipMessages = {
     },
     badge: {
       computedBadge: "Cliquez pour voir les détails",
-      badgeWithIcons: (name: string, amount: string) => {
-        return capitalized(name) + " - " + amount + "€";
+      badgeWithIcons: (name: string, amount: number) => {
+        return `${capitalized(name)} - ${amount} €`;
       },
     },
   },

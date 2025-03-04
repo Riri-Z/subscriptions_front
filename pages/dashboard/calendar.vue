@@ -11,7 +11,7 @@
       @click="subscriptionStore.closeModal()"
     />
     <main
-      v-if="statusValue === 'authenticated'"
+      v-if="authStatus === 'authenticated'"
       class="flex flex-col gap-2 lg:mt-0 lg:flex-row"
     >
       <Calendar />
@@ -50,7 +50,7 @@ import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import { ModalStatus } from "~/types/store/subscriptionsStore";
 const { status } = useAuth();
 
-const statusValue = computed(() => status.value);
+const authStatus = computed(() => status.value);
 const subscriptionStore = useSubscriptionsStore();
 
 definePageMeta({

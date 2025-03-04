@@ -1,11 +1,11 @@
 <template>
-  <div class="justify-cente flex w-full">
+  <div class="flex w-full justify-center">
     <BadgeSubscription
       v-for="(subscription, index) in subscriptionArray"
       :key="subscription.id"
       :name="subscription.subscription.name"
       :amount="subscription?.amount"
-      :icon-url="subscription.subscription.icon_url"
+      :icon-url="subscription.subscription.icon_url ?? ''"
       :index="index"
       :translate-value="getTranslateValue(index)"
       :is-computed="subscription?.computed ?? false"
@@ -38,7 +38,7 @@ function computeLastElementOfArraySubscription(
   const newElement = {
     id: computeId,
     subscription: { name: `${remainingSubscriptions}`, icon_url: null },
-    amount: false,
+    amount: 0,
     computed: true, //This flag allow to children of component to display special badge
   };
 

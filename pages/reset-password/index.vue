@@ -90,8 +90,6 @@ async function handlePostNewPassword(newPassword: string) {
       },
     );
 
-    console.log("res", response);
-
     if (response && response.statusCode === 200) {
       useNuxtApp().$toast.success(
         "Votre mot de passe a été réinitialisé avec succès. Vous allez être redirigé vers la page de connexion",

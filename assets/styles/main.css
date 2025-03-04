@@ -40,3 +40,21 @@
     @apply fixed left-1/2 top-1/2 z-[50] m-0 h-fit w-fit min-w-[250px] max-w-[350px] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-slate-800/90 p-0 text-white backdrop-blur-md;
   }
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  padding-left:10px ;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

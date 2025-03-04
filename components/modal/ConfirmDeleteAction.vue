@@ -3,13 +3,12 @@
     v-if="props.label && props.subscription"
     class="m-4 flex w-[80vw] flex-col gap-4 text-center align-middle md:w-[300px]"
   >
-    <h1 class="text-lg">
-      Souhaitez-vous supprimer l'abonnement suivant :
-
-      <p class="mt-2 text-center text-base font-bold">
-        {{ props.label }}
+    <div class="flex flex-col gap-2">
+      <h2 class="text-xl font-semibold text-white">Supprimer l'abonnement</h2>
+      <p class="mt-1 text-sm text-white">
+        Voulez-vous vraiment supprimer l'abonnement {{ props.label }} ?
       </p>
-    </h1>
+    </div>
     <div class="flex flex-row justify-around gap-1">
       <button
         class="btn-secondary h-10 w-[8rem] rounded-lg text-light"

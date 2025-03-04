@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-/* TODO : Display this component as modal and keeep calendar behind. e.G : delete modal */
 import { useForm } from "vee-validate";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import * as yup from "yup";
+import { addEditSubscriptionValues } from "~/schema/subscription";
+
 import dayjs from "dayjs";
 import {
   BillingCycle,
@@ -36,26 +36,6 @@ const displaySuggestionStatus = ref(false);
 function handleDisplaySuggestion(value: boolean) {
   displaySuggestionStatus.value = value;
 }
-const validationSchema = yup.object({
-  subscriptionName: yup.string().required("Un nom est requis"),
-  amount: yup
-    .number()
-    .default(0)
-    .min(0)
-    .max(999999)
-    .typeError("Doit être un nombre valide")
-    .required("Un montant est requis"),
-  startDate: yup
-    .string()
-    .default(subscriptionStore.getSelectedDate)
-    .required("Une date de début est requise"),
-
-  endDate: yup.string(),
-  billingCycle: yup.mixed<BillingCycle>().oneOf(Object.values(BillingCycle)),
-  category: yup
-    .mixed<SubscriptionCategory>()
-    .oneOf(Object.values(SubscriptionCategory)),
-});
 
 const defaultSubscriptionFormValue = computed(() => {
   if (subscriptionStore && subscriptionStore?.selectedSubscription) {
@@ -89,7 +69,7 @@ const defaultSubscriptionFormValue = computed(() => {
 });
 
 const { errors, handleSubmit, defineField } = useForm({
-  validationSchema: validationSchema,
+  validationSchema: addEditSubscriptionValues,
   initialValues: defaultSubscriptionFormValue.value,
 });
 
@@ -180,7 +160,7 @@ function handleSelectSubscription(
         name="amount"
         v-bind="amountAttrs"
       />
-      <span class="text-xs text-red-400">{{ errors.amount }}</span>
+      <span class="pt-1 text-xs text-red-400">{{ errors.amount }}</span>
     </div>
 
     <!--  startDate-->
@@ -196,7 +176,7 @@ function handleSelectSubscription(
         name="startDate"
         v-bind="startDateAttrs"
       />
-      <span class="text-xs text-red-400">{{ errors.startDate }}</span>
+      <span class="pt-1 text-xs text-red-400">{{ errors.startDate }}</span>
     </div>
     <!-- endDate -->
     <div class="form-group">
@@ -209,7 +189,7 @@ function handleSelectSubscription(
         name="endDate"
         v-bind="endDateAttrs"
       />
-      <span class="text-xs text-red-400">{{ errors.endDate }}</span>
+      <span class="pt-1 text-xs text-red-400">{{ errors.endDate }}</span>
     </div>
     <!--BillingCycle  -->
     <div class="form-group">
@@ -248,6 +228,7 @@ function handleSelectSubscription(
           {{ category_option.text }}
         </option>
       </select>
+      <span class="pt-1 text-xs text-red-400">{{ errors.category }}</span>
     </div>
     <!-- Actions -->
     <section class="flex">

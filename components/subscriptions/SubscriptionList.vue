@@ -14,7 +14,8 @@
       <!-- Action EDIT / DELETE subscription -->
       <div class="my-auto ml-auto flex gap-2">
         <CardsTooltip
-          :position="'right'"
+          :position="'left'"
+          offset="2"
           :content="tooltipMessages.subscriptionsDetails.edit"
         >
           <NuxtImg
@@ -27,19 +28,21 @@
           />
         </CardsTooltip>
 
-        <CardsTooltip
-          :position="'right'"
-          :content="tooltipMessages.subscriptionsDetails.delete"
-        >
-          <NuxtImg
-            class="m-auto cursor-pointer hover:scale-105"
-            alt="clipboard delete icon"
-            src="/icons/remove.svg"
-            width="24"
-            height="24"
-            @click="handleOpenModal(ModalStatus.DELETE, subscription)"
-          />
-        </CardsTooltip>
+        <span @click="handleOpenModal(ModalStatus.DELETE, subscription)">
+          <CardsTooltip
+            :position="'left'"
+            offset="2"
+            :content="tooltipMessages.subscriptionsDetails.delete"
+          >
+            <NuxtImg
+              class="m-auto cursor-pointer hover:scale-105"
+              alt="clipboard delete icon"
+              src="/icons/remove.svg"
+              width="24"
+              height="24"
+            />
+          </CardsTooltip>
+        </span>
       </div>
     </span>
   </div>
@@ -48,8 +51,11 @@
 <script lang="ts" setup>
 import type { UserSubscription } from "~/types/store/subscriptionsStore";
 import SubscriptionItem from "./SubscriptionItem.vue";
+import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import { tooltipMessages } from "~/utils/constants/tooltip-messages";
+import { ModalStatus } from "~/types/store/subscriptionsStore";
 
+const subscriptionStore = useSubscriptionsStore();
 defineProps<{
   subscriptionByDay: UserSubscription[];
 }>();
