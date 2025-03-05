@@ -1,6 +1,6 @@
 <template>
   <Form v-slot="{ meta }" class="flex flex-col gap-1" @submit="onSubmit">
-    <div v-for="{ as, name, ...attrs } in props.schema.fields" :key="name">
+    <div v-for="{ as, name, label,...attrs } in props.schema.fields" :key="name">
       <label class="block text-sm font-medium text-light" :for="name">{{
         label
       }}</label>
