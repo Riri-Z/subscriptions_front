@@ -7,7 +7,7 @@
       @click="emit('selectMonth', month.key)"
     >
       <p class="text-xs sm:text-sm md:text-base">
-        {{ capitalized(month.value) }}
+        {{ capitalized($t(`dashboard.calendar.months.${month.value}`)) }}
       </p>
     </button>
   </div>

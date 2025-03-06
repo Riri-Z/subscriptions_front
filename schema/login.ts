@@ -3,12 +3,12 @@ import * as yup from "yup";
 export const loginSchema = yup.object({
   username: yup
     .string()
-    .required("Nom obligatoire")
-    .min(4, "Le nom d'utilisateur doit être de 4 charactères minimum"),
+    .required("login.form.errors.name.required")
+    .min(4, "login.form.errors.name.invalidLength"),
   password: yup
     .string()
-    .required("Mot de passe est obligatoire")
-    .min(6, "Le mot de passe doit être de 6 charactères minimum"),
+    .required("login.form.errors.password.required")
+    .min(6, "login.form.errors.password.invalidLength"),
 });
 
 export type Login = yup.InferType<typeof loginSchema>;

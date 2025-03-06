@@ -28,6 +28,7 @@
         "
       />
     </main>
+    <!-- Modal for edit / add subscription -->
     <ModalCustomModal v-if="subscriptionStore.isModalOpen">
       <ModalConfirmDeleteAction
         v-if="subscriptionStore.modalDetails.action === ModalStatus.DELETE"

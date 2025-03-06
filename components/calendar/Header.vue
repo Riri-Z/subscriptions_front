@@ -25,7 +25,11 @@
                 class="cursor-pointer"
                 @click="emits('clickMonth')"
               >
-                {{ dateStore.getCurrentMonthString }}
+                {{
+                  $t(
+                    `dashboard.calendar.months.${dateStore.getCurrentMonthString.toLowerCase()}`,
+                  )
+                }}
               </p>
             </CardsTooltip>
             <CardsTooltip
@@ -43,18 +47,14 @@
       </div>
       <!-- SPEND AMOUNT -->
       <div v-if="!(displayMonth || displayYear)" id="totalSpend" class="mr-4">
-        <p class="text-sm md:text-base">Total pour ce mois :</p>
-        <CardsTooltip
-          :position="'bottom'"
-          :content="tooltipMessages.calendar.header.total"
+        <p class="text-sm md:text-base">{{ $t("dashboard.calendar.total") }}</p>
+
+        <p
+          id="sum"
+          class="ml-auto cursor-pointer text-end font-semibold md:text-3xl"
         >
-          <p
-            id="sum"
-            class="ml-auto cursor-pointer text-end font-semibold md:text-3xl"
-          >
-            {{ computeTotalExpense }} €
-          </p>
-        </CardsTooltip>
+          {{ computeTotalExpense }} €
+        </p>
       </div>
     </header>
     <span

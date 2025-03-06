@@ -4,10 +4,12 @@ import { loginSchema, type Login } from "~/schema/login";
 import FormComponent from "~/components/forms/FormComponent.vue";
 import type { CustomError } from "~/types/error/error";
 import { loginMessages } from "~/utils/constants/toast-status-message";
+import { useI18n } from "vue-i18n";
 
 const { signIn } = useAuth();
-
+const { t } = useI18n();
 const layout = "auth-forms";
+const isLoading = ref(false);
 definePageMeta({
   layout: "login",
 });
@@ -16,37 +18,37 @@ async function redirectToRegisterPage() {
   await navigateTo("/register");
 }
 
-const formSchema = {
+const formSchema = computed(() => ({
   fields: [
     {
-      name: "username",
-      label: "Nom d'utilisateur",
       as: "input",
-      placeholder: "Nom d'utilisateur",
+      name: "username",
+      label: t("login.form.labels.name"),
+      placeholder: t("login.form.labels.name"),
       rules: loginSchema.fields.username,
     },
     {
       name: "password",
-      label: "Mot de passe",
+      label: t("login.form.labels.password"),
       as: "input",
       type: "password",
-      placeholder: "Mot de passe",
+      placeholder: t("login.form.labels.password"),
       rules: registerSchema.fields.password,
     },
   ],
-};
-
+}));
 async function handleLogin(values: Login) {
   if (!values.username || !values.password) {
     return useNuxtApp().$toast.error(loginMessages.missingInput);
   }
-
   try {
+    isLoading.value = true;
     const credentials = {
       username: values.username,
       password: values.password,
     };
     await signIn(credentials, { callbackUrl: "/dashboard" });
+    isLoading.value = false;
   } catch (error: unknown) {
     console.log({ error });
     if (error === undefined) {
@@ -68,23 +70,28 @@ function handleResetPassword() {
 <template>
   <NuxtLayout :name="layout">
     <div>
-      <h1 class="mb-3 text-center text-4xl text-light">Bienvenue</h1>
+      <h1 class="mb-3 text-center text-4xl text-light">
+        {{ $t("login.title") }}
+      </h1>
       <p class="mb-4 text-center text-xs text-light md:text-xl">
-        Connectez-vous pour continuer ou
+        {{ $t("login.info") }}
         <a
           class="cursor-pointer text-link underline underline-offset-4"
           @click="redirectToRegisterPage"
         >
-          inscrivez-vous en cliquant ici
+          {{ $t("login.redirectToRegister") }}
         </a>
       </p>
-      <FormComponent :schema="formSchema" @submit-form="handleLogin" />
-
+      <FormComponent
+        :schema="formSchema"
+        :is-loading="isLoading"
+        @submit-form="handleLogin"
+      />
       <a
-        class="block cursor-pointer text-center align-middle text-green-400 underline underline-offset-4"
+        class="block cursor-pointer text-center align-middle text-sm text-green-400 underline underline-offset-4"
         @click="handleResetPassword"
       >
-        Mot de passe oublié ?
+        {{ $t("login.resetPassword") }}
       </a>
     </div>
   </NuxtLayout>

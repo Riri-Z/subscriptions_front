@@ -6,10 +6,11 @@
   >
     <Sidebar />
     <div
-      class="flex h-full w-full flex-col overflow-auto md:flex-1 md:p-4 lg:h-[100vh]"
+      class="flex h-full w-full flex-col overflow-auto overflow-x-hidden p-8 md:flex-1 md:p-4 lg:h-[100vh]"
     >
       <slot />
     </div>
+    <BadgeI18n />
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidebar"
-    class="sticky h-[14%] w-full flex-col border-white bg-secondary shadow-custom md:flex md:h-full md:w-fit lg:w-[10rem]"
+    class="sticky h-[80px] w-full flex-col border-white bg-secondary shadow-custom md:flex md:h-full md:w-fit lg:w-[10rem]"
   >
     <span
       class="align-center text-primary-white-color md:border-button-disabled-color hidden h-[125px] text-center md:flex md:border-b-2"
@@ -36,7 +36,6 @@ import { ref } from "vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 const { signOut } = useAuth();
 const route = useRoute();
-
 interface Icon {
   id: number;
   name: string;
@@ -71,7 +70,7 @@ async function handleSignOut() {
     await signOut({ callbackUrl: "/login" });
   } catch (error) {
     console.error(error);
-    window.location.href = "/login";
+    /* window.location.href = "/login"; */
   }
 }
 

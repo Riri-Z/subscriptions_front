@@ -20,6 +20,7 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   if (formData.endDate === "") {
     delete formData.endDate;
   }
+  formData.subscriptionName = String(formData.subscriptionName);
   try {
     if (subscriptionStore.modalDetails.action === ModalStatus.EDIT) {
       updateSubscription(formData);

@@ -7,7 +7,7 @@
     class="my-1 rounded-xl bg-accent py-2 text-center text-xs font-semibold text-black lg:text-sm"
   >
     <span>
-      {{ dayName.slice(0, 3) }}
+      {{ $t(`dashboard.calendar.days.${dayName}`).slice(0, 3) }}
     </span>
   </div>
 </template>
