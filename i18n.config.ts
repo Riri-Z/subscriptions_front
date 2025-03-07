@@ -31,7 +31,7 @@ export default defineI18nConfig(() => ({
             email: {
               required: "Email is required",
               invalidFormat:
-                "The following format is expected e.g.: email@example.com",
+                "Please use a valid format (e.g.: email@example.com)",
             },
           },
           cta: "Sign Up",
@@ -96,7 +96,7 @@ export default defineI18nConfig(() => ({
             septembre: "September",
             octobre: "October",
             novembre: "November",
-            décembre: "Decembe",
+            décembre: "December",
           },
           total: "Total for this month :",
         },
@@ -106,11 +106,22 @@ export default defineI18nConfig(() => ({
         title: "Active Subscriptions",
         emptySubscriptions: "No payments scheduled for today",
         addSubscription: "Add a new subscription",
-        emptySubscription: "No samples scheduled for today",
+        emptyCharges: "No charges scheduled for today",
         editSubscription: "Edit subscription",
         item: {
           name: "Name",
           amount: "Total",
+        },
+      },
+      deleteSubscriptionPrompt: {
+        delete: {
+          title: "Delete Subscription",
+          confirmation:
+            "Are you sure you want to delete the following subscription:",
+          cta: {
+            continue: "Continue",
+            cancel: "Cancel",
+          },
         },
       },
       formSubscription: {
@@ -123,6 +134,42 @@ export default defineI18nConfig(() => ({
         cta: {
           save: "Save",
           cancel: "Cancel",
+        },
+      },
+      toastMessages: {
+        deleteSubscriptionMessages: {
+          success: "Subscription successfully deleted!",
+          error:
+            "An error occurred while attempting to delete the subscription",
+          invalidSubscription: "Invalid or non-existent subscription.",
+        },
+        addSubscriptionMessages: {
+          success: "Subscription successfully added!",
+          error: "An error occurred while adding the subscription",
+          subscriptionIncomplet:
+            "Sorry, an error occurred with this subscription",
+        },
+        postSubscriptionMessages: {
+          success: "Subscription successfully updated!",
+          error: "An error occurred while attempting to update",
+          startDateMustBeBeforeEndDate:
+            "The start date must be before the end date",
+          subscriptionIncomplet:
+            "Sorry, an error occurred with this subscription",
+        },
+        loginMessages: {
+          errorUndefined:
+            "Unable to connect to the server. Please try again later.",
+          wrongCredentials: "Incorrect username or password.",
+          unknownError: "An unknown error occurred.",
+          missingInput: "Username and password are required",
+        },
+        registerMessages: {
+          success: "User registered, you will be redirected to the login page",
+          conflict: "This email address or username already exists",
+          error: "Username or email already in use. Please try another value",
+          unknownError:
+            "Unable to connect to the server. Please try again later.",
         },
       },
       tooltips: {
@@ -155,12 +202,12 @@ export default defineI18nConfig(() => ({
             name: {
               required: "Nom d'utilisateur obligatoire",
               invalidLength:
-                "Nom d'utilisateur  doit être de 4 charactères minimum",
+                "Le nom d'utilisateur doit contenir au moins 4 caractères",
             },
             password: {
               required: "Mot de passe obligatoire",
               invalidLength:
-                "Le mot de passe doit être de 6 charactères minimum",
+                "Le mot de passe doit contenir au moins 6 caractères",
             },
             email: {
               required: "Email obligatoire",
@@ -185,12 +232,12 @@ export default defineI18nConfig(() => ({
             name: {
               required: "Nom d'utilisateur obligatoire",
               invalidLength:
-                "Nom d'utilisateur  doit être de 4 charactères minimum",
+                "Le nom d'utilisateur doit contenir au moins 4 caractères",
             },
             password: {
               required: "Mot de passe obligatoire",
               invalidLength:
-                "Le mot de passe doit être de 6 charactères minimum",
+                "Le mot de passe doit contenir au moins 6 caractères",
             },
           },
           cta: "Connexion",
@@ -241,13 +288,23 @@ export default defineI18nConfig(() => ({
       },
       subscriptionDetails: {
         title: "Abonnements actifs",
-        emptySubscriptions: "Aucun prélèvement prévu aujourd’hui",
         addSubscription: "Ajouter un abonnement",
-        emptySubscription: "Pas de prélevements prévue ce jour",
+        emptyCharges: "Aucun prélèvement prévu aujourd'hui",
         editSubscription: "Modifier l'abonnement",
         item: {
           name: "Nom",
           amount: "Montant",
+        },
+      },
+      deleteSubscriptionPrompt: {
+        delete: {
+          title: "Supprimer l'abonnement",
+          confirmation:
+            "Êtes-vous sûr de vouloir supprimer l'abonnement suivant :",
+          cta: {
+            continue: "Continuer",
+            cancel: "Annuler",
+          },
         },
       },
       formSubscription: {
@@ -260,6 +317,44 @@ export default defineI18nConfig(() => ({
         cta: {
           save: "Sauvegarder",
           cancel: "Annuler",
+        },
+      },
+      toastMessages: {
+        deleteSubscriptionMessages: {
+          success: "Abonnement supprimé avec succès !",
+          error:
+            "Une erreur est survenue lors de la tentative de suppression de l'abonnement",
+          invalidSubscription: "Abonnement invalide ou inexistant.",
+        },
+        addSubscriptionMessages: {
+          success: "Abonnement ajouté avec succès!",
+          error: "Une erreur est survenue lors de l'ajout de l'abonnement",
+          subscriptionIncomplet:
+            "Désolé, une erreur est survenue avec cet abonnement",
+        },
+        postSubscriptionMessages: {
+          success: "Abonnement mis à jour avec succès !",
+          error: "Une erreur est survenue lors de la tentative de mise à jour",
+          startDateMustBeBeforeEndDate:
+            "La date de début doit être avant la date de fin",
+          subscriptionIncomplet:
+            "Désolé, une erreur est survenue avec cet abonnement",
+        },
+        loginMessages: {
+          errorUndefined:
+            "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
+          wrongCredentials: "Nom d'utilisateur ou mot de passe incorrect.",
+          unknownError: "Une erreur inconnue s'est produite.",
+          missingInput: "Nom d'utilisateur et mot de passe obligatoires",
+        },
+        registerMessages: {
+          success:
+            "Utilisateur enregistré, vous allez être redirigé vers la page de connexion",
+          conflict: "Cette adresse email ou ce nom d'utilisateur existe déjà",
+          error:
+            "Nom d'utilisateur ou email déjà utilisé. Veuillez essayer une autre valeur",
+          unknownError:
+            "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
         },
       },
       tooltips: {

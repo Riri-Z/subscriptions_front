@@ -11,6 +11,7 @@ import {
 } from "~/types/store/subscriptionsStore";
 import SuggestionList from "./SuggestionList.vue";
 import { postSubscriptionMessages } from "~/utils/constants/toast-status-message";
+const { t } = useI18n();
 interface CategoryOption {
   value: SubscriptionCategory;
   text: string;
@@ -90,7 +91,7 @@ const onSubmit = handleSubmit((values) => {
     dayjs(values.endDate).diff(dayjs(values.startDate)) < 0
   ) {
     useNuxtApp().$toast.error(
-      postSubscriptionMessages.startDateMustBeBeforeEndDate,
+      t(postSubscriptionMessages.startDateMustBeBeforeEndDate),
     );
     return;
   }

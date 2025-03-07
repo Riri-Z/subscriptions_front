@@ -38,9 +38,17 @@ const subscriptionByDay = computed(() => {
       )
     : null;
 });
-const currentPage = ref(1);
 
-function handleClickPagination(page) {
+const currentPage: Ref<number> = ref(1);
+
+// Reset pagination when subscriptions update
+watch(subscriptionByDay, (newSubscriptionByDay) => {
+  if (newSubscriptionByDay) {
+    currentPage.value = 1;
+  }
+});
+
+function handleClickPagination(page: number) {
   currentPage.value = page;
 }
 
@@ -68,7 +76,7 @@ const pagination = computed(() => {
   };
 });
 
-function filterSubscriptionByPagination(startIndex, endIndex) {
+function filterSubscriptionByPagination(startIndex: number, endIndex: number) {
   return subscriptionByDay.value?.slice(startIndex, endIndex) ?? [];
 }
 </script>
@@ -102,7 +110,7 @@ function filterSubscriptionByPagination(startIndex, endIndex) {
       />
     </div>
     <div v-else>
-      <p class="m-1">{{ $t("subscriptionDetails.emptySubscription") }}</p>
+      <p class="m-1">{{ $t("subscriptionDetails.emptyCharges") }}</p>
     </div>
     <!-- CTA -->
     <div class="sticky mt-auto flex flex-col justify-center gap-4">

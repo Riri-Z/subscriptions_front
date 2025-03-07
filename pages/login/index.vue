@@ -4,7 +4,6 @@ import { loginSchema, type Login } from "~/schema/login";
 import FormComponent from "~/components/forms/FormComponent.vue";
 import type { CustomError } from "~/types/error/error";
 import { loginMessages } from "~/utils/constants/toast-status-message";
-import { useI18n } from "vue-i18n";
 
 const { signIn } = useAuth();
 const { t } = useI18n();
@@ -39,7 +38,7 @@ const formSchema = computed(() => ({
 }));
 async function handleLogin(values: Login) {
   if (!values.username || !values.password) {
-    return useNuxtApp().$toast.error(loginMessages.missingInput);
+    return useNuxtApp().$toast.error(t(loginMessages.missingInput));
   }
   try {
     isLoading.value = true;
@@ -52,14 +51,16 @@ async function handleLogin(values: Login) {
   } catch (error: unknown) {
     console.log({ error });
     if (error === undefined) {
-      useNuxtApp().$toast.error(loginMessages.errorUndefined);
+      useNuxtApp().$toast.error(t(loginMessages.errorUndefined));
       return;
     }
     if ((error as CustomError)?.statusCode) {
-      useNuxtApp().$toast.error(loginMessages.wrongCredentials);
+      useNuxtApp().$toast.error(t(loginMessages.wrongCredentials));
       return;
     }
-    useNuxtApp().$toast.error(loginMessages.unknownError);
+    useNuxtApp().$toast.error(t(loginMessages.unknownError));
+  } finally {
+    isLoading.value = false;
   }
 }
 

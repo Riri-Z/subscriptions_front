@@ -26,8 +26,10 @@
                 @click="emits('clickMonth')"
               >
                 {{
-                  $t(
-                    `dashboard.calendar.months.${dateStore.getCurrentMonthString.toLowerCase()}`,
+                  capitalized(
+                    $t(
+                      `dashboard.calendar.months.${dateStore.getCurrentMonthString.toLowerCase()}`,
+                    ),
                   )
                 }}
               </p>

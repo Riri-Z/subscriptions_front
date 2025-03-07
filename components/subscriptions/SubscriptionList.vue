@@ -55,7 +55,7 @@ import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import { ModalStatus } from "~/types/store/subscriptionsStore";
 
 const subscriptionStore = useSubscriptionsStore();
-const props = defineProps<{
+defineProps<{
   subscriptionByDay: UserSubscription[];
 }>();
 

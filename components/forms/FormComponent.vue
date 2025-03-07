@@ -19,7 +19,7 @@
         v-bind="attrs"
         validate-on-input
       />
-      <span class="text-xs text-error-color" v-if="errors[name]"
+      <span v-if="errors[name]" class="text-xs text-error-color"
         >⛔️ {{ $t(errors[name]) }}</span
       >
     </div>
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Form, Field, ErrorMessage, type GenericObject } from "vee-validate";
+import { Form, Field, type GenericObject } from "vee-validate";
 import SubmitForm from "./SubmitForm.vue";
 
 const props = defineProps({
