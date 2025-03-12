@@ -246,7 +246,18 @@ function handleSelectSubscription(
         class="btn-secondary my-4 mr-5 h-10 w-full rounded-lg text-light"
         @click="onSubmit"
       >
-        <p class="text-sm">{{ $t("formSubscription.cta.save") }}</p>
+        <span class="flex flex-row items-center justify-center gap-4">
+          <NuxtImg
+            v-if="isSubmiting"
+            class="animate-spin"
+            src="icons/loader-circle.svg"
+            width="24"
+            height="24"
+            alt="spinner"
+          />
+
+          <p v-else class="text-sm">{{ $t("formSubscription.cta.save") }}</p>
+        </span>
       </button>
       <button
         type="button"

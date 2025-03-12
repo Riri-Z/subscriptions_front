@@ -28,16 +28,11 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
     } else {
       addSubscription(formData);
     }
-
-    /*  */
   } catch (error) {
     console.error(
       "Une erreur est survenue durant la tentative de mis à jour ",
       error,
     );
-  } finally {
-    isSubmiting.value = false;
-    subscriptionStore.closeModal();
   }
 }
 
@@ -52,6 +47,8 @@ async function updateSubscription(formData: Partial<PostSubscriptions>) {
     console.error("Error while updating subscription", error);
     useNuxtApp().$toast.error(t(postSubscriptionMessages.error));
   } finally {
+    isSubmiting.value = false;
+    subscriptionStore.closeModal();
     subscriptionStore.getSubscriptionsMonthly(
       dayjs(useDateStore().getCurrentDate).set("date", 1).format("YYYY-MM-DD"),
     );
@@ -68,6 +65,8 @@ async function addSubscription(formData: Partial<PostSubscriptions>) {
     console.error("Error while updating subscription", error);
     useNuxtApp().$toast.error(t(addSubscriptionMessages.error));
   } finally {
+    isSubmiting.value = false;
+    subscriptionStore.closeModal();
     subscriptionStore.getSubscriptionsMonthly(
       dayjs(useDateStore().getCurrentDate).set("date", 1).format("YYYY-MM-DD"),
     );

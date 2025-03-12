@@ -117,7 +117,7 @@ export default defineI18nConfig(() => ({
         delete: {
           title: "Delete Subscription",
           confirmation:
-            "Are you sure you want to delete the following subscription:",
+            "Are you sure you want to delete the following subscription",
           cta: {
             continue: "Continue",
             cancel: "Cancel",
@@ -300,7 +300,7 @@ export default defineI18nConfig(() => ({
         delete: {
           title: "Supprimer l'abonnement",
           confirmation:
-            "Êtes-vous sûr de vouloir supprimer l'abonnement suivant :",
+            "Êtes-vous sûr de vouloir supprimer l'abonnement suivant ",
           cta: {
             continue: "Continuer",
             cancel: "Annuler",

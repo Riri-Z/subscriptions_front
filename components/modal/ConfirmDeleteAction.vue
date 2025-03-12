@@ -15,12 +15,25 @@
     <div class="flex flex-row justify-around gap-1">
       <button
         class="btn-secondary h-10 w-[8rem] rounded-lg text-light"
+        :disabled="subscriptionStore.loading"
         @click="handleDeleteSubscription(props.subscription)"
       >
-        <p>{{ $t("deleteSubscriptionPrompt.delete.cta.continue") }}</p>
+        <span class="flex flex-row items-center justify-center gap-4">
+          <NuxtImg
+            v-if="subscriptionStore.loading"
+            class="animate-spin"
+            src="icons/loader-circle.svg"
+            width="24"
+            height="24"
+            alt="spinner"
+          />
+
+          <p v-else>{{ $t("deleteSubscriptionPrompt.delete.cta.continue") }}</p>
+        </span>
       </button>
       <button
         class="btn-secondary h-10 w-[8rem] rounded-lg text-light"
+        :disabled="subscriptionStore.loading"
         @click="handleCancel()"
       >
         <p>{{ $t("deleteSubscriptionPrompt.delete.cta.cancel") }}</p>
