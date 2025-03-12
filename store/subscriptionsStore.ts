@@ -35,7 +35,7 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
         return null;
       }
       const result = [];
-      // Verify if nextPayements in each subscriptionsCurrentMonth matc the provided date
+      // Verify if nextPayements in each subscriptionsCurrentMonth match the provided date
       for (const subscription of state.subscriptionsCurrentMonth) {
         const matchDate = subscription.nextsPayements.find((element) => {
           const currentDay = dayjs(element).format("YYYY-MM-DD");
@@ -48,8 +48,9 @@ export const useSubscriptionsStore = defineStore("subscriptions", {
           result.push(subscription);
         }
       }
-
-      return result;
+      return result.sort((a, b) =>
+        a.subscription.name.localeCompare(b.subscription.name),
+      );
     },
   },
   actions: {

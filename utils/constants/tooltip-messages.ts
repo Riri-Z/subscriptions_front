@@ -3,7 +3,6 @@ export const tooltipMessages = {
     header: {
       month: "Sélectionner  un nouveau mois",
       year: "Sélectionner  une nouvelle année",
-      total: "Balance du mois en cours",
     },
     badge: {
       computedBadge: "Cliquez pour voir les détails",
@@ -11,9 +10,5 @@ export const tooltipMessages = {
         return `${capitalized(name)} - ${amount} €`;
       },
     },
-  },
-  subscriptionsDetails: {
-    edit: "Mettre à jour les détails de l'abonnement",
-    delete: "Supprimer l'abonnement",
   },
 };

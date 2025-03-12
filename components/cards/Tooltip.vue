@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-export type Position = "top" | "left " | "bottom" | "right";
+export type Position = "top" | "left" | "bottom" | "right";
 const props = defineProps({
   position: { type: String, default: "bottom" },
   offset: { type: String, default: "8" },
@@ -39,6 +39,12 @@ const tooltipPositionStyle = computed(() => {
         left: `calc(100% + ${props.offset}px)`,
         top: "0",
         transform: "translateY(-25%)",
+      };
+    case "top-right":
+      return {
+        left: `calc(100% + ${props.offset}px)`,
+        top: "0",
+        transform: "translateY(-75%)",
       };
     case "left":
       return {
@@ -65,6 +71,7 @@ const tooltipPositionStyle = computed(() => {
 }
 .tooltip {
   color: black;
+  position: absolute;
   text-align: center;
   overflow: visible;
   min-width: 150px;

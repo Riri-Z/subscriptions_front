@@ -4,7 +4,20 @@
     type="submit"
     :disabled="disabled"
   >
-    {{ label }}
+    <span class="flex flex-row items-center justify-center gap-4">
+      <NuxtImg
+        v-if="isLoading"
+        class="animate-spin"
+        src="icons/loader-circle.svg"
+        width="24"
+        height="24"
+        alt="spinner"
+      />
+
+      <p v-else>
+        {{ label }}
+      </p>
+    </span>
   </button>
 </template>
 
@@ -12,5 +25,9 @@
 defineProps({
   label: { type: String, default: "" },
   disabled: Boolean,
+  isLoading: {
+    type: Boolean,
+    default: true,
+  },
 });
 </script>

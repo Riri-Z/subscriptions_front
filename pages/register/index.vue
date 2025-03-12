@@ -1,17 +1,20 @@
 <template>
   <NuxtLayout :name="layout">
-    <h1 class="mb-1 text-center text-xl sm:mb-3 sm:text-4xl">Inscrivez-vous</h1>
+    <h1 class="mb-1 text-center text-xl sm:mb-3 sm:text-4xl">
+      {{ t("register.title") }}
+    </h1>
     <p class="mb-1 text-center text-xs font-semibold sm:mb-3 sm:text-sm">
-      Remplissez le formulaire pour vous inscrire
+      {{ t("register.info") }}
     </p>
     <FormComponent :schema="formSchema" @submit-form="handleSaveRegister" />
     <p class="text-center">
-      Déjà inscrit ?
+      {{ t("register.hasAnAccount") }}
       <a
         class="cursor-pointer text-green-400 underline underline-offset-4"
         @click="redirectTologinPage"
-        >Connectez-vous</a
       >
+        {{ t("register.redirectToLogin") }}
+      </a>
     </p>
   </NuxtLayout>
 </template>
@@ -21,7 +24,9 @@ import { registerSchema, type RegisterValues } from "~/schema/register";
 import { useAuthStore } from "~/store/authStore";
 import FormComponent from "~/components/forms/FormComponent.vue";
 import { registerMessages } from "~/utils/constants/toast-status-message";
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n();
 definePageMeta({
   layout: "login",
   auth: false,
@@ -43,7 +48,7 @@ async function handleSaveRegister(values: RegisterValues) {
       email,
     );
     if (statusCode === 201) {
-      useNuxtApp().$toast.success(registerMessages.success);
+      useNuxtApp().$toast.success(t(registerMessages.success));
       setTimeout(() => {
         navigateTo("/login");
       }, 2000);
@@ -53,38 +58,38 @@ async function handleSaveRegister(values: RegisterValues) {
     if (typeof error === "object" && error !== null && "statusCode" in error) {
       const statusCode = (error as { statusCode: number }).statusCode;
       if (statusCode === 409) {
-        return useNuxtApp().$toast.error(registerMessages.conflict);
+        return useNuxtApp().$toast.error(t(registerMessages.conflict));
       }
     } else {
-      useNuxtApp().$toast.error(registerMessages.unknownError);
+      useNuxtApp().$toast.error(t(registerMessages.unknownError));
     }
   }
 }
 
-const formSchema = {
+const formSchema = computed(() => ({
   fields: [
     {
       name: "username",
-      label: "Nom d'utilisateur",
+      label: t("register.form.labels.name"),
       as: "input",
-      placeholder: "Nom d'utilisateur",
+      placeholder: t("register.form.labels.name"),
       rules: registerSchema.fields.username,
     },
     {
       name: "email",
-      label: "Email",
+      label: t("register.form.labels.email"),
       as: "input",
-      placeholder: "E-mail",
+      placeholder: t("register.form.labels.email"),
       rules: registerSchema.fields.email,
     },
     {
       name: "password",
-      label: "Mot de passe",
+      label: t("register.form.labels.password"),
       as: "input",
       type: "password",
-      placeholder: "Mot de passe",
+      placeholder: t("register.form.labels.password"),
       rules: registerSchema.fields.password,
     },
   ],
-};
+}));
 </script>

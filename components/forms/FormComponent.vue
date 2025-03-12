@@ -1,6 +1,13 @@
 <template>
-  <Form v-slot="{ meta }" class="flex flex-col gap-1" @submit="onSubmit">
-    <div v-for="{ as, name, label,...attrs } in props.schema.fields" :key="name">
+  <Form
+    v-slot="{ meta, errors }"
+    class="flex flex-col gap-1"
+    @submit="onSubmit"
+  >
+    <div
+      v-for="{ as, name, label, ...attrs } in props.schema.fields"
+      :key="name"
+    >
       <label class="block text-sm font-medium text-light" :for="name">{{
         label
       }}</label>
@@ -12,14 +19,20 @@
         v-bind="attrs"
         validate-on-input
       />
-      <ErrorMessage class="text-xs text-error-color" :name="name" />
+      <span v-if="errors[name]" class="text-xs text-error-color"
+        >⛔️ {{ $t(errors[name]) }}</span
+      >
     </div>
-    <SubmitForm :label="label" :disabled="!meta.valid || disabled" />
+    <SubmitForm
+      :label="label"
+      :disabled="!meta.valid || disabled"
+      :is-loading="props.isLoading"
+    />
   </Form>
 </template>
 
 <script lang="ts" setup>
-import { Form, Field, ErrorMessage, type GenericObject } from "vee-validate";
+import { Form, Field, type GenericObject } from "vee-validate";
 import SubmitForm from "./SubmitForm.vue";
 
 const props = defineProps({
@@ -32,6 +45,10 @@ const props = defineProps({
     default: "Connexion",
   },
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  isLoading: {
     type: Boolean,
     default: false,
   },

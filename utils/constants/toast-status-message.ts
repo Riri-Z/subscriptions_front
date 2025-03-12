@@ -1,33 +1,32 @@
 export const deleteSubscriptionMessages = {
-  success: "Abonnement supprimé avec succès !",
-  error:
-    "Une erreur est survenue lors de la tentative de suppréssion de l'abonnement",
-  invalidSubscription: "Abonnement invalide ou inexistant.",
+  success: "toastMessages.deleteSubscriptionMessages.success",
+  error: "toastMessages.deleteSubscriptionMessages.error",
+  invalidSubscription:
+    "toastMessages.deleteSubscriptionMessages.invalidSubscription",
 };
 export const addSubscriptionMessages = {
-  success: "Abonnement ajouté avec succès!",
-  error: "Une erreur est survenue lors de l'ajout de l'abonnement",
-  subscriptionIncomplet: "Désolé, une erreur est survenue avec cet abonnement",
+  success: "toastMessages.addSubscriptionMessages.success",
+  error: "toastMessages.addSubscriptionMessages.error",
+  subscriptionIncomplet:
+    "toastMessages.addSubscriptionMessages.subscriptionIncomplet",
 };
 export const postSubscriptionMessages = {
-  success: "Abonnement mis à jour avec succès !",
-  error: "Une erreur est survenue lors de la tentative de mis à jour",
+  success: "toastMessages.postSubscriptionMessages.success",
+  error: "toastMessages.postSubscriptionMessages.error",
   startDateMustBeBeforeEndDate:
-    "La date de début doit être avant la date de fin",
-  subscriptionIncomplet: "Désolé, une erreur est survenue avec cet abonnement",
+    "toastMessages.postSubscriptionMessages.startDateMustBeBeforeEndDate",
+  subscriptionIncomplet:
+    "toastMessages.postSubscriptionMessages.subscriptionIncomplet",
 };
 export const loginMessages = {
-  errorUndefined:
-    "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
-  wrongCredentials: "Nom d'utilisateur ou mot de passe incorrect.",
-  unknownError: "Une erreur inconnue s'est produite.",
-  missingInput: "Nom d'utilisateur et mot de passe obligatoire",
+  errorUndefined: "toastMessages.loginMessages.errorUndefined",
+  wrongCredentials: "toastMessages.loginMessages.wrongCredentials",
+  unknownError: "toastMessages.loginMessages.unknownError",
+  missingInput: "toastMessages.loginMessages.missingInput",
 };
 export const registerMessages = {
-  success: "Utilisateur enregistré, veuillez vous connecter",
-  conflict: "Cette adresse email ou ce nom d'utilisateur existe déjà",
-  error:
-    "Nom d'utilisateur ou email déjà utilisé. Veuillez essayer une autre valeur",
-  unknownError:
-    "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
+  success: "toastMessages.registerMessages.success",
+  conflict: "toastMessages.registerMessages.conflict",
+  error: "toastMessages.registerMessages.error",
+  unknownError: "toastMessages.registerMessages.unknownError",
 };

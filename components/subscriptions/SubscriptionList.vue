@@ -5,18 +5,18 @@
     class="hover:bg-green-color flex cursor-pointer flex-col rounded-md text-sm odd:bg-primary even:bg-gray-600"
   >
     <!-- Each subscription details -->
-    <span class="flex flex-row p-2">
+    <span class="relative flex flex-row p-2">
       <SubscriptionItem
         :subscription="subscription"
         :name="subscription.subscription.name"
         :amount="subscription.amount"
       />
       <!-- Action EDIT / DELETE subscription -->
-      <div class="my-auto ml-auto flex gap-2">
+      <div class="relative my-auto ml-auto flex gap-2">
         <CardsTooltip
-          :position="'left'"
+          :position="'top-right'"
           offset="2"
-          :content="tooltipMessages.subscriptionsDetails.edit"
+          :content="$t('tooltips.subscriptionDetails.edit')"
         >
           <NuxtImg
             class="m-auto cursor-pointer hover:scale-105"
@@ -30,9 +30,9 @@
 
         <span @click="handleOpenModal(ModalStatus.DELETE, subscription)">
           <CardsTooltip
-            :position="'left'"
+            :position="'top-right'"
             offset="2"
-            :content="tooltipMessages.subscriptionsDetails.delete"
+            :content="$t('tooltips.subscriptionDetails.delete')"
           >
             <NuxtImg
               class="m-auto cursor-pointer hover:scale-105"
@@ -52,7 +52,6 @@
 import type { UserSubscription } from "~/types/store/subscriptionsStore";
 import SubscriptionItem from "./SubscriptionItem.vue";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
-import { tooltipMessages } from "~/utils/constants/tooltip-messages";
 import { ModalStatus } from "~/types/store/subscriptionsStore";
 
 const subscriptionStore = useSubscriptionsStore();

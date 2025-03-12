@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import BadgeIcon from "./BadgeIcon.vue";
 import { tooltipMessages } from "~/utils/constants/tooltip-messages";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   name: string;
@@ -24,6 +25,8 @@ const badgeValue = computed(() => {
   }
   return props.name?.[0].toUpperCase();
 });
+const { t } = useI18n();
+
 const computeTooltipContent = computed(() => {
   if (!props.isComputed) {
     return tooltipMessages.calendar.badge.badgeWithIcons(
@@ -31,14 +34,14 @@ const computeTooltipContent = computed(() => {
       props.amount,
     );
   }
-  return tooltipMessages.calendar.badge.computedBadge;
+  return t("dashboard.ctaDetails");
 });
 </script>
 
 <template>
   <CardsTooltip :position="'top'" offset="14" :content="computeTooltipContent">
     <span
-      class="z-0 flex h-4 w-4 transform flex-row justify-center rounded-full align-middle text-xs transition-transform duration-300 ease-in-out hover:scale-150 lg:h-5 lg:w-5"
+      class="z-0 flex h-5 w-5 transform flex-row justify-center rounded-full align-middle text-xs transition-transform duration-300 ease-in-out md:hover:scale-150 lg:h-5 lg:w-5"
       :style="{
         zIndex: props.index,
         marginLeft: translateValue,

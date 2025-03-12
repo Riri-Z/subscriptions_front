@@ -2,7 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   components: true,
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
   sourcemap: {
     server: true,
     client: true,
@@ -26,8 +32,27 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@nuxt/image",
     "@sidebase/nuxt-auth",
+    "@nuxtjs/i18n",
   ],
-
+  i18n: {
+    vueI18n: "./i18n.config.ts",
+    strategy: "no_prefix",
+    locales: [
+      {
+        code: "en",
+        name: "English",
+      },
+      {
+        code: "fr",
+        name: "Français",
+      },
+    ],
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root", // recommended
+    },
+  },
   auth: {
     isEnabled: true,
     //guard protecting auth routes

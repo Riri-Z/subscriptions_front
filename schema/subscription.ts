@@ -5,7 +5,7 @@ import {
 } from "~/types/store/subscriptionsStore";
 
 export const addEditSubscriptionValues = yup.object({
-  subscriptionName: yup.string().min(2).required("Un nom est requis"),
+  subscriptionName: yup.string().min(1).required("Un nom est requis"),
   amount: yup
     .number()
     .default(0)

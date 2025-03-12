@@ -2,7 +2,6 @@ import dayjs, { type Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import dayOfYear from "dayjs/plugin/dayOfYear";
 import type { Day } from "~/types/day";
-/* TODO : move this to store , allow store to handle it. ONE SOURCE OF TRUTH */
 dayjs.extend(utc);
 dayjs.extend(dayOfYear);
 

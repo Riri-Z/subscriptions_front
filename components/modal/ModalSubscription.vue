@@ -14,12 +14,14 @@ import {
 const subscriptionStore = useSubscriptionsStore();
 const isSubmiting = ref(false);
 
+const { t } = useI18n();
 async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
   isSubmiting.value = true;
   // TODO : check guard if everything is present
   if (formData.endDate === "") {
     delete formData.endDate;
   }
+  formData.subscriptionName = String(formData.subscriptionName);
   try {
     if (subscriptionStore.modalDetails.action === ModalStatus.EDIT) {
       updateSubscription(formData);
@@ -45,10 +47,10 @@ async function handlePostSubscription(formData: Partial<PostSubscriptions>) {
 async function updateSubscription(formData: Partial<PostSubscriptions>) {
   try {
     await subscriptionStore.updateSubscription(formData);
-    useNuxtApp().$toast.success(postSubscriptionMessages.success);
+    useNuxtApp().$toast.success(t(postSubscriptionMessages.success));
   } catch (error) {
     console.error("Error while updating subscription", error);
-    useNuxtApp().$toast.error(postSubscriptionMessages.error);
+    useNuxtApp().$toast.error(t(postSubscriptionMessages.error));
   } finally {
     subscriptionStore.getSubscriptionsMonthly(
       dayjs(useDateStore().getCurrentDate).set("date", 1).format("YYYY-MM-DD"),
@@ -61,10 +63,10 @@ async function updateSubscription(formData: Partial<PostSubscriptions>) {
 async function addSubscription(formData: Partial<PostSubscriptions>) {
   try {
     await subscriptionStore.postUserSubscriptions(formData);
-    useNuxtApp().$toast.success(addSubscriptionMessages.success);
+    useNuxtApp().$toast.success(t(addSubscriptionMessages.success));
   } catch (error) {
     console.error("Error while updating subscription", error);
-    useNuxtApp().$toast.error(addSubscriptionMessages.error);
+    useNuxtApp().$toast.error(t(addSubscriptionMessages.error));
   } finally {
     subscriptionStore.getSubscriptionsMonthly(
       dayjs(useDateStore().getCurrentDate).set("date", 1).format("YYYY-MM-DD"),

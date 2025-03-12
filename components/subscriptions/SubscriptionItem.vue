@@ -4,9 +4,9 @@
       <p
         class="overflow-hidden overflow-ellipsis whitespace-nowrap lg:max-w-32"
       >
-        Nom : {{ name }}
+        {{ $t("subscriptionDetails.item.name") }} : {{ name }}
       </p>
-      <p>Montant : {{ amount }} €</p>
+      <p>{{ $t("subscriptionDetails.item.amount") }} : {{ amount }} €</p>
     </div>
   </section>
 </template>

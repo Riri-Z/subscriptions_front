@@ -11,6 +11,7 @@ import {
 } from "~/types/store/subscriptionsStore";
 import SuggestionList from "./SuggestionList.vue";
 import { postSubscriptionMessages } from "~/utils/constants/toast-status-message";
+const { t } = useI18n();
 interface CategoryOption {
   value: SubscriptionCategory;
   text: string;
@@ -90,7 +91,7 @@ const onSubmit = handleSubmit((values) => {
     dayjs(values.endDate).diff(dayjs(values.startDate)) < 0
   ) {
     useNuxtApp().$toast.error(
-      postSubscriptionMessages.startDateMustBeBeforeEndDate,
+      t(postSubscriptionMessages.startDateMustBeBeforeEndDate),
     );
     return;
   }
@@ -116,15 +117,16 @@ function handleSelectSubscription(
   <h1 class="text-primary-black-color m-4 text-center text-base md:text-2xl">
     {{
       subscriptionStore.selectedSubscription
-        ? "Editer l'abonnement"
-        : "Ajouter un abonnement"
+        ? $t("subscriptionDetails.editSubscription")
+        : $t("subscriptionDetails.addSubscription")
     }}
   </h1>
   <form class="flex flex-col gap-3 text-sm md:p-2">
     <!-- subscription Name -->
     <div class="form-group">
       <label class="text-primary-black-color w-fit" for="subscriptionName"
-        >Nom<span class="text-red-500"> *</span></label
+        >{{ $t("formSubscription.name")
+        }}<span class="text-red-500"> *</span></label
       >
       <div class="relative">
         <input
@@ -150,7 +152,8 @@ function handleSelectSubscription(
     <!-- amount  -->
     <div class="form-group">
       <label class="" for="amount"
-        >Montant<span class="text-red-500"> *</span></label
+        >{{ $t("formSubscription.amount")
+        }}<span class="text-red-500"> *</span></label
       >
       <input
         id="amount"
@@ -166,7 +169,8 @@ function handleSelectSubscription(
     <!--  startDate-->
     <div class="form-group">
       <label class="text-primary-black-color" for="startDate"
-        >Date de début<span class="text-red-500"> *</span></label
+        >{{ $t("formSubscription.start")
+        }}<span class="text-red-500"> *</span></label
       >
       <input
         id="startDate"
@@ -180,7 +184,9 @@ function handleSelectSubscription(
     </div>
     <!-- endDate -->
     <div class="form-group">
-      <label class="text-primary-black-color" for="endDate">Date de fin </label>
+      <label class="text-primary-black-color" for="endDate">{{
+        $t("formSubscription.end")
+      }}</label>
       <input
         id="endDate"
         v-model="endDate"
@@ -194,7 +200,8 @@ function handleSelectSubscription(
     <!--BillingCycle  -->
     <div class="form-group">
       <label class="text-primary-black-color" for="billingCycle"
-        >Cycle de paiement<span class="text-red-500"> *</span></label
+        >{{ $t("formSubscription.cycle")
+        }}<span class="text-red-500"> *</span></label
       >
       <select
         id="billingCycle"
@@ -211,7 +218,8 @@ function handleSelectSubscription(
     <!-- Category  -->
     <div class="form-group">
       <label class="text-primary-black-color" for="category"
-        >Catégorie<span class="text-red-500"> *</span></label
+        >{{ $t("formSubscription.category")
+        }}<span class="text-red-500"> *</span></label
       >
       <select
         id="category"
@@ -238,7 +246,7 @@ function handleSelectSubscription(
         class="btn-secondary my-4 mr-5 h-10 w-full rounded-lg text-light"
         @click="onSubmit"
       >
-        <p class="text-sm">Sauvegarder</p>
+        <p class="text-sm">{{ $t("formSubscription.cta.save") }}</p>
       </button>
       <button
         type="button"
@@ -246,7 +254,7 @@ function handleSelectSubscription(
         class="btn-secondary my-4 ml-5 h-10 w-full rounded-lg text-light"
         @click="handleCancelSubscription"
       >
-        <p class="text-sm">Annuler</p>
+        <p class="text-sm">{{ $t("formSubscription.cta.cancel") }}</p>
       </button>
     </section>
   </form>
