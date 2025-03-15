@@ -1,7 +1,6 @@
 <template>
   <div
-    id="dashboard
-  "
+    id="dashboard"
     class="flex h-[100vh] flex-col-reverse bg-primary text-light md:flex-row md:gap-0"
   >
     <Sidebar />
