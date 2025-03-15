@@ -31,7 +31,7 @@ export default defineI18nConfig(() => ({
             email: {
               required: "Email is required",
               invalidFormat:
-                "Please use a valid format (e.g.: email@example.com)",
+                "Please use a valid format (e.g.: email{'@'}example.com)",
             },
           },
           cta: "Sign Up",
@@ -212,7 +212,7 @@ export default defineI18nConfig(() => ({
             email: {
               required: "Email obligatoire",
               invalidFormat:
-                "Le format suivant est attendu ex : email@example.com",
+                "Le format suivant est attendu : email{'@'}example.com",
             },
           },
           cta: "S'inscrire",
