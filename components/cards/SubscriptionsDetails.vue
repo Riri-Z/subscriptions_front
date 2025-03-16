@@ -97,7 +97,7 @@ function filterSubscriptionByPagination(startIndex: number, endIndex: number) {
     </h1>
     <div
       v-if="subscriptionByDay && subscriptionByDay.length > 0"
-      class="relative flex flex-col gap-2"
+      class="flex flex-col gap-2"
     >
       <!-- LIST OF SUBSCRIPTION -->
       <SubscriptionList

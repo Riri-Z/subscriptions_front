@@ -88,8 +88,8 @@ export default defineNuxtConfig({
           cookieName: "refreshToken",
           maxAgeInSeconds: 604800, //7d
           sameSiteAttribute: "lax",
-          secureCookieAttribute: true,
-          httpOnlyCookieAttribute: true,
+          secureCookieAttribute: false,
+          httpOnlyCookieAttribute: false,
         },
       },
       pages: {

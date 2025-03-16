@@ -139,6 +139,9 @@ function handleSelectSubscription(
           @focus="handleDisplaySuggestion(true)"
           @focusout="handleDisplaySuggestion(false)"
         />
+        <span class="pt-1 text-xs text-red-400">{{
+          errors.subscriptionName && t(errors.subscriptionName)
+        }}</span>
         <SuggestionList
           v-if="displaySuggestionStatus"
           :available-suggestion-subscription="
@@ -163,7 +166,9 @@ function handleSelectSubscription(
         name="amount"
         v-bind="amountAttrs"
       />
-      <span class="pt-1 text-xs text-red-400">{{ errors.amount }}</span>
+      <span class="pt-1 text-xs text-red-400">{{
+        errors.amount && t(errors.amount)
+      }}</span>
     </div>
 
     <!--  startDate-->
@@ -180,7 +185,9 @@ function handleSelectSubscription(
         name="startDate"
         v-bind="startDateAttrs"
       />
-      <span class="pt-1 text-xs text-red-400">{{ errors.startDate }}</span>
+      <span class="pt-1 text-xs text-red-400">{{
+        errors.startDate && t(errors.startDate)
+      }}</span>
     </div>
     <!-- endDate -->
     <div class="form-group">
@@ -195,7 +202,9 @@ function handleSelectSubscription(
         name="endDate"
         v-bind="endDateAttrs"
       />
-      <span class="pt-1 text-xs text-red-400">{{ errors.endDate }}</span>
+      <span class="pt-1 text-xs text-red-400">{{
+        errors.endDate && t(errors.endDate)
+      }}</span>
     </div>
     <!--BillingCycle  -->
     <div class="form-group">
@@ -236,7 +245,9 @@ function handleSelectSubscription(
           {{ category_option.text }}
         </option>
       </select>
-      <span class="pt-1 text-xs text-red-400">{{ errors.category }}</span>
+      <span class="pt-1 text-xs text-red-400">{{
+        errors.category && t(errors.category)
+      }}</span>
     </div>
     <!-- Actions -->
     <section class="flex">

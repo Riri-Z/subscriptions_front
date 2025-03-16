@@ -10,10 +10,7 @@
       class="fixed inset-0 z-40 bg-black bg-opacity-50"
       @click="subscriptionStore.closeModal()"
     />
-    <main
-      v-if="authStatus === 'authenticated'"
-      class="flex flex-col gap-2 lg:mt-0 lg:flex-row"
-    >
+    <main class="flex flex-col gap-2 lg:mt-0 lg:flex-row">
       <Calendar />
       <CardsSubscriptionsDetails
         v-if="
@@ -49,9 +46,7 @@ import ModalSubscription from "~/components/modal/ModalSubscription.vue";
 import dayjs from "dayjs";
 import { useSubscriptionsStore } from "~/store/subscriptionsStore";
 import { ModalStatus } from "~/types/store/subscriptionsStore";
-const { status } = useAuth();
 
-const authStatus = computed(() => status.value);
 const subscriptionStore = useSubscriptionsStore();
 
 definePageMeta({

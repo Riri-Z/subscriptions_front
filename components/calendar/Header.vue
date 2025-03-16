@@ -18,7 +18,7 @@
           >
             <CardsTooltip
               :position="'bottom'"
-              :content="tooltipMessages.calendar.header.month"
+              :content="$t(tooltipMessages.calendar.header.month)"
             >
               <p
                 v-if="!displayYear"
@@ -37,7 +37,7 @@
             <CardsTooltip
               v-if="!yearsRange"
               :position="'bottom'"
-              :content="tooltipMessages.calendar.header.year"
+              :content="$t(tooltipMessages.calendar.header.year)"
             >
               <p class="cursor-pointer" @click="emits('clickYear')">
                 {{ dateStore.getCurrentYear }}

@@ -40,7 +40,7 @@ export default defineI18nConfig(() => ({
       login: {
         title: "Welcome",
         info: "Log in to continue or",
-        resetPassword: "Forgot password?",
+        resetPassword: "Forgot password ?",
         redirectToRegister: "Sign up here",
         form: {
           labels: {
@@ -131,6 +131,22 @@ export default defineI18nConfig(() => ({
         end: "End Date",
         cycle: "Payment Cycle",
         category: "Category",
+        errors: {
+          name: {
+            length: "Name must be at least 2 characters long",
+            required: "A name is mandatory",
+          },
+          amount: {
+            typeError: "Should be a valid amount",
+            required: "An amount is mandatory",
+          },
+          startDate: {
+            required: "A start date is mandatory",
+          },
+          category: {
+            required: "A category is mandatory",
+          },
+        },
         cta: {
           save: "Save",
           cancel: "Cancel",
@@ -176,6 +192,10 @@ export default defineI18nConfig(() => ({
         subscriptionDetails: {
           edit: "Update subscription",
           delete: "Delete subscription",
+        },
+        calendar: {
+          month: "Select a new month",
+          year: "Select a new year",
         },
       },
     },
@@ -314,6 +334,23 @@ export default defineI18nConfig(() => ({
         end: "Date de fin",
         cycle: "Cycle de paiement",
         category: "Catégorie",
+        errors: {
+          name: {
+            length: "Le nom doit contenir au moins 2 caractères",
+            required: "Un nom est requis",
+          },
+          amount: {
+            typeError: "Doit être un nombre valide",
+            required: "Un montant est requis",
+          },
+          startDate: {
+            required: "Une date de début est requise",
+          },
+          category: {
+            required:
+              "Catégorie obligatoire. Sélectionnez 'Autre' si aucune option ne convient.",
+          },
+        },
         cta: {
           save: "Sauvegarder",
           cancel: "Annuler",
@@ -361,6 +398,10 @@ export default defineI18nConfig(() => ({
         subscriptionDetails: {
           edit: "Modifier l'abonnement",
           delete: "Supprimer l'abonnement",
+        },
+        calendar: {
+          month: "Sélectionner  un nouveau mois",
+          year: "Sélectionner  une nouvelle année",
         },
       },
     },

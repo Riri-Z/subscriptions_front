@@ -5,11 +5,11 @@
     @submit="onSubmit"
   >
     <div
-      v-for="{ as, name, label, ...attrs } in props.schema.fields"
+      v-for="{ as, name, customLabel, ...attrs } in props.schema.fields"
       :key="name"
     >
       <label class="block text-sm font-medium text-light" :for="name">{{
-        label
+        customLabel
       }}</label>
       <Field
         :id="name"

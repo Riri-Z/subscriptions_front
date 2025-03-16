@@ -14,8 +14,7 @@
       <!-- Action EDIT / DELETE subscription -->
       <div class="relative my-auto ml-auto flex gap-2">
         <CardsTooltip
-          :position="'top-right'"
-          offset="2"
+          :position="'right'"
           :content="$t('tooltips.subscriptionDetails.edit')"
         >
           <NuxtImg
@@ -30,8 +29,7 @@
 
         <span @click="handleOpenModal(ModalStatus.DELETE, subscription)">
           <CardsTooltip
-            :position="'top-right'"
-            offset="2"
+            :position="'right'"
             :content="$t('tooltips.subscriptionDetails.delete')"
           >
             <NuxtImg

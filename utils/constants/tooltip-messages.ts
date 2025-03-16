@@ -1,8 +1,8 @@
 export const tooltipMessages = {
   calendar: {
     header: {
-      month: "Sélectionner  un nouveau mois",
-      year: "Sélectionner  une nouvelle année",
+      month: "tooltips.calendar.month",
+      year: "tooltips.calendar.year",
     },
     badge: {
       computedBadge: "Cliquez pour voir les détails",
