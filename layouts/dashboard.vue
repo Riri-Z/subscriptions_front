@@ -5,7 +5,7 @@
   >
     <Sidebar />
     <div
-      class="flex h-full w-full flex-col overflow-auto overflow-x-hidden p-8 md:flex-1 md:p-4 lg:h-[100vh]"
+      class="flex h-full w-full flex-col overflow-auto overflow-x-hidden p-4 pt-8 md:flex-1 md:pt-4 lg:h-[100vh]"
     >
       <slot />
     </div>

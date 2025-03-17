@@ -1,7 +1,9 @@
 <template>
   <section class="flex cursor-default flex-row justify-between rounded-md p-2">
     <div>
-      <p class="overflow-hidden overflow-ellipsis whitespace-nowrap lg:max-w-32">
+      <p
+        class="overflow-hidden overflow-ellipsis whitespace-nowrap lg:max-w-32"
+      >
         {{ $t("subscriptionDetails.item.name") }} : {{ name }}
       </p>
       <p>{{ $t("subscriptionDetails.item.amount") }} : {{ amount }} €</p>

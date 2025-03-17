@@ -1,7 +1,7 @@
 export const letterColorMap: { [key: string]: string } = {
   a: "#FF0000", // Rouge vif
   b: "#0000FF", // Bleu
-  c: "#00FF00", // Vert vif
+  c: "#4B0082", // Indigo
   d: "#FFA500", // Orange
   e: "#800080", // Violet
   f: "#FFC0CB", // Rose clair

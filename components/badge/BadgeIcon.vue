@@ -6,7 +6,7 @@
     :src="props.iconUrl"
     :alt="props.name"
   />
-  <p v-else class="m-auto text-xs text-white md:text-sm md:font-bold">
+  <p v-else class="m-auto text-xs text-white md:text-sm">
     {{ props.name }}
   </p>
 </template>

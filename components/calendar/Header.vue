@@ -48,7 +48,11 @@
         </section>
       </div>
       <!-- SPEND AMOUNT -->
-      <div v-if="!(displayMonth || displayYear)" id="totalSpend" class="mr-4">
+      <div
+        v-if="!(displayMonth || displayYear)"
+        id="totalSpend"
+        class="md:mr-4"
+      >
         <p class="text-sm md:text-base">{{ $t("dashboard.calendar.total") }}</p>
 
         <p
