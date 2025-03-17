@@ -70,21 +70,21 @@ const formSchema = computed(() => ({
   fields: [
     {
       name: "username",
-      label: t("register.form.labels.name"),
+      customLabel: t("register.form.labels.name"),
       as: "input",
       placeholder: t("register.form.labels.name"),
       rules: registerSchema.fields.username,
     },
     {
       name: "email",
-      label: t("register.form.labels.email"),
+      customLabel: t("register.form.labels.email"),
       as: "input",
       placeholder: t("register.form.labels.email"),
       rules: registerSchema.fields.email,
     },
     {
       name: "password",
-      label: t("register.form.labels.password"),
+      customLabel: t("register.form.labels.password"),
       as: "input",
       type: "password",
       placeholder: t("register.form.labels.password"),

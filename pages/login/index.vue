@@ -22,13 +22,13 @@ const formSchema = computed(() => ({
     {
       as: "input",
       name: "username",
-      label: t("login.form.labels.name"),
+      customLabel: t("login.form.labels.name"),
       placeholder: t("login.form.labels.name"),
       rules: loginSchema.fields.username,
     },
     {
       name: "password",
-      label: t("login.form.labels.password"),
+      customLabel: t("login.form.labels.password"),
       as: "input",
       type: "password",
       placeholder: t("login.form.labels.password"),
