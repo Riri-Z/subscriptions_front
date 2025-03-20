@@ -187,6 +187,9 @@ export default defineI18nConfig(() => ({
           unknownError:
             "Unable to connect to the server. Please try again later.",
         },
+        server: {
+          unavailable: "Sorry, the server seems to be unaivalable",
+        },
       },
       tooltips: {
         subscriptionDetails: {
@@ -392,6 +395,9 @@ export default defineI18nConfig(() => ({
             "Nom d'utilisateur ou email déjà utilisé. Veuillez essayer une autre valeur",
           unknownError:
             "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
+        },
+        server: {
+          unavailable: "Désolé le serveur semble être indisponible",
         },
       },
       tooltips: {
