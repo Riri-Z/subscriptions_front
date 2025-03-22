@@ -17,7 +17,6 @@
     "dayjs": "^1.11.13",
     "nuxt": "3.13.0",
     "pinia": "^2.2.2",
-    "prettier-plugin-organize-attributes": "^1.0.0",
     "vee-validate": "^4.14.6",
     "vue": "latest",
     "vue-router": "latest",
@@ -25,13 +24,15 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "prettier-plugin-organize-attributes": "^1.0.0",
+    "@intlify/message-compiler": "^11.1.2",
+    "@nuxtjs/i18n": "^9.3.2",
     "@nuxt/devtools": "^1.5.2",
-    "@nuxtjs/eslint-module": "^4.1.0",
-    "@nuxtjs/style-resources": "^1.2.2",
     "@nuxt/eslint": "^0.6.1",
     "@nuxt/image": "^1.8.0",
     "@nuxt/types": "^2.18.1",
-    "@nuxtjs/i18n": "9.3.2",
+    "@nuxtjs/eslint-module": "^4.1.0",
+    "@nuxtjs/style-resources": "^1.2.2",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.4",
     "@sidebase/nuxt-auth": "^0.9.3",
@@ -41,9 +42,13 @@
     "postcss": "^8.4.45",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
-    "sass-embedded": "^1.86.0",
     "tailwindcss": "^3.4.11",
     "typescript": "^5.6.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@intlify/message-compiler": "^11.1.2"
+    }
   },
   "packageManager": "pnpm@9.10.0+sha1.216899f511c8dfde183c7cb50b69009c779534a8"
 }

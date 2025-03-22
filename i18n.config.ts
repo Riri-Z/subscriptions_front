@@ -41,7 +41,7 @@ export default defineI18nConfig(() => ({
         title: "Welcome",
         info: "Log in to continue or",
         resetPassword: "Forgot password ?",
-        redirectToRegister: "Sign up here",
+        redirectToRegister: "sign up here",
         form: {
           labels: {
             name: "Username",
@@ -245,7 +245,7 @@ export default defineI18nConfig(() => ({
         title: "Bienvenue",
         info: "Connectez-vous pour continuer ou",
         resetPassword: "Mot de passe oublié ?",
-        redirectToRegister: "Inscrivez-vous ici",
+        redirectToRegister: "inscrivez-vous ici",
         form: {
           labels: {
             name: "Nom d'utilisateur",

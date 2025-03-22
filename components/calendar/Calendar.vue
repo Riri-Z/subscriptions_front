@@ -34,6 +34,7 @@
           height="24"
           alt="spinner"
         />
+        <p>loading</p>
       </span>
       <MonthList
         v-if="displayMonth"
