@@ -61,7 +61,7 @@ export default defineI18nConfig(() => ({
         },
       },
       resetPassword: {
-        title: "Enter your email to receive a password reset link.",
+        title: "Enter your email to receive a password reset link",
         redirectToLogin: "Back to login page",
         form: {
           labels: {
@@ -157,7 +157,7 @@ export default defineI18nConfig(() => ({
           success: "Subscription successfully deleted!",
           error:
             "An error occurred while attempting to delete the subscription",
-          invalidSubscription: "Invalid or non-existent subscription.",
+          invalidSubscription: "Invalid or non-existent subscription",
         },
         addSubscriptionMessages: {
           success: "Subscription successfully added!",
@@ -175,9 +175,9 @@ export default defineI18nConfig(() => ({
         },
         loginMessages: {
           errorUndefined:
-            "Unable to connect to the server. Please try again later.",
-          wrongCredentials: "Incorrect username or password.",
-          unknownError: "An unknown error occurred.",
+            "Unable to connect to the server. Please try again later",
+          wrongCredentials: "Incorrect username or password",
+          unknownError: "An unknown error occurred",
           missingInput: "Username and password are required",
         },
         registerMessages: {
@@ -185,7 +185,7 @@ export default defineI18nConfig(() => ({
           conflict: "This email address or username already exists",
           error: "Username or email already in use. Please try another value",
           unknownError:
-            "Unable to connect to the server. Please try again later.",
+            "Unable to connect to the server. Please try again later",
         },
         server: {
           unavailable: "Sorry, the server seems to be unaivalable",
@@ -268,7 +268,7 @@ export default defineI18nConfig(() => ({
       },
       resetPassword: {
         title:
-          "Saisissez votre e-mail pour recevoir un lien de réinitialisation du mot de passe.",
+          "Saisissez votre e-mail pour recevoir un lien de réinitialisation du mot de passe",
         redirectToLogin: "Retour à la connexion",
         form: {
           labels: {
@@ -351,7 +351,7 @@ export default defineI18nConfig(() => ({
           },
           category: {
             required:
-              "Catégorie obligatoire. Sélectionnez 'Autre' si aucune option ne convient.",
+              "Catégorie obligatoire. Sélectionnez 'Autre' si aucune option ne convient",
           },
         },
         cta: {
@@ -364,7 +364,7 @@ export default defineI18nConfig(() => ({
           success: "Abonnement supprimé avec succès !",
           error:
             "Une erreur est survenue lors de la tentative de suppression de l'abonnement",
-          invalidSubscription: "Abonnement invalide ou inexistant.",
+          invalidSubscription: "Abonnement invalide ou inexistant",
         },
         addSubscriptionMessages: {
           success: "Abonnement ajouté avec succès!",
@@ -382,9 +382,9 @@ export default defineI18nConfig(() => ({
         },
         loginMessages: {
           errorUndefined:
-            "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
-          wrongCredentials: "Nom d'utilisateur ou mot de passe incorrect.",
-          unknownError: "Une erreur inconnue s'est produite.",
+            "Impossible de se connecter au serveur. Veuillez réessayer plus tard",
+          wrongCredentials: "Nom d'utilisateur ou mot de passe incorrect",
+          unknownError: "Une erreur inconnue s'est produite",
           missingInput: "Nom d'utilisateur et mot de passe obligatoires",
         },
         registerMessages: {
@@ -394,7 +394,7 @@ export default defineI18nConfig(() => ({
           error:
             "Nom d'utilisateur ou email déjà utilisé. Veuillez essayer une autre valeur",
           unknownError:
-            "Impossible de se connecter au serveur. Veuillez réessayer plus tard.",
+            "Impossible de se connecter au serveur. Veuillez réessayer plus tard",
         },
         server: {
           unavailable: "Désolé le serveur semble être indisponible",
