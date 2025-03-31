@@ -60,9 +60,8 @@ async function handleSaveRegister(values: RegisterValues) {
       if (statusCode === 409) {
         return useNuxtApp().$toast.error(t(registerMessages.conflict));
       }
-    } else {
-      useNuxtApp().$toast.error(t(registerMessages.unknownError));
     }
+    useNuxtApp().$toast.error(t(registerMessages.unknownError));
   }
 }
 
