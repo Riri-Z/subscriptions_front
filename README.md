@@ -1,6 +1,44 @@
-# Nuxt 3 Minimal Starter
+# Subscriptions Tracker
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This project is a subscription tracker that allows users to record and view all their subscription expenses in a calendar.
+
+It helps users keep track of their paid subscriptions and manage their monthly expenses more efficiently.
+
+# Implemented features
+
+### List of Subscriptions
+
+- View all current or past subscriptions
+
+### Create / Edit / Delete
+
+- Add a new subscription with its main details
+
+- Update an existing subscription (modify the frequency, end date, category, etc.)
+
+- Remove a subscription
+
+### Monthly Expense Calculation
+
+- Select a specific month to see the total cost of subscriptions scheduled for that month
+
+# Planned Features
+
+### Reminder Notifications
+
+- Display alerts when a subscription’s renewal date is approaching.
+
+### Detailed Expense Charts
+
+- Visualize monthly or yearly expenses through interactive graphs to get a better overview of subscription costs.
+
+# Technology used
+
+- Nuxt / TS
+- i18n (Internationalization)
+- Pinia (store)
+- Tailwind v3
+- nuxt-auth
 
 ## Setup
 
